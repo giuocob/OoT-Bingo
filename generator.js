@@ -1,39 +1,16 @@
 //NOTICE: As of version 6, this script will only generate cards correctly for Ocarina of Time bingo
 //and as shuch should be saved alongside the regular bingo script.
-ootBingoGenerator = function(bingoList) {
-	
-	var size = 5;
-
-	function gup( name ) {
-		return getParameter(name);
-	}
-
-	var LANG = gup( 'lang' );
-	if (LANG == '') LANG = 'name';
-	var SEED = gup( 'seed' );
-	if (SEED == "") {
-		window.location = '?seed=' + Math.ceil(999999 * Math.random());
-	} else {
-	var MODE = gup( 'mode' );
-	var cardtype = "string";
-	
-	if (MODE == "short") { cardtype = "Short"; } 
-	else if (MODE == "long") { cardtype = "Long"; }
-	else { cardtype = "Normal";	}
+ootBingoGenerator = function(bingoList, opts) {
+	if(!opts) opts = {};
+	var LANG = opts.lang || 'name';
+	var SEED = opts.seed || Math.ceil(999999 * Math.random()).toString();
+	Math.seedrandom(SEED);
+	var MODE = opts.mode || 'normal';
   
-	Math.seedrandom(SEED); //sets up the RNG
-	var MAX_SEED = 999999; //1 million cards
-	var results = $("#results");
-		results.append ("<p>OoT Bingo <strong>" + bingoList["info"].version + "</strong>&emsp;Seed: <strong>" + 
-	SEED + "</strong>&emsp;Card type: <strong>" + cardtype + "</strong></p>");
-  
-//giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
-//Note: the rowElements relation is simply the inverse of the rowCheckList relation
-
-var rowCheckList = [];
-var rowElements = new Object();
-if(size == 5)
-{
+	//giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
+	//Note: the rowElements relation is simply the inverse of the rowCheckList relation
+	var rowCheckList = [];
+	var rowElements = new Object();
 	rowElements["row1"] = [1,2,3,4,5];
 	rowElements["row2"] = [6,7,8,9,10];
 	rowElements["row3"] = [11,12,13,14,15];
@@ -76,170 +53,169 @@ if(size == 5)
 	rowCheckList[23] = ["row5","col3"];
 	rowCheckList[24] = ["row5","col4"];
 	rowCheckList[25] = ["row5","col5","tlbr"];
-}
- 
-function mirror(i) {
-	if      (i == 0) { i = 4; }
-	else if (i == 1) { i = 3; }
-	else if (i == 3) { i = 1; }
-	else if (i == 4) { i = 0; }
-	return i;
-}
-
-function difficulty(i) {
-	// To create the magic square we need 2 random orderings of the numbers 0, 1, 2, 3, 4.
-	// The following creates those orderings and calls them Table5 and Table1
-	
-	var Num3 = SEED%1000;	// Table5 will use the ones, tens, and hundreds digits.
-
-	var Rem8 = Num3%8;
-	var Rem4 = Math.floor(Rem8/2);
-	var Rem2 = Rem8%2;
-	var Rem5 = Num3%5;
-	var Rem3 = Num3%3;	// Note that Rem2, Rem3, Rem4, and Rem5 are mathematically independent.
-	var RemT = Math.floor(Num3/120);	// This is between 0 and 8		
-
-	// The idea is to begin with an array containing a single number, 0.
-	// Each number 1 through 4 is added in a random spot in the array's current size.
-	// The result - the numbers 0 to 4 are in the array in a random (and uniform) order.
-	var Table5 = [0];
-	Table5.splice(Rem2, 0, 1);
-	Table5.splice(Rem3, 0, 2);
-	Table5.splice(Rem4, 0, 3);
-	Table5.splice(Rem5, 0, 4);
-
-	Num3 = Math.floor(SEED/1000);	// Table1 will use the next 3 digits.
-	Num3 = Num3%1000;
-
-	Rem8 = Num3%8;
-	Rem4 = Math.floor(Rem8/2);
-	Rem2 = Rem8%2;
-	Rem5 = Num3%5;
-	Rem3 = Num3%3;
-	RemT = RemT * 8 + Math.floor(Num3/120);	 // This is between 0 and 64.
-
-	var Table1 = [0];
-	Table1.splice(Rem2, 0, 1);
-	Table1.splice(Rem3, 0, 2);
-	Table1.splice(Rem4, 0, 3);
-	Table1.splice(Rem5, 0, 4);
-
-	i--;
-	RemT = RemT%5;		//  Between 0 and 4, fairly uniformly.
-	x = (i+RemT)%5;		//  RemT is horizontal shift to put any diagonal on the main diagonal.
-	y = Math.floor(i/5);
-
-	// The Tables are set into a single magic square template
-	// Some are the same up to some rotation, reflection, or row permutation.
-	// However, all genuinely different magic squares can arise in this fashion.
-	var e5 = Table5[(x + 3*y)%5];
-	var e1 = Table1[(3*x + y)%5];
-
-	// Table5 controls the 5* part and Table1 controls the 1* part.
-	value = 5*e5 + e1;
-
-	if (MODE == "short") { value = Math.floor(value/2); } // if short mode, limit difficulty
-    	else if (MODE == "long") { value = Math.floor((value + 25) / 2); }
-    	value++;
-	return value;
-}
-
-//Uniformly shuffles an array (note: the original array will be changed)
-function shuffle(toShuffle)
-{
-	for(var i=0;i<toShuffle.length;i++)
-	{
-		var randElement = Math.floor(Math.random()*(i+1));
-		var temp = toShuffle[i];
-		toShuffle[i] = toShuffle[randElement];
-		toShuffle[randElement] = temp;
+	 
+	function mirror(i) {
+		if      (i == 0) { i = 4; }
+		else if (i == 1) { i = 3; }
+		else if (i == 3) { i = 1; }
+		else if (i == 4) { i = 0; }
+		return i;
 	}
-}
 
-//Get a uniformly shuffled array of all the goals of a given difficulty tier
-function getShuffledGoals(difficulty)
-{
-	var newArray = bingoList[difficulty].slice();
-	shuffle(newArray);
-	return newArray;
-}
+	function difficulty(i) {
+		// To create the magic square we need 2 random orderings of the numbers 0, 1, 2, 3, 4.
+		// The following creates those orderings and calls them Table5 and Table1
+		
+		var Num3 = SEED%1000;	// Table5 will use the ones, tens, and hundreds digits.
 
-//Given a difficulty as an argument, find the square that contains that difficulty
-function getDifficultyIndex(difficulty)
-{
-	for(var i=1;i<=25;i++)
+		var Rem8 = Num3%8;
+		var Rem4 = Math.floor(Rem8/2);
+		var Rem2 = Rem8%2;
+		var Rem5 = Num3%5;
+		var Rem3 = Num3%3;	// Note that Rem2, Rem3, Rem4, and Rem5 are mathematically independent.
+		var RemT = Math.floor(Num3/120);	// This is between 0 and 8		
+
+		// The idea is to begin with an array containing a single number, 0.
+		// Each number 1 through 4 is added in a random spot in the array's current size.
+		// The result - the numbers 0 to 4 are in the array in a random (and uniform) order.
+		var Table5 = [0];
+		Table5.splice(Rem2, 0, 1);
+		Table5.splice(Rem3, 0, 2);
+		Table5.splice(Rem4, 0, 3);
+		Table5.splice(Rem5, 0, 4);
+
+		Num3 = Math.floor(SEED/1000);	// Table1 will use the next 3 digits.
+		Num3 = Num3%1000;
+
+		Rem8 = Num3%8;
+		Rem4 = Math.floor(Rem8/2);
+		Rem2 = Rem8%2;
+		Rem5 = Num3%5;
+		Rem3 = Num3%3;
+		RemT = RemT * 8 + Math.floor(Num3/120);	 // This is between 0 and 64.
+
+		var Table1 = [0];
+		Table1.splice(Rem2, 0, 1);
+		Table1.splice(Rem3, 0, 2);
+		Table1.splice(Rem4, 0, 3);
+		Table1.splice(Rem5, 0, 4);
+
+		i--;
+		RemT = RemT%5;		//  Between 0 and 4, fairly uniformly.
+		x = (i+RemT)%5;		//  RemT is horizontal shift to put any diagonal on the main diagonal.
+		y = Math.floor(i/5);
+
+		// The Tables are set into a single magic square template
+		// Some are the same up to some rotation, reflection, or row permutation.
+		// However, all genuinely different magic squares can arise in this fashion.
+		var e5 = Table5[(x + 3*y)%5];
+		var e1 = Table1[(3*x + y)%5];
+
+		// Table5 controls the 5* part and Table1 controls the 1* part.
+		value = 5*e5 + e1;
+
+		if (MODE == "short") { value = Math.floor(value/2); } // if short mode, limit difficulty
+	    	else if (MODE == "long") { value = Math.floor((value + 25) / 2); }
+	    	value++;
+		return value;
+	}
+
+	//Uniformly shuffles an array (note: the original array will be changed)
+	function shuffle(toShuffle)
 	{
-		if(bingoBoard[i].difficulty == difficulty)
+		for(var i=0;i<toShuffle.length;i++)
 		{
-			return i;
+			var randElement = Math.floor(Math.random()*(i+1));
+			var temp = toShuffle[i];
+			toShuffle[i] = toShuffle[randElement];
+			toShuffle[randElement] = temp;
 		}
 	}
-	return 0;
-}
-  
 
-
-function checkLine(i, testsquare)
-{
-	var typesA = testsquare.types;
-	var synergy = 0;
-	var rows = rowCheckList[i], elements = [];
-	var childCount = 0;
-	for(var k=0;k<rows.length;k++)
+	//Get a uniformly shuffled array of all the goals of a given difficulty tier
+	function getShuffledGoals(difficulty)
 	{
-		elements = rowElements[rows[k]];
-		childCount = 0;
-		for(var m=0;m<elements.length;m++)
+		var newArray = bingoList[difficulty].slice();
+		shuffle(newArray);
+		return newArray;
+	}
+
+	//Given a difficulty as an argument, find the square that contains that difficulty
+	function getDifficultyIndex(difficulty)
+	{
+		for(var i=1;i<=25;i++)
 		{
-			var typesB = bingoBoard[elements[m]].types;
-			if(typeof typesB != 'undefined')
+			if(bingoBoard[i].difficulty == difficulty)
 			{
-				for(var n=0;n<typesA.length;n++)
+				return i;
+			}
+		}
+		return 0;
+	}
+	  
+
+
+	function checkLine(i, testsquare)
+	{
+		var typesA = testsquare.types;
+		var synergy = 0;
+		var rows = rowCheckList[i], elements = [];
+		var childCount = 0;
+		for(var k=0;k<rows.length;k++)
+		{
+			elements = rowElements[rows[k]];
+			childCount = 0;
+			for(var m=0;m<elements.length;m++)
+			{
+				var typesB = bingoBoard[elements[m]].types;
+				if(typeof typesB != 'undefined')
 				{
-					for(var p=0;p<typesB.length;p++)
+					for(var n=0;n<typesA.length;n++)
 					{
-						if(typesA[n] == typesB[p])
+						for(var p=0;p<typesB.length;p++)
 						{
-							synergy++; //if match increase
-							if(n==0) { synergy++ }; //if main type increase
-							if(p==0) { synergy++ }; //if main type increase
+							if(typesA[n] == typesB[p])
+							{
+								synergy++; //if match increase
+								if(n==0) { synergy++ }; //if main type increase
+								if(p==0) { synergy++ }; //if main type increase
+							}
 						}
 					}
 				}
+				if(bingoBoard[elements[m]].child == "yes")
+				{
+					childCount++;
+				}
 			}
-			if(bingoBoard[elements[m]].child == "yes")
+			//Remove child-only rows, remove adult goals from short
+			if(MODE == "short")
 			{
-				childCount++;
+				if(testsquare.child == "no")
+				{
+					childCount--;
+				}
+				console.debug(rows[k]);
+				console.debug(childCount);
+				if(childCount < 5)
+				{
+					synergy += 3;
+				}
+			}
+			else
+			{
+				if(testsquare.child == "yes")
+				{
+					childCount++;
+				}
+				if(childCount > 4)
+				{
+					synergy += 3;
+				}
 			}
 		}
-		//Remove child-only rows, remove adult goals from short
-		if(MODE == "short")
-		{
-			if(testsquare.child == "no")
-			{
-				childCount--;
-			}
-			console.debug(rows[k]);
-			console.debug(childCount);
-			if(childCount < 5)
-			{
-				synergy += 3;
-			}
-		}
-		else
-		{
-			if(testsquare.child == "yes")
-			{
-				childCount++;
-			}
-			if(childCount > 4)
-			{
-				synergy += 3;
-			}
-		}
+		return synergy;
 	}
-	return synergy;
-}
 
 
 
@@ -328,7 +304,5 @@ function checkLine(i, testsquare)
   }
   
   return bingoBoard;
-  
-}
   
 }

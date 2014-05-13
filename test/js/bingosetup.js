@@ -38,10 +38,28 @@ function bingosetup() {
 
 	$("#tlbr").hover(function() { $(".tlbr").addClass("hover"); }, function() {	$(".tlbr").removeClass("hover"); });
 	$("#bltr").hover(function() { $(".bltr").addClass("hover"); }, function() {	$(".bltr").removeClass("hover"); });
+
+	var bingoOpts = {
+		seed: getUrlParameter('seed') || Math.ceil(999999 * Math.random()).toString(),
+		mode: getUrlParameter('mode') || 'normal',
+		lang: getUrlParameter('lang') || 'name'
+	};
+
+	var prettyMode = {
+		'normal': 'Normal',
+		'short': 'Short',
+		'long': 'Long'
+	};
+
+	var cardType = prettyMode[bingoOpts.mode];
+	var results = $("#results");
+	results.append ("<p>OoT Bingo <strong>" + bingoList["info"].version + "</strong>&emsp;Seed: <strong>" + 
+		bingoOpts.seed + "</strong>&emsp;Card type: <strong>" + cardType + "</strong></p>");
+
 	
 	var bingoFunc = ootBingoGenerator;
 	
-	var bingoBoard = bingoFunc(bingoList);
+	var bingoBoard = bingoFunc(bingoList, bingoOpts);
 	for (i=1; i<=25; i++) {  
 		$('#slot'+i).append(bingoBoard[i].name);
 	}
