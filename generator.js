@@ -180,11 +180,8 @@ ootBingoGenerator = function(bingoList, opts) {
 						}
 					}
 
-					console.log('OK');
 					matchArrays(typesA, typesB);
-					console.log('GOOD');
 					matchArrays(typesA, subtypesB);
-					console.log('BETTER');
 					matchArrays(subtypesA, typesB);
 				}
 				if(bingoBoard[elements[m]].child == "yes")
@@ -199,8 +196,6 @@ ootBingoGenerator = function(bingoList, opts) {
 				{
 					childCount--;
 				}
-				console.debug(rows[k]);
-				console.debug(childCount);
 				if(childCount < 5)
 				{
 					synergy += 3;
