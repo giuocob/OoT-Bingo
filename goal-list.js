@@ -1,4 +1,4 @@
-bingoList = [];
+var bingoList = [];
 bingoList["info"] = {
 	version: "v8.1"
 };
