@@ -157,7 +157,8 @@ ootBingoGenerator = function(bingoList, opts) {
 
 	function checkLine(i, testsquare)
 	{
-		var typesA = testsquare.types;
+		var typesA = testsquare.types || [];
+		var subtypesA = testsquare.subtypes || [];
 		var synergy = 0;
 		var rows = rowCheckList[i], elements = [];
 		var childCount = 0;
@@ -167,21 +168,24 @@ ootBingoGenerator = function(bingoList, opts) {
 			childCount = 0;
 			for(var m=0;m<elements.length;m++)
 			{
-				var typesB = bingoBoard[elements[m]].types;
+				var typesB = bingoBoard[elements[m]].types || [];
+				var subtypesB = bingoBoard[elements[m]].subtypes || [];
 				if(typeof typesB != 'undefined')
 				{
-					for(var n=0;n<typesA.length;n++)
-					{
-						for(var p=0;p<typesB.length;p++)
-						{
-							if(typesA[n] == typesB[p])
-							{
-								synergy++; //if match increase
-								if(n==0) { synergy++ }; //if main type increase
-								if(p==0) { synergy++ }; //if main type increase
+					function matchArrays(arr1, arr2) {
+						for(var n=0;n<arr1.length;n++) {
+							for(var p=0;p<arr2.length;p++) {
+								if(arr1[n] == arr2[p]) synergy++;
 							}
 						}
 					}
+
+					console.log('OK');
+					matchArrays(typesA, typesB);
+					console.log('GOOD');
+					matchArrays(typesA, subtypesB);
+					console.log('BETTER');
+					matchArrays(subtypesA, typesB);
 				}
 				if(bingoBoard[elements[m]].child == "yes")
 				{
