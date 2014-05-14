@@ -168,8 +168,9 @@ ootBingoGenerator = function(bingoList, opts) {
 			childCount = 0;
 			for(var m=0;m<elements.length;m++)
 			{
-				var typesB = bingoBoard[elements[m]].types || [];
-				var subtypesB = bingoBoard[elements[m]].subtypes || [];
+				var testsquare2 = bingoBoard[elements[m]];
+				var typesB = testsquare2.types || [];
+				var subtypesB = testsquare2.subtypes || [];
 				if(typeof typesB != 'undefined')
 				{
 					function matchArrays(arr1, arr2) {
@@ -297,6 +298,7 @@ ootBingoGenerator = function(bingoList, opts) {
 		
     
     bingoBoard[sq].types = minSynObj.value.types;
+    bingoBoard[sq].subtypes = minSynObj.value.subtypes;
     bingoBoard[sq].name = minSynObj.value[LANG] || minSynObj.value.name;
     bingoBoard[sq].child = minSynObj.value.child;
     bingoBoard[sq].synergy = minSynObj.synergy;
