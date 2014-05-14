@@ -9,8 +9,7 @@ ootBingoGenerator = function(bingoList, opts) {
   
 	//giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
 	//Note: the rowElements relation is simply the inverse of the rowCheckList relation
-	var rowCheckList = [];
-	var rowElements = new Object();
+	var rowElements = {};
 	rowElements["row1"] = [1,2,3,4,5];
 	rowElements["row2"] = [6,7,8,9,10];
 	rowElements["row3"] = [11,12,13,14,15];
@@ -23,36 +22,20 @@ ootBingoGenerator = function(bingoList, opts) {
 	rowElements["col5"] = [5,10,15,20,25];
 	rowElements["tlbr"] = [1,7,13,19,25];
 	rowElements["bltr"] = [5,9,13,17,21];
-	
-	rowCheckList[1] = ["row1","col1","tlbr"];
-	rowCheckList[2] = ["row1","col2"];
-	rowCheckList[3] = ["row1","col3"];
-	rowCheckList[4] = ["row1","col4"];
-	rowCheckList[5] = ["row1","col5","bltr"];
-	
-	rowCheckList[6] = ["row2","col1"];
-	rowCheckList[7] = ["row2","col2","tlbr"];
-	rowCheckList[8] = ["row2","col3"];
-	rowCheckList[9] = ["row2","col4","bltr"];
-	rowCheckList[10] = ["row2","col5"];
-	
-	rowCheckList[11] = ["row3","col1"];
-	rowCheckList[12] = ["row3","col2"];
-	rowCheckList[13] = ["row3","col3","tlbr","bltr"];
-	rowCheckList[14] = ["row3","col4"];
-	rowCheckList[15] = ["row3","col5"];
-	
-	rowCheckList[16] = ["row4","col1"];
-	rowCheckList[17] = ["row4","col2","bltr"];
-	rowCheckList[18] = ["row4","col3"];
-	rowCheckList[19] = ["row4","col4","tlbr"];
-	rowCheckList[20] = ["row4","col5"];
-	
-	rowCheckList[21] = ["row5","col1","bltr"];
-	rowCheckList[22] = ["row5","col2"];
-	rowCheckList[23] = ["row5","col3"];
-	rowCheckList[24] = ["row5","col4"];
-	rowCheckList[25] = ["row5","col5","tlbr"];
+
+	//Given an object that maps keys to flat arrays, invert said object
+	function invertObject(obj) {
+		var ret = {};
+		Object.keys(obj).forEach(function(key) {
+			obj[key].forEach(function(item) {
+				if(!ret[item]); ret[item] = []
+				ret[item].push(key);
+			});
+		});
+		return ret;
+	}
+
+	rowCheckList = invertObject(rowElements);
 	 
 	function mirror(i) {
 		if      (i == 0) { i = 4; }
