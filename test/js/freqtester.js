@@ -41,6 +41,36 @@ function generateFrequencies(numCards) {
     return goalCounts;
 }
 
+function updateResults(numCards) {
+    var freqtable = document.getElementById("freqtable");
+
+    // generate cards
+    goalCounts = generateFrequencies(numCards);
+
+    // clear out the old data
+    while(freqtable.firstChild) {
+        freqtable.removeChild(freqtable.firstChild);
+    }
+
+    for(var difficulty in difficultyGroups) {
+        // goals of this difficulty
+        var difficultyGroup = difficultyGroups[difficulty];
+
+        // total occurences of goals in this difficulty
+        var groupFreq = 0;
+        // generate table elements for this difficulty
+        for(var i in difficultyGroup) {
+            var goal = difficultyGroup[i];
+            var frequency = goalCounts[goal];
+
+            var goalRow = createRow(goal, frequency);
+            freqtable.appendChild(goalRow);
+
+            groupFreq += frequency;
+        }
+    }
+}
+
 function createRow(goal, frequency) {
     var goalRow = document.createElement("tr");
 
@@ -56,43 +86,5 @@ function createRow(goal, frequency) {
     goalRow.appendChild(freqCol);
     
     return goalRow;
-}
-
-function updateResults(numCards) {
-    var freqtable = document.getElementById("freqtable");
-
-    // generate cards
-    goalCounts = generateFrequencies(numCards);
-
-    // clear out the old data
-    while(freqtable.firstChild) {
-        freqtable.removeChild(freqtable.firstChild);
-    }
-
-    for(var difficulty in difficultyGroups) {
-        console.log("difficulty: " + difficulty);
-        
-        // goals of this difficulty
-        var difficultyGroup = difficultyGroups[difficulty];
-
-        console.log("goals of this difficulty: ");
-        console.log(difficultyGroup);
-        
-        // total occurences of goals in this difficulty
-        var groupFreq = 0;
-        // generate table elements for this difficulty
-        for(var i in difficultyGroup) {
-            console.log(difficultyGroup[i]);
-
-            var goal = difficultyGroup[i];
-            var frequency = goalCounts[goal];
-
-            var goalRow = createRow(goal, frequency);
-            freqtable.appendChild(goalRow);
-
-            groupFreq += frequency;
-        }
-    }
-
 }
 
