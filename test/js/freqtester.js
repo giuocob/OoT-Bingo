@@ -23,7 +23,7 @@ for(var difficulty in bingoList) {
 var bingoGenerator = ootBingoGenerator;
 
 // generates a mapping of goals to frequencies
-function generateFrequencies(numCards) {
+function generateFrequencies(numCards, randomSeeds) {
     // creates a map of goals to their occurences
     var goalCounts = new Object();
     for(var i in allGoals) {
@@ -33,7 +33,12 @@ function generateFrequencies(numCards) {
 
     // loops through a bunch of generated cards
     for(var i = 0; i < numCards; i++) {
-        var bingoOpts = { seed: i, mode: 'normal', lang: 'name' };
+        var bingoOpts = { mode: 'normal', lang: 'name' };
+
+        // set a fixed seed if should not be random
+        if(!randomSeeds) {
+            bingoOpts["seed"] = i;
+        }
 
         var bingoBoard = bingoGenerator(bingoList, bingoOpts);
         for(boardKey in bingoBoard) {
@@ -46,11 +51,12 @@ function generateFrequencies(numCards) {
 }
 
 // updates the frequencies table
-function updateResults(numCards) {
+function updateResults(numCards, randomSeeds) {
+    console.log("random seeds: " + randomSeeds);
     var frequencies = document.getElementById("frequencies");
 
     // generate cards
-    goalCounts = generateFrequencies(numCards);
+    goalCounts = generateFrequencies(numCards, randomSeeds);
 
     // clear out the old data
     while(frequencies.firstChild) {

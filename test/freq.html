@@ -33,13 +33,37 @@
 		<script src="../generator.js" type="text/javascript"></script>
         <script src="js/freqtester.js" type="text/javascript"></script>
 
-        <div id="inputfields"></div>
+        <div id="inputfields" style="width: 50%; float: left; padding-left: 0in; padding-top: 1in">
+            <h1>Data Generator</h1>
+            <!--cards input field-->
+            <div style="display: block">
+                <label for="numCards" style="color: gold;">
+                    Number of Cards
+                </label>
+                <input id="numCards" type="text" value="10" />
+            </div>
+            <!--random seed checkbox -->
+            <div style="display: block">
+                <label for="randomSeeds" style="color: gold;">
+                    Use Random Seeds
+                </label>
+                <input id="randomSeeds" type="checkbox" checked/>
+            </div>
+            <!--generate button -->
+            <input type="button" style="display: block;" value="Generate!" onclick="reload();"/>
+        </div>
 
         <div id="frequencies" style="width: 50%; float: right; padding-right: 0in; padding-top: 1in">
         </div>
 
         <script type="text/javascript">
-            updateResults(10);
+            function reload() {
+                var numCards = document.getElementById("numCards").value;
+                var randomSeeds = document.getElementById("randomSeeds").checked;
+
+                updateResults(numCards, randomSeeds);
+            }
+            reload();
         </script>
         <script type="text/javascript">
             $('footer').addClass( setcolor());
