@@ -54,6 +54,7 @@ function generateFrequencies(numCards, randomSeeds) {
 function updateResults(numCards, randomSeeds) {
     console.log("random seeds: " + randomSeeds);
     var frequencies = document.getElementById("frequencies");
+    var totals = document.getElementById("totals");
 
     // generate cards
     goalCounts = generateFrequencies(numCards, randomSeeds);
@@ -63,6 +64,7 @@ function updateResults(numCards, randomSeeds) {
         frequencies.removeChild(frequencies.firstChild);
     }
 
+    // update difficulty listings
     for(var difficulty in difficultyGroups) {
         // goals of this difficulty
         var difficultyGroup = difficultyGroups[difficulty];
@@ -70,6 +72,14 @@ function updateResults(numCards, randomSeeds) {
 
         frequencies.appendChild(difficultyInfo);
     }
+
+    // update totals
+    while(totals.firstChild) {
+        totals.removeChild(totals.firstChild);
+    }
+
+    // add to totals table
+    totals.appendChild(createTotalsTable(difficultyGroups, goalCounts));
 }
 
 function createDifficultyInfo(difficulty, difficultyGroup, goalCounts) {
@@ -115,22 +125,55 @@ function createTable(difficultyGroup, goalCounts) {
     return table;
 }
 
-// creates a table row with the goal and frequency
-function createRow(goal, frequency) {
-    var goalRow = document.createElement("tr");
+// creates a table of the total number of goals for each difficulty
+function createTotalsTable(difficultyGroups, goalCounts) {
+    var totalsTable = document.createElement("table");
+    totalsTable.style.width = "1.5in";
 
-    var goalCol = document.createElement("td");
-    var goalText = document.createTextNode(goal);
-    goalCol.appendChild(goalText);
-
-    var freqCol = document.createElement("td");
-    var freqText = document.createTextNode(frequency);
-    freqCol.appendChild(freqText);
-    freqCol.style.textAlign = "right";
-
-    goalRow.appendChild(goalCol);
-    goalRow.appendChild(freqCol);
+    var totalTotalGoals = 0;
     
-    return goalRow;
+    for(var difficulty in difficultyGroups) {
+        difficultyGroup = difficultyGroups[difficulty];
+
+        var totalGoals = 0;
+        for(var i in difficultyGroup) {
+            goal = difficultyGroup[i];
+            totalGoals += goalCounts[goal];
+        }
+
+        totalTotalGoals += totalGoals;
+
+        difficultyRow = createRow("Difficulty " + difficulty, totalGoals);
+
+        totalsTable.appendChild(difficultyRow);
+    }
+
+    var totalRow = createRow("Total", totalTotalGoals);
+    totalRow.childNodes[0].style.fontWeight = "bold";
+    totalRow.childNodes[0].style.color = "gold";
+    totalRow.childNodes[1].style.fontWeight = "bold";
+    totalRow.childNodes[1].style.color = "gold";
+    totalsTable.appendChild(totalRow);
+
+    return totalsTable;
+}
+
+// creates a table row with a name and data piece
+function createRow(name, data) {
+    var nameRow = document.createElement("tr");
+
+    var nameCol = document.createElement("td");
+    var nameText = document.createTextNode(name);
+    nameCol.appendChild(nameText);
+
+    var dataCol = document.createElement("td");
+    var dataText = document.createTextNode(data);
+    dataCol.appendChild(dataText);
+    dataCol.style.textAlign = "right";
+
+    nameRow.appendChild(nameCol);
+    nameRow.appendChild(dataCol);
+    
+    return nameRow;
 }
 

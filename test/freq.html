@@ -35,7 +35,7 @@
 
         <div id="inputfields" style="width: 50%; float: left; padding-left: 0in; padding-top: 1in">
             <h1>Data Generator</h1>
-            <table>
+            <table style="margin-bottom: 0.75in;">
             <!--cards input field-->
             <tr>
                 <td><label for="numCards" style="color: gold;">Number of Cards:</label></td>
@@ -50,9 +50,16 @@
             <tr>
                 <td><input type="button" value="Generate!" onclick="reload();"/></td>
             </tr>
+            <tr>
+                <td><span id="feedback" style="display: block; margin-top: 1in;" /></td>
+            </tr>
             </table>
 
-            <span id="feedback" style="display: block; margin-top: 1in;" />
+                  
+           <!--total difficulty information -->
+            <h1>Totals:</h1>
+            <div id="totals" style="display: block; float: left;">
+            </div>
         </div>
 
         <div id="frequencies" style="width: 50%; float: right; padding-right: 0in; padding-top: 1in">
