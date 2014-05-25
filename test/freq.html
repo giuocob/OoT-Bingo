@@ -35,22 +35,22 @@
 
         <div id="inputfields" style="width: 50%; float: left; padding-left: 0in; padding-top: 1in">
             <h1>Data Generator</h1>
+            <table>
             <!--cards input field-->
-            <div style="display: block">
-                <label for="numCards" style="color: gold;">
-                    Number of Cards
-                </label>
-                <input id="numCards" type="text" value="10" />
-            </div>
+            <tr>
+                <td><label for="numCards" style="color: gold;">Number of Cards:</label></td>
+                <td><input id="numCards" type="text" value="10" /></td>
+            </tr>
             <!--random seed checkbox -->
-            <div style="display: block">
-                <label for="randomSeeds" style="color: gold;">
-                    Use Random Seeds
-                </label>
-                <input id="randomSeeds" type="checkbox" checked/>
-            </div>
+            <tr>
+                <td><label for="randomSeeds" style="color: gold;">Use Random Seeds:</label></td>
+                <td><input id="randomSeeds" type="checkbox" checked/></td>
+            </tr>
             <!--generate button -->
-            <input type="button" style="display: block;" value="Generate!" onclick="reload();"/>
+            <tr>
+                <td><input type="button" value="Generate!" onclick="reload();"/></td>
+            </tr>
+            </table>
 
             <span id="feedback" style="display: block; margin-top: 1in;" />
         </div>
