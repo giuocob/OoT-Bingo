@@ -4,6 +4,10 @@ var allGoals = new Array();
 var difficultyGroups = new Array();
 
 for(var difficulty in bingoList) {
+    if(difficulty == "info") {
+        continue;
+    }
+
     var items = bingoList[difficulty];
     var difficultyGroup = new Array();
 
