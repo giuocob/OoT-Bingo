@@ -41,36 +41,62 @@ function generateFrequencies(numCards) {
     return goalCounts;
 }
 
+// updates the frequencies table
 function updateResults(numCards) {
-    var freqtable = document.getElementById("freqtable");
+    var frequencies = document.getElementById("frequencies");
 
     // generate cards
     goalCounts = generateFrequencies(numCards);
 
     // clear out the old data
-    while(freqtable.firstChild) {
-        freqtable.removeChild(freqtable.firstChild);
+    while(frequencies.firstChild) {
+        frequencies.removeChild(frequencies.firstChild);
     }
 
     for(var difficulty in difficultyGroups) {
         // goals of this difficulty
         var difficultyGroup = difficultyGroups[difficulty];
 
-        // total occurences of goals in this difficulty
-        var groupFreq = 0;
-        // generate table elements for this difficulty
-        for(var i in difficultyGroup) {
-            var goal = difficultyGroup[i];
-            var frequency = goalCounts[goal];
+        var tableHeader = document.createElement("h1");
+        var headerText = document.createTextNode("Difficulty " + (difficulty));
+        tableHeader.appendChild(headerText);
 
-            var goalRow = createRow(goal, frequency);
-            freqtable.appendChild(goalRow);
-
-            groupFreq += frequency;
-        }
+        var table = createTable(difficultyGroup, goalCounts);
+        
+        frequencies.appendChild(tableHeader);
+        frequencies.appendChild(table);
     }
 }
 
+// creates a 2 column table with the goals in the difficultyGroup
+// and their frequencies
+function createTable(difficultyGroup, goalCounts) {
+    var table = document.createElement("table");
+
+    // total occurences of goals in this difficulty
+    var groupFreq = 0;
+    // generate table elements for this difficulty
+    for(var i in difficultyGroup) {
+        var goal = difficultyGroup[i];
+        var frequency = goalCounts[goal];
+
+        var goalRow = createRow(goal, frequency);
+        table.appendChild(goalRow);
+
+        groupFreq += frequency;
+    }
+
+    var totalRow = createRow("Total", groupFreq);
+    totalRow.childNodes[0].style.fontWeight = "bold";
+    totalRow.childNodes[0].style.color = "gold";
+    totalRow.childNodes[1].style.fontWeight = "bold";
+    totalRow.childNodes[1].style.color = "gold";
+    table.appendChild(totalRow);
+
+    return table;
+}
+
+// creates a table row with the goal and frequency
 function createRow(goal, frequency) {
     var goalRow = document.createElement("tr");
 
@@ -81,6 +107,7 @@ function createRow(goal, frequency) {
     var freqCol = document.createElement("td");
     var freqText = document.createTextNode(frequency);
     freqCol.appendChild(freqText);
+    freqCol.style.textAlign = "right";
 
     goalRow.appendChild(goalCol);
     goalRow.appendChild(freqCol);
