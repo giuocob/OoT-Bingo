@@ -60,16 +60,25 @@ function updateResults(numCards) {
     for(var difficulty in difficultyGroups) {
         // goals of this difficulty
         var difficultyGroup = difficultyGroups[difficulty];
+        var difficultyInfo = createDifficultyInfo(difficulty, difficultyGroup, goalCounts);
 
-        var tableHeader = document.createElement("h1");
-        var headerText = document.createTextNode("Difficulty " + (difficulty));
-        tableHeader.appendChild(headerText);
-
-        var table = createTable(difficultyGroup, goalCounts);
-        
-        frequencies.appendChild(tableHeader);
-        frequencies.appendChild(table);
+        frequencies.appendChild(difficultyInfo);
     }
+}
+
+function createDifficultyInfo(difficulty, difficultyGroup, goalCounts) {
+    var difficultyInfo = document.createElement("div");
+
+    var tableHeader = document.createElement("h1");
+    var headerText = document.createTextNode("Difficulty " + (difficulty));
+    tableHeader.appendChild(headerText);
+
+    var table = createTable(difficultyGroup, goalCounts);
+    
+    difficultyInfo.appendChild(tableHeader);
+    difficultyInfo.appendChild(table);
+
+    return difficultyInfo;
 }
 
 // creates a 2 column table with the goals in the difficultyGroup
