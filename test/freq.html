@@ -51,6 +51,8 @@
             </div>
             <!--generate button -->
             <input type="button" style="display: block;" value="Generate!" onclick="reload();"/>
+
+            <span id="feedback" style="display: block; margin-top: 1in;" />
         </div>
 
         <div id="frequencies" style="width: 50%; float: right; padding-right: 0in; padding-top: 1in">
@@ -61,7 +63,19 @@
                 var numCards = document.getElementById("numCards").value;
                 var randomSeeds = document.getElementById("randomSeeds").checked;
 
-                updateResults(numCards, randomSeeds);
+                // change feedback field to indicate generation
+                var feedbackField = document.getElementById("feedback");
+                feedbackField.innerHTML = "Generating...";
+                feedbackField.style.color = "";
+
+                // hacky timeout to ensure feedback field has a chance to update
+                setTimeout(function() {
+                    updateResults(numCards, randomSeeds);
+
+                    // change feedback back once generation is complete
+                    feedbackField.innerHTML = "Done!";
+                    feedbackField.style.color = "gold";
+                }, 50);
             }
             reload();
         </script>
