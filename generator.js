@@ -28,7 +28,7 @@ ootBingoGenerator = function(bingoList, opts) {
 		var ret = {};
 		Object.keys(obj).forEach(function(key) {
 			obj[key].forEach(function(item) {
-				if(!ret[item]); ret[item] = []
+				if(!ret[item]) ret[item] = [];
 				ret[item].push(key);
 			});
 		});
@@ -36,6 +36,7 @@ ootBingoGenerator = function(bingoList, opts) {
 	}
 
 	rowCheckList = invertObject(rowElements);
+	console.log(JSON.stringify(rowCheckList,null,4));
 	 
 	function mirror(i) {
 		if      (i == 0) { i = 4; }
