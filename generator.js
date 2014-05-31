@@ -36,7 +36,6 @@ ootBingoGenerator = function(bingoList, opts) {
 	}
 
 	rowCheckList = invertObject(rowElements);
-	console.log(JSON.stringify(rowCheckList,null,4));
 	 
 	function mirror(i) {
 		if      (i == 0) { i = 4; }
