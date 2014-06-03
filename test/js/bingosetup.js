@@ -60,8 +60,12 @@ function bingosetup() {
 	var bingoFunc = ootBingoGenerator;
 	
 	var bingoBoard = bingoFunc(bingoList, bingoOpts);
-	for (i=1; i<=25; i++) {  
-		$('#slot'+i).append(bingoBoard[i].name);
+	if(bingoBoard) {
+		for (i=1; i<=25; i++) {  
+			$('#slot'+i).append(bingoBoard[i].name);
+		}
+	} else {
+		alert('Card could not be generated');
 	}
 }
 
