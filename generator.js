@@ -28,7 +28,7 @@ ootBingoGenerator = function(bingoList, opts) {
 		var ret = {};
 		Object.keys(obj).forEach(function(key) {
 			obj[key].forEach(function(item) {
-				if(!ret[item]); ret[item] = []
+				if(!ret[item]) ret[item] = [];
 				ret[item].push(key);
 			});
 		});
