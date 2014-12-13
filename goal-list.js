@@ -93,7 +93,7 @@ bingoList[10] = [
 	{ name: "At least 6 songs", jp: '歌6つ以上', types: ["songs", "atrade", "zl"], subtypes: ["child2"], child: "no" }
 ];
 bingoList[11] = [										   
-	{ name: "At least 4 Skulltulas in Shadow Temple", jp: '闇の神殿の黄金のスタルチュラ3匹以上', types: ["shadow"], subtypes: ["wallet"], child: "no" },
+	{ name: "At least 4 Skulltulas in Shadow Temple", jp: '闇の神殿の黄金のスタルチュラ4匹以上', types: ["shadow"], subtypes: ["wallet"], child: "no" },
 	{ name: "All 8 Kakariko area Skulltulas", jp: 'カカリコ村エリアの黄金のスタルチュラ8匹', types: ["botw"], subtypes: ["wallet"], child: "no" },
 	{ name: "Mirror Shield", jp: 'ミラーシールド', types: ["shields", "spirit"], child: "yes" },
 	{ name: "All 5 Skulltulas in Forest Temple", jp: '森の神殿の黄金のスタルチュラ5匹', types: ["forest"], subtypes: ["wallet"], child: "no" },
@@ -184,7 +184,7 @@ bingoList[21] = [
 	{ name: "All 5 Lake Hylia Skulltulas", jp: 'ハイリア湖畔エリアの黄金のスタルチュラ5匹', types: ["ice", "water"], subtypes: ["child2", "wallet", "mapcompass"], child: "no" },
 	{ name: "Din's Fire", jp: 'ディンの炎', types: ["zl"], subtypes: ["child2"], child: "yes" },
 	{ name: "Get to the end of Spirit Trial", jp: '魂の結界の最後の部屋に到達', types: ["ganon", "spirit", "quiver"], child: "no" },
-	{ name: "All 4 Market area Skulltulas", jp: '城下町エリアの黄金のスタルチュラ4匹', types: ["forest", "child2", "pg"], subtypes: ["wallet"], subtypes: ["hearts"], child: "no" },
+	{ name: "All 4 Market area Skulltulas", jp: '城下町エリアの黄金のスタルチュラ4匹', types: ["forest", "child2", "pg"], subtypes: ["hearts", "wallet"], child: "no" },
 	{ name: "Spooky Mask", jp: 'こわそなお面', types: ["zl", "fortress", "saria", "beans"], child: "yes" }
 ];
 bingoList[22] = [
