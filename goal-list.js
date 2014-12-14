@@ -68,7 +68,7 @@ bingoList[8] = [
 	{ name: "Plant bean in Death Mountain Crater", jp: 'デスマウンテン火口の土にマメを植える', types: ["dmc", "beans"], subtypes: ["child2"], child: "yes" },
 	{ name: "Both Gerudo's Fortress area Skulltulas", jp: 'ゲルドの砦の黄金のスタルチュラ2匹', types: ["fortress"], subtypes: ["wallet"], child: "no" },
 	{ name: "Epona's Song", jp: 'エポナの歌', types: ["lonlon"], subtypes: ["songs"], child: "yes" },
-	{ name: "Iron Boots", jp: 'ヘビーブーツ', types: ["ice", "boots", "mapcompass"], child: "yes" },
+	{ name: "Iron Boots", jp: 'ヘビーブーツ', types: ["ice", "boots"], subtypes: ["mapcompass"], child: "yes" },
 	{ name: "5 unused keys in Gerudo Training Grounds", jp: 'ゲルドの修練場の未使用のカギ5つ', types: ["fortress"], child: "yes" },
 	{ name: "6 Hearts", jp: 'ハート6つ', types: ["hearts"], child: "yes" },
 	{ name: "Defeat Phantom Ganon", jp: 'ファントムガノン撃破', types: ["forest", "pg"], subtypes: ["hearts"], child: "yes" },
@@ -76,7 +76,7 @@ bingoList[8] = [
 ];
 bingoList[9] = [
 	{ name: "3 Swords & 3 Tunics", jp: '剣3種類と服3種類', types: ["swords", "tunics", "ice", "fire"], subtypes: ["wallet"], child: "no" },
-	{ name: "3 Boots", jp: '靴3種類', types: ["boots", "ice", "mapcompass"], child: "yes" },
+	{ name: "3 Boots", jp: '靴3種類', types: ["ice", "boots"], subtypes: ["mapcompass"], child: "yes" },
 	{ name: "All 5 Skulltulas in Dodongo's Cavern", jp: 'ドドンゴの洞窟の黄金のスタルチュラ5匹', types: ["dc"], subtypes: ["wallet"], child: "yes" },
 	{ name: "Defeat Morpha", jp: 'モーファ撃破', types: ["water"], subtypes: ["hearts"], child: "no" },
 	{ name: "Beat the Forest Temple", jp: '森の神殿クリア', types: ["forest", "pg"], subtypes: ["hearts"], child: "yes" },
@@ -115,7 +115,7 @@ bingoList[12] = [
 bingoList[13] = [
 	{ name: "7 Hearts", jp: 'ハート7つ', types: ["hearts"], child: "yes" },
 	{ name: "Map & Compass in Jabu-Jabu", jp: 'ジャブジャブ様のお腹のマップとコンパス', types: ["jabu"], subtypes: ["mapcompass"], child: "yes" },
-	{ name: "Win Bombchu Bowling Prize", jp: 'ボムチュウボウリングのハートのかけら', types: ["dc", "kd"], subtypes: ["hearts", "child2"], child: "yes" },
+	{ name: "Win Bombchu Bowling Prize", jp: 'ボムチュウボウリングの景品', types: ["dc", "kd"], subtypes: ["hearts", "child2"], child: "yes" },
 	{ name: "Silver Gauntlets", jp: '銀のグローブ', types: ["strength", "spirit"], child: "yes" },
 	{ name: "Longshot", jp: 'ロングフック', types: ["water", "ice"], child: "no" },
 	{ name: "3 Swords & 3 Boots", jp: '剣3種類と靴3種類', types: ["swords", "boots", "ice"], subtypes: ["wallet", "mapcompass"], child: "no" }
