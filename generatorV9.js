@@ -54,7 +54,6 @@ ootBingoGenerator = function(bingoList, opts) {
 			}
 		}                                          // in order 1-25
 	  
-	  
 	    //giuocob 19-2-13: bingoBoard is no longer populated left to right:
 	    //It is now populated mostly randomly, with high difficult goals and
 	    //goals on the diagonals out in front
@@ -299,10 +298,10 @@ ootBingoGenerator = function(bingoList, opts) {
 						typesArray[key].concat(subtypesArray[key]);
 					}
 				}
-			//	for(var key in typesArray)
-			//	{
-			//		alert(typesArray[key] + " " + key);
-			//	}
+				/*for(var key in typesArray)
+				{
+					alert(typesArray[key] + " " + key);
+				}*/
 
 				// Assess final row synergy by removing the largest element from each type and adding the rest
 				for(var key in typesArray)
@@ -368,7 +367,8 @@ ootBingoGenerator = function(bingoList, opts) {
 	while(true) {
 		iterations++;
 		card = makeCard();
-		if(card === false) {
+		if(card === false) 
+		{
 			continue;
 		} else {
 			break;

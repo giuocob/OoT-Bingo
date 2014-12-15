@@ -115,7 +115,7 @@ bingoList[12] = [
 bingoList[13] = [
         { name: "7 Hearts", jp: 'ハート7つ', types: { "hearts": 10 }, child: "yes" },
         { name: "Map & Compass in Jabu-Jabu", jp: 'ジャブジャブ様のお腹のマップとコンパス', types: { "jabu": 5, "ice": 3 }, subtypes: { "mapcompass": 3 }, child: "yes" },
-        { name: "Win Bombchu Bowling Prize", jp: 'ボムチュウボウリングの景品', types: { "dc": 3, "kd": 3 }, subtypes: { "hearts": 3, "child2": 1 }, child: "yes" },
+        { name: "Win Bombchu Bowling Prize", jp: 'ボムチュウボウリングの景品', types: { "dc": 3, "fortress": 2, "kd": 3 }, subtypes: { "hearts": 3, "child2": 1 }, child: "yes" },
         { name: "Silver Gauntlets", jp: '銀のグローブ', types: { "strength": 100, "fortress": 3, "spirit": 2.5, "hovers": 2.5 }, child: "yes" },
         { name: "Longshot", jp: 'ロングフック', types: { "water": 3, "longshot": 5 }, subtypes: { "mapcompass": 1.5, "dc": 2.5, "zl": 1.5 }, child: "no" },
         { name: "3 Swords & 3 Boots", jp: '剣3種類と靴3種類', types: { "swords": 3, "hovers": 2.5, "ice": 4, "irons": 2 }, subtypes: { "mapcompass": 3, "wallet": 1 }, child: "no" }
