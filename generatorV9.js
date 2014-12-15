@@ -233,23 +233,15 @@ ootBingoGenerator = function(bingoList, opts) {
 		}
 		  
 
-
 		function checkLine(i, testsquare)
 		{
-			var SYNMAX = 3;
-		
-			var typesA = testsquare.types || [];
-			var subtypesA = testsquare.subtypes || [];
-			var tsynA = testsquare.tsyn || [100, 100, 100, 100, 100, 100, 100, 100];
-			var stsynA = testsquare.stsyn || [100, 100, 100, 100, 100, 100, 100, 100];
+			var SYNMAX = 3;						
 
 			var rows = rowCheckList[i], elements = [];
 			var synergy = 0;
 			var maxsynergy = 0;
 			var minsynergy = 100;
 			var childCount = 0;
-			
-
 			
 			for(var k=0;k<rows.length;k++)
 			{
@@ -260,48 +252,39 @@ ootBingoGenerator = function(bingoList, opts) {
 				var typesArray = [];
 				var subtypesArray = [];
 				
-				for(var n=0;n<typesA.length;n++) 
+				for(var type in testsquare.types)
 				{
-					typesArray[typesA[n]] = [tsynA[n]];	
+					var typeSynergy = testsquare.types[type];
+					if(!typesArray[type]) typesArray[type] = [];
+					typesArray[type].push(typeSynergy);
 				}
-				for(var n=0;n<subtypesA.length;n++) 
+
+				for(var stype in testsquare.subtypes)
 				{
-					subtypesArray[subtypesA[n]] = [stsynA[n]];	
+					var stypeSynergy = testsquare.subtypes[stype];
+					if(!subtypesArray[stype]) subtypesArray[stype] = [];
+					subtypesArray[stype].push(stypeSynergy);
 				}
-				
 				
 				for(var m=0;m<elements.length;m++)
 				{
 					var testsquare2 = bingoBoard[elements[m]];
-					var typesB = testsquare2.types || [];
-					var subtypesB = testsquare2.subtypes || [];
-					var tsynB = testsquare2.tsyn || [100, 100, 100, 100, 100, 100, 100, 100];
-					var stsynB = testsquare2.stsyn || [100, 100, 100, 100, 100, 100, 100, 100];
 					
+					for(var type in testsquare2.types)
+					{
+						var typeSynergy = testsquare2.types[type];
+						if(!typesArray[type]) typesArray[type] = [];
+						typesArray[type].push(typeSynergy);
+					}
 
+					for(var stype in testsquare2.subtypes)
+					{
+						var stypeSynergy = testsquare2.subtypes[stype];
+						if(!subtypesArray[stype]) subtypesArray[stype] = [];
+						subtypesArray[stype].push(stypeSynergy);
+					}
 					
-					for(var n=0;n<typesB.length;n++) 
-					{
-						if(typeof typesArray[typesB[n]] == "undefined")
-						{
-							typesArray[typesB[n]] = [tsynB[n]];
-						}
-						else
-						{
-							typesArray[typesB[n]] = typesArray[typesB[n]].concat(tsynB[n])
-						}
-					}
-					for(var n=0;n<subtypesB.length;n++) 
-					{
-						if(typeof subtypesArray[subtypesB[n]] == "undefined")
-						{
-							subtypesArray[subtypesB[n]] = [stsynB[n]];
-						}
-						else
-						{
-							subtypesArray[subtypesB[n]] = subtypesArray[subtypesB[n]].concat(stsynB[n])
-						}
-					}
+					
 					if(bingoBoard[elements[m]].child == "yes")
 					{
 						childCount++;
