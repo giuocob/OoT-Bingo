@@ -54,7 +54,6 @@ ootBingoGenerator = function(bingoList, opts) {
 			}
 		}                                          // in order 1-25
 	  
-	  
 	    //giuocob 19-2-13: bingoBoard is no longer populated left to right:
 	    //It is now populated mostly randomly, with high difficult goals and
 	    //goals on the diagonals out in front
@@ -67,7 +66,7 @@ ootBingoGenerator = function(bingoList, opts) {
 	    shuffle(nondiagonals);
 	    populationOrder = populationOrder.concat(nondiagonals);   //Finally add the rest of the squares
 	    //Lastly, find location of difficulty 23,24,25 elements and put them out front
-	    for(var k=23;k<=25;k++)
+	    for(var k=21;k<=25;k++)
 	    {
 			var currentSquare = getDifficultyIndex(k);
 			if(currentSquare == 0) continue;
@@ -99,10 +98,10 @@ ootBingoGenerator = function(bingoList, opts) {
 			{
 				currentObj = goalArray[j];
 				synergy = checkLine(sq,currentObj);
-				if(minSynObj == null || synergy < minSynObj.synergy)
-				{
+			//	if(minSynObj == null || synergy < minSynObj.synergy)
+			//	{
 					minSynObj = {synergy: synergy, value: currentObj};
-				}
+			//	}
 				j++;
 				if(j >= goalArray.length)
 				{
@@ -117,7 +116,7 @@ ootBingoGenerator = function(bingoList, opts) {
 					    j = 0;
 					}
 				}
-			} while(synergy != 0);   //Perhaps increase to 1 if difficulty increases happen too often
+			} while(synergy > 7);
 			
 	    
 		    bingoBoard[sq].types = minSynObj.value.types;
@@ -125,6 +124,7 @@ ootBingoGenerator = function(bingoList, opts) {
 		    bingoBoard[sq].name = minSynObj.value[LANG] || minSynObj.value.name;
 		    bingoBoard[sq].child = minSynObj.value.child;
 		    bingoBoard[sq].synergy = minSynObj.synergy;
+		//	bingoBoard[sq].name = bingoBoard[sq].name + " " + bingoBoard[sq].synergy;
 	    }
 
 	    return bingoBoard;
@@ -232,42 +232,96 @@ ootBingoGenerator = function(bingoList, opts) {
 		}
 		  
 
-
 		function checkLine(i, testsquare)
 		{
-			var typesA = testsquare.types || [];
-			var subtypesA = testsquare.subtypes || [];
-			var synergy = 0;
+			var SYNMAX = 3;						
+
 			var rows = rowCheckList[i], elements = [];
+			var synergy = 0;
+			var maxsynergy = 0;
+			var minsynergy = 100;
 			var childCount = 0;
+			
 			for(var k=0;k<rows.length;k++)
 			{
+				synergy = 0;
 				elements = rowElements[rows[k]];
 				childCount = 0;
+				
+				var typesArray = [];
+				var subtypesArray = [];
+				
+				for(var type in testsquare.types)
+				{
+					var typeSynergy = testsquare.types[type];
+					if(!typesArray[type]) typesArray[type] = [];
+					typesArray[type].push(typeSynergy);
+				}
+
+				for(var stype in testsquare.subtypes)
+				{
+					var stypeSynergy = testsquare.subtypes[stype];
+					if(!subtypesArray[stype]) subtypesArray[stype] = [];
+					subtypesArray[stype].push(stypeSynergy);
+				}
+				
 				for(var m=0;m<elements.length;m++)
 				{
 					var testsquare2 = bingoBoard[elements[m]];
-					var typesB = testsquare2.types || [];
-					var subtypesB = testsquare2.subtypes || [];
-					if(typeof typesB != 'undefined')
+					
+					for(var type in testsquare2.types)
 					{
-						function matchArrays(arr1, arr2) {
-							for(var n=0;n<arr1.length;n++) {
-								for(var p=0;p<arr2.length;p++) {
-									if(arr1[n] == arr2[p]) synergy++;
-								}
-							}
-						}
-
-						matchArrays(typesA, typesB);
-						matchArrays(typesA, subtypesB);
-						matchArrays(subtypesA, typesB);
+						var typeSynergy = testsquare2.types[type];
+						if(!typesArray[type]) typesArray[type] = [];
+						typesArray[type].push(typeSynergy);
 					}
+
+					for(var stype in testsquare2.subtypes)
+					{
+						var stypeSynergy = testsquare2.subtypes[stype];
+						if(!subtypesArray[stype]) subtypesArray[stype] = [];
+						subtypesArray[stype].push(stypeSynergy);
+					}
+					
+					
 					if(bingoBoard[elements[m]].child == "yes")
 					{
 						childCount++;
 					}
 				}
+				// Check each subtype found to see if there is a matching type somewhere in the row
+				// If so, add the subtype to the grand list
+				for(var key in subtypesArray)
+				{
+					if(typeof typesArray[key] != "undefined")
+					{
+						typesArray[key].concat(subtypesArray[key]);
+					}
+				}
+				/*for(var key in typesArray)
+				{
+					alert(typesArray[key] + " " + key);
+				}*/
+
+				// Assess final row synergy by removing the largest element from each type and adding the rest
+				for(var key in typesArray)
+				{
+					typesArray[key].sort();
+					for(var n=1;n<typesArray[key].length;n++)
+					{
+						if(typesArray[key][n] > SYNMAX)
+						{
+							synergy += 100;
+						}
+						else
+						{
+							synergy += typesArray[key][n];
+						}
+					}
+		//			alert(typesArray[key] + " " + key);
+				}
+				
+				
 				//Remove child-only rows, remove adult goals from short
 				if(MODE == "short")
 				{
@@ -277,7 +331,7 @@ ootBingoGenerator = function(bingoList, opts) {
 					}
 					if(childCount < 5)
 					{
-						synergy += 3;
+						synergy += 100;
 					}
 				}
 				else
@@ -288,11 +342,21 @@ ootBingoGenerator = function(bingoList, opts) {
 					}
 					if(childCount > 4)
 					{
-						synergy += 3;
+						synergy += 100;
 					}
 				}
+				if(synergy > maxsynergy)
+				{
+					maxsynergy = synergy;
+				}
+				if(synergy < minsynergy)
+				{
+					minsynergy = synergy;
+				}
 			}
-			return synergy;
+		//	alert(testsquare.name + " " + maxsynergy);
+			
+			return maxsynergy;
 		}
 	}
 
@@ -303,7 +367,8 @@ ootBingoGenerator = function(bingoList, opts) {
 	while(true) {
 		iterations++;
 		card = makeCard();
-		if(card === false) {
+		if(card === false) 
+		{
 			continue;
 		} else {
 			break;
