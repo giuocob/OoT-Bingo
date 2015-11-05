@@ -92,10 +92,7 @@ ootBingoGenerator = function (bingoList, opts) {
             {
                 currentObj = goalArray[j];
                 synergy = checkLine(sq, currentObj);
-                //  if(minSynObj == null || synergy < minSynObj.synergy)
-                //  {
                 minSynObj = {synergy: synergy, value: currentObj};
-                //  }
                 j++;
                 if (j >= goalArray.length) {
                     getDifficulty++;
@@ -117,27 +114,10 @@ ootBingoGenerator = function (bingoList, opts) {
             bingoBoard[sq].name = minSynObj.value[LANG] || minSynObj.value.name;
             bingoBoard[sq].child = minSynObj.value.child;
             bingoBoard[sq].synergy = minSynObj.synergy;
-            // bingoBoard[sq].name = bingoBoard[sq].name + " " + bingoBoard[sq].synergy;
         }
 
         return bingoBoard;
 
-
-        function mirror(i) {
-            if (i == 0) {
-                i = 4;
-            }
-            else if (i == 1) {
-                i = 3;
-            }
-            else if (i == 3) {
-                i = 1;
-            }
-            else if (i == 4) {
-                i = 0;
-            }
-            return i;
-        }
 
         function difficulty(i) {
             // To create the magic square we need 2 random orderings of the numbers 0, 1, 2, 3, 4.
@@ -285,10 +265,6 @@ ootBingoGenerator = function (bingoList, opts) {
                         typesArray[key].concat(subtypesArray[key]);
                     }
                 }
-                /*for(var key in typesArray)
-                 {
-                 alert(typesArray[key] + " " + key);
-                 }*/
 
                 // Assess final row synergy by removing the largest element from each type and adding the rest
                 for (var key in typesArray) {
@@ -301,9 +277,7 @@ ootBingoGenerator = function (bingoList, opts) {
                             synergy += typesArray[key][n];
                         }
                     }
-                    //          alert(typesArray[key] + " " + key);
                 }
-
 
                 //Remove child-only rows, remove adult goals from short
                 if (MODE == "short") {
@@ -329,7 +303,6 @@ ootBingoGenerator = function (bingoList, opts) {
                     minsynergy = synergy;
                 }
             }
-            //  alert(testsquare.name + " " + maxsynergy);
 
             return maxsynergy;
         }
