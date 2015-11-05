@@ -309,17 +309,12 @@ ootBingoGenerator = function (bingoList, opts) {
     }
 
 
-    //Loop over cards until one is accepted.
-    var card;
+    // repeatedly attempt to generate a card until it succeeds, bailing out after 10 fails
+    var card = false;
     var iterations = 0;
-    while (true) {
-        iterations++;
+    while (!card && iterations < 10) {
         card = makeCard();
-        if (card === false) {
-            continue;
-        } else {
-            break;
-        }
+        iterations++;
     }
 
     return card;
