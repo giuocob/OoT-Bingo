@@ -6,7 +6,7 @@ SOURCES = example/js/seedrandom-min.js goal-list.js generator.js cli.js
 SHEBANG = "\#!/usr/bin/env node"
 EXECUTABLE = generator
 
-.PHONY: all clean new
+.PHONY: all clean new test
 
 all: $(EXECUTABLE)
 
@@ -20,4 +20,7 @@ clean:
 	rm -f $(EXECUTABLE)
 
 new: clean all
+
+test: all
+	./tester.sh
 
