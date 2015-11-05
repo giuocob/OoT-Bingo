@@ -12,19 +12,20 @@ ootBingoGenerator = function (bingoList, opts) {
 
     //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
     //Note: the rowElements relation is simply the inverse of the rowCheckList relation
-    var rowElements = {};
-    rowElements["row1"] = [1, 2, 3, 4, 5];
-    rowElements["row2"] = [6, 7, 8, 9, 10];
-    rowElements["row3"] = [11, 12, 13, 14, 15];
-    rowElements["row4"] = [16, 17, 18, 19, 20];
-    rowElements["row5"] = [21, 22, 23, 24, 25];
-    rowElements["col1"] = [1, 6, 11, 16, 21];
-    rowElements["col2"] = [2, 7, 12, 17, 22];
-    rowElements["col3"] = [3, 8, 13, 18, 23];
-    rowElements["col4"] = [4, 9, 14, 19, 24];
-    rowElements["col5"] = [5, 10, 15, 20, 25];
-    rowElements["tlbr"] = [1, 7, 13, 19, 25];
-    rowElements["bltr"] = [5, 9, 13, 17, 21];
+    var rowElements = {
+        "row1": [1, 2, 3, 4, 5],
+        "row2": [6, 7, 8, 9, 10],
+        "row3": [11, 12, 13, 14, 15],
+        "row4": [16, 17, 18, 19, 20],
+        "row5": [21, 22, 23, 24, 25],
+        "col1": [1, 6, 11, 16, 21],
+        "col2": [2, 7, 12, 17, 22],
+        "col3": [3, 8, 13, 18, 23],
+        "col4": [4, 9, 14, 19, 24],
+        "col5": [5, 10, 15, 20, 25],
+        "tlbr": [1, 7, 13, 19, 25],
+        "bltr": [5, 9, 13, 17, 21]
+    };
 
     //Given an object that maps keys to flat arrays, invert said object
     function invertObject(obj) {
@@ -38,6 +39,8 @@ ootBingoGenerator = function (bingoList, opts) {
         return ret;
     }
 
+    // a mapping from board slot to the rows that it's a part of
+    // for example, rowCheckList[1] returns ["row1", "col1", "tlbr"]
     var rowCheckList = invertObject(rowElements);
 
 
