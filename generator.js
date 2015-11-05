@@ -70,7 +70,7 @@ ootBingoGenerator = function (bingoList, opts) {
         //Lastly, find location of difficulty 23,24,25 elements and put them out front
         for (var k = 21; k <= 25; k++) {
             var currentSquare = getDifficultyIndex(k);
-            if (currentSquare == 0) continue;
+            if (currentSquare === 0) continue;
             for (var i = 1; i < 25; i++) {
                 if (populationOrder[i] == currentSquare) {
                     populationOrder.splice(i, 1);
