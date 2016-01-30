@@ -306,7 +306,7 @@ ootBingoGenerator = function (bingoList, opts) {
             // If so, add the subtype to the grand list
             for (var subtype in subtypesSynergies) {
                 if (subtype in typesSynergies) {
-                    typesSynergies[subtype].concat(subtypesSynergies[subtype]);
+                    typesSynergies[subtype] = typesSynergies[subtype].concat(subtypesSynergies[subtype]);
                 }
             }
 
