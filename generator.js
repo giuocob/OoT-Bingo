@@ -212,102 +212,98 @@ ootBingoGenerator = function (bingoList, opts) {
         }
 
 
-        function checkLine(i, testsquare) {
-            var SYNMAX = 3;
+        function checkLine(i, targetSquare) {
+            // 100 is way higher than would ever be allowed, so use it
+            // as a signal to get out
+            var TOO_MUCH_SYNERGY = 100;
 
-            var rows = rowCheckList[i], elements = [];
-            var synergy = 0;
-            var maxsynergy = 0;
-            var minsynergy = 100;
-            var childCount = 0;
+            // the maximum synergy value allowed for a single synergy before we puke
+            // not sure if we care about this?
+            // why would a single large synergy matter more than the sum of small synergies...
+            var MAX_INDIVIDUAL_SYNERGY = 3;
 
-            for (var k = 0; k < rows.length; k++) {
-                synergy = 0;
-                elements = rowElements[rows[k]];
-                childCount = 0;
+            var rows = rowCheckList[i];
+            var maxSynergy = 0;
+            var minSynergy = TOO_MUCH_SYNERGY;
 
-                var typesArray = [];
-                var subtypesArray = [];
+            for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+                var synergy = 0;
+                var elements = rowElements[rows[rowIndex]];
 
-                for (var type in testsquare.types) {
-                    var typeSynergy = testsquare.types[type];
-                    if (!typesArray[type]) typesArray[type] = [];
-                    typesArray[type].push(typeSynergy);
-                }
+                var childCount = 0;
 
-                for (var stype in testsquare.subtypes) {
-                    var stypeSynergy = testsquare.subtypes[stype];
-                    if (!subtypesArray[stype]) subtypesArray[stype] = [];
-                    subtypesArray[stype].push(stypeSynergy);
+                // a map of type -> list of type synergy values
+                var typesSynergies = {};
+
+                // a map of subtype -> list of subtype synergy values
+                var subtypesSynergies = {};
+
+                mergeTypeSynergies(typesSynergies, targetSquare.types);
+                mergeTypeSynergies(subtypesSynergies, targetSquare.subtypes);
+
+                if (targetSquare.child == "yes") {
+                    childCount++;
                 }
 
                 for (var m = 0; m < elements.length; m++) {
-                    var testsquare2 = bingoBoard[elements[m]];
+                    var otherSquare = bingoBoard[elements[m]];
 
-                    for (var type in testsquare2.types) {
-                        var typeSynergy = testsquare2.types[type];
-                        if (!typesArray[type]) typesArray[type] = [];
-                        typesArray[type].push(typeSynergy);
-                    }
+                    mergeTypeSynergies(typesSynergies, otherSquare.types);
+                    mergeTypeSynergies(subtypesSynergies, otherSquare.subtypes);
 
-                    for (var stype in testsquare2.subtypes) {
-                        var stypeSynergy = testsquare2.subtypes[stype];
-                        if (!subtypesArray[stype]) subtypesArray[stype] = [];
-                        subtypesArray[stype].push(stypeSynergy);
-                    }
-
-
-                    if (bingoBoard[elements[m]].child == "yes") {
+                    if (otherSquare.child == "yes") {
                         childCount++;
                     }
                 }
+
                 // Check each subtype found to see if there is a matching type somewhere in the row
                 // If so, add the subtype to the grand list
-                for (var key in subtypesArray) {
-                    if (typeof typesArray[key] != "undefined") {
-                        typesArray[key].concat(subtypesArray[key]);
+                for (var subtype in subtypesSynergies) {
+                    if (subtype in typesSynergies) {
+                        typesSynergies[subtype].concat(subtypesSynergies[subtype]);
                     }
                 }
 
                 // Assess final row synergy by removing the largest element from each type and adding the rest
-                for (var key in typesArray) {
-                    typesArray[key].sort();
-                    for (var n = 1; n < typesArray[key].length; n++) {
-                        if (typesArray[key][n] > SYNMAX) {
-                            synergy += 100;
+                for (var type in typesSynergies) {
+                    typesSynergies[type].sort();
+
+                    var synergies = typesSynergies[type];
+
+                    for (var n = 1; n < synergies.length; n++) {
+                        if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
+                            return TOO_MUCH_SYNERGY
                         }
-                        else {
-                            synergy += typesArray[key][n];
-                        }
+
+                        synergy += synergies[n];
                     }
                 }
 
                 //Remove child-only rows, remove adult goals from short
-                if (MODE == "short") {
-                    if (testsquare.child == "no") {
-                        childCount--;
-                    }
-                    if (childCount < 5) {
-                        synergy += 100;
-                    }
+                // TODO: why does this have to be 6 instead of 5, I think there's duplicate counting?
+                if (MODE === "short" && childCount < 6) {
+                    return TOO_MUCH_SYNERGY;
                 }
-                else {
-                    if (testsquare.child == "yes") {
-                        childCount++;
-                    }
-                    if (childCount > 4) {
-                        synergy += 100;
-                    }
+                // abort all-child rows in non-short bingos
+                else if(MODE !== "short" && childCount > 4) {
+                    return TOO_MUCH_SYNERGY;
                 }
-                if (synergy > maxsynergy) {
-                    maxsynergy = synergy;
-                }
-                if (synergy < minsynergy) {
-                    minsynergy = synergy;
-                }
+
+                maxSynergy = Math.max(maxSynergy, synergy);
+                minSynergy = Math.min(minSynergy, synergy);
             }
 
-            return maxsynergy;
+            return maxSynergy;
+        }
+
+        function mergeTypeSynergies(typeSynergies, newTypeSynergies) {
+            for (var type in newTypeSynergies) {
+                if (!typeSynergies[type]) {
+                    typeSynergies[type] = [];
+                }
+
+                typeSynergies[type].push(newTypeSynergies[type]);
+            }
         }
     }
 
