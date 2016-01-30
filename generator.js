@@ -237,30 +237,18 @@ ootBingoGenerator = function (bingoList, opts) {
             for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
                 var row = rows[rowIndex];
 
-                // total synergy in the row
-                var rowSynergy = 0;
-                // number of all child goals
-                var childCount = 0;
-
-                // a map of type -> list of type synergy values
-                var typesSynergies = {};
-                // a map of subtype -> list of subtype synergy values
-                var subtypesSynergies = {};
-
                 var otherSquares = getSquaresInRow(row);
                 // TODO: I think this concat causes double counting, but it's needed for compatibility
                 var squaresInRow = otherSquares.concat([targetSquare]);
 
-                for (var m = 0; m < squaresInRow.length; m++) {
-                    var squareInRow = squaresInRow[m];
+                var rowTypeSynergies = calculateRowTypeSynergies(squaresInRow);
 
-                    mergeTypeSynergies(typesSynergies, squareInRow.types);
-                    mergeTypeSynergies(subtypesSynergies, squareInRow.subtypes);
+                var typesSynergies = rowTypeSynergies.typeSynergies;
+                var subtypesSynergies = rowTypeSynergies.subtypesSynergies;
+                var childCount = rowTypeSynergies.numChildGoals;
 
-                    if (squareInRow.child == "yes") {
-                        childCount++;
-                    }
-                }
+                // total synergy in the row
+                var rowSynergy = 0;
 
                 // Check each subtype found to see if there is a matching type somewhere in the row
                 // If so, add the subtype to the grand list
@@ -300,6 +288,32 @@ ootBingoGenerator = function (bingoList, opts) {
             }
 
             return maxSynergy;
+        }
+
+        function calculateRowTypeSynergies(squaresInRow) {
+            // a map of type -> list of type synergy values
+            var typesSynergies = {};
+            // a map of subtype -> list of subtype synergy values
+            var subtypesSynergies = {};
+            // number of goals in the row that can be completed child-only
+            var numChildGoals = 0;
+
+            for (var m = 0; m < squaresInRow.length; m++) {
+                var squareInRow = squaresInRow[m];
+
+                mergeTypeSynergies(typesSynergies, squareInRow.types);
+                mergeTypeSynergies(subtypesSynergies, squareInRow.subtypes);
+
+                if (squareInRow.child == "yes") {
+                    numChildGoals++;
+                }
+            }
+
+            return {
+                typeSynergies: typesSynergies,
+                subtypesSynergies: subtypesSynergies,
+                numChildGoals: numChildGoals
+            };
         }
 
         function mergeTypeSynergies(typeSynergies, newTypeSynergies) {
