@@ -1,1806 +1,1802 @@
 var bingoList = {
     "info": {
-        "version": "v8.4"
+        "version": "v8.5"
     },
     "1":[
         {
-            "child":"yes",
             "jp":"ビン(妖精)",
-            "name":"Bottled Fairy",
             "types":{
                 "bottle":1
-            }
+            },
+            "child":"yes",
+            "name":"Bottled Fairy"
         },
         {
-            "child":"yes",
             "jp":"デクのタネ袋(50)",
-            "name":"Bullet Bag (50)",
             "types":{
                 "bulletbag":1
-            }
+            },
+            "child":"yes",
+            "name":"Bullet Bag (50)"
         },
         {
-            "child":"yes",
             "jp":"ボム袋(30)",
-            "name":"Bomb Bag (30)",
             "types":{
                 "bombbag":1
-            }
+            },
+            "child":"yes",
+            "name":"Bomb Bag (30)"
         },
         {
-            "child":"yes",
             "jp":"まことのメガネ\u001a",
-            "name":"Lens of Truth",
             "types":{
                 "botw":1
-            }
+            },
+            "child":"yes",
+            "name":"Lens of Truth"
         },
         {
-            "child":"no",
             "jp":"スタルキッド撃破",
-            "name":"Defeat a Skull Kid",
             "types":{
                 "skullkid":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat a Skull Kid"
         },
         {
-            "child":"yes",
             "jp":"デクの実30個以上",
-            "name":"At least 30 Deku Nuts",
             "types":{
                 "nuts":1
-            }
+            },
+            "child":"yes",
+            "name":"At least 30 Deku Nuts"
         }
     ],
     "2":[
         {
-            "child":"yes",
-            "jp":"ドドンゴの洞窟のマップとコンパス",
-            "name":"Map & Compass in Dodongo's Cavern",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"ドドンゴの洞窟のマップとコンパス",
             "types":{
                 "dc":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Dodongo's Cavern"
         },
         {
-            "child":"yes",
-            "jp":"デクの樹様の中のマップとコンパス",
-            "name":"Map & Compass in Deku Tree",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"デクの樹様の中のマップとコンパス",
             "types":{
                 "deku":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Deku Tree"
         },
         {
-            "child":"yes",
-            "jp":"井戸の底のマップとコンパス",
-            "name":"Map & Compass in Bottom of the Well",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"井戸の底のマップとコンパス",
             "types":{
                 "botw":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Bottom of the Well"
         },
         {
-            "child":"no",
-            "jp":"巨人のナイフ",
-            "name":"Giant's Knife",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"巨人のナイフ",
             "types":{
                 "swords":1
-            }
+            },
+            "child":"no",
+            "name":"Giant's Knife"
         },
         {
-            "child":"no",
-            "jp":"森のメヌエット",
-            "name":"Minuet of Forest",
             "subtypes":{
                 "songs":1
             },
+            "jp":"森のメヌエット",
             "types":{
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"Minuet of Forest"
         },
         {
-            "child":"no",
             "jp":"ゴロンの服",
-            "name":"Goron Tunic",
             "types":{
                 "fire":1,
-                "tunics":1,
-                "dmc":1
-            }
+                "dmc":1,
+                "tunics":1
+            },
+            "child":"no",
+            "name":"Goron Tunic"
         },
         {
-            "child":"no",
             "jp":"ゾーラの服\u001a",
-            "name":"Zora Tunic",
             "types":{
-                "tunics":1,
-                "ice":1
-            }
+                "ice":1,
+                "tunics":1
+            },
+            "child":"no",
+            "name":"Zora Tunic"
         }
     ],
     "3":[
         {
-            "child":"yes",
-            "jp":"デスマウンテン火口のハートのかけら２つ\u001a",
-            "name":"Both heart pieces in Death Mountain Crater",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"デスマウンテン火口のハートのかけら２つ\u001a",
             "types":{
                 "fire":1,
                 "dmc":1
-            }
+            },
+            "child":"yes",
+            "name":"Both heart pieces in Death Mountain Crater"
         },
         {
-            "child":"yes",
             "jp":"妖精のパチンコ",
-            "name":"Fairy Slingshot",
             "types":{
-                "bulletbag":1,
-                "deku":1
-            }
-        },
-        {
+                "deku":1,
+                "bulletbag":1
+            },
             "child":"yes",
-            "jp":"歌3つ以上",
-            "name":"At least 3 songs",
-            "types":{
-                "songs":1,
-                "zl":1
-            }
+            "name":"Fairy Slingshot"
         },
         {
-            "child":"no",
+            "jp":"歌3つ以上",
+            "types":{
+                "zl":1,
+                "songs":1
+            },
+            "child":"yes",
+            "name":"At least 3 songs"
+        },
+        {
             "jp":"矢立て(40)",
-            "name":"Quiver (40)",
             "types":{
                 "quiver":1,
                 "forest":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"Quiver (40)"
         },
         {
-            "child":"yes",
             "jp":"ドドンゴの洞窟のリザルフォス全て撃破",
-            "name":"Defeat all Lizalfos in Dodongo's Cavern",
             "types":{
                 "dc":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat all Lizalfos in Dodongo's Cavern"
         },
         {
-            "child":"no",
-            "jp":"炎のボレロ",
-            "name":"Bolero of Fire",
             "subtypes":{
                 "songs":1
             },
+            "jp":"炎のボレロ",
             "types":{
                 "fire":1,
                 "dmc":1
-            }
+            },
+            "child":"no",
+            "name":"Bolero of Fire"
         }
     ],
     "4":[
         {
-            "child":"yes",
             "jp":"デクの棒30本",
-            "name":"30 Deku Sticks",
             "types":{
                 "atrade":1
-            }
+            },
+            "child":"yes",
+            "name":"30 Deku Sticks"
         },
         {
-            "child":"yes",
-            "jp":"キングドドンゴ撃破",
-            "name":"Defeat King Dodongo",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"キングドドンゴ撃破",
             "types":{
                 "kd":1,
                 "dc":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat King Dodongo"
         },
         {
-            "child":"no",
-            "jp":"炎の神殿のボス部屋のカギ",
-            "name":"Fire Temple Boss Key",
             "subtypes":{
                 "bosskey":1
             },
+            "jp":"炎の神殿のボス部屋のカギ",
             "types":{
                 "fire":1
-            }
+            },
+            "child":"no",
+            "name":"Fire Temple Boss Key"
         },
         {
-            "child":"yes",
             "jp":"ルトの手紙\u001a",
-            "name":"Ruto's Letter",
             "types":{
                 "bottle":1
-            }
+            },
+            "child":"yes",
+            "name":"Ruto's Letter"
         },
         {
-            "child":"yes",
-            "jp":"氷の矢",
-            "name":"Ice Arrows",
             "subtypes":{
                 "kd":1
             },
+            "jp":"氷の矢",
             "types":{
-                "quiver":1,
-                "fortress":1
-            }
+                "fortress":1,
+                "quiver":1
+            },
+            "child":"yes",
+            "name":"Ice Arrows"
         },
         {
-            "child":"yes",
-            "jp":"闇の神殿のマップとコンパス",
-            "name":"Map & Compass in Shadow Temple",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"闇の神殿のマップとコンパス",
             "types":{
                 "shadow":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Shadow Temple"
         }
     ],
     "5":[
         {
-            "child":"yes",
-            "jp":"デクのタネ袋(40)",
-            "name":"Bullet Bag (40)",
+            "jp":"ゲルドの修練場の未使用のカギ3つ",
             "types":{
-                "bulletbag":1,
-                "deku":1
-            }
+                "fortress":1
+            },
+            "child":"yes",
+            "name":"3 unused keys in Gerudo Training Grounds"
         },
         {
+            "jp":"デクのタネ袋(40)",
+            "types":{
+                "deku":1,
+                "bulletbag":1
+            },
             "child":"yes",
+            "name":"Bullet Bag (40)"
+        },
+        {
             "jp":"青い炎",
-            "name":"Blue Fire",
             "types":{
                 "ganon":1,
-                "bottle":1,
-                "ice":1
-            }
+                "ice":1,
+                "bottle":1
+            },
+            "child":"yes",
+            "name":"Blue Fire"
         },
         {
-            "child":"yes",
-            "jp":"ゴーマ撃破",
-            "name":"Defeat Queen Gohma",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"ゴーマ撃破",
             "types":{
-                "deku":1,
-                "ganon":1
-            }
+                "ganon":1,
+                "deku":1
+            },
+            "child":"yes",
+            "name":"Defeat Queen Gohma"
         },
         {
-            "child":"no",
-            "jp":"コキリの森エリアの黄金のスタルチュラ３匹",
-            "name":"All 3 Kokiri Forest area Skulltulas",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"コキリの森エリアの黄金のスタルチュラ３匹",
             "types":{
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"All 3 Kokiri Forest area Skulltulas"
         },
         {
-            "child":"yes",
-            "jp":"氷の洞窟のハートのかけら",
-            "name":"Ice Cavern Heart Piece",
             "subtypes":{
                 "mapcompass":1,
                 "hearts":1
             },
+            "jp":"氷の洞窟のハートのかけら",
             "types":{
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"Ice Cavern Heart Piece"
         },
         {
-            "child":"no",
             "jp":"服3種類\u001a",
-            "name":"3 Tunics",
             "types":{
                 "fire":1,
-                "tunics":1,
-                "ice":1
-            }
+                "ice":1,
+                "tunics":1
+            },
+            "child":"no",
+            "name":"3 Tunics"
         },
         {
-            "child":"no",
-            "jp":"水の神殿のボス部屋のカギ",
-            "name":"Water Temple Boss Key",
             "subtypes":{
                 "bosskey":1
             },
+            "jp":"水の神殿のボス部屋のカギ",
             "types":{
-                "water":1,
-                "fortress":1
-            }
+                "fortress":1,
+                "water":1
+            },
+            "child":"no",
+            "name":"Water Temple Boss Key"
         }
     ],
     "6":[
         {
-            "child":"yes",
-            "jp":"ドドンゴの洞窟クリア",
-            "name":"Beat Dodongo's Cavern",
+            "jp":"ゲルドの修練場の未使用のカギ4つ",
             "types":{
-                "kd":1,
-                "dc":1,
                 "fortress":1
-            }
+            },
+            "child":"yes",
+            "name":"4 unused keys in Gerudo Training Grounds"
         },
         {
-            "child":"yes",
-            "jp":"氷の洞窟のマップとコンパス",
-            "name":"Map & Compass in Ice Cavern",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"氷の洞窟のマップとコンパス",
             "types":{
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Ice Cavern"
         },
         {
-            "child":"yes",
-            "jp":"ホワイトウルフォス撃破",
-            "name":"Defeat a White Wolfos",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"ホワイトウルフォス撃破",
             "types":{
                 "fortress":1,
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat a White Wolfos"
         },
         {
-            "child":"yes",
-            "jp":"ガノン城のボス部屋のカギ",
-            "name":"Ganon's Castle Boss Key",
             "subtypes":{
                 "bosskey":1
             },
+            "jp":"ガノン城のボス部屋のカギ",
             "types":{
-                "deku":1,
-                "ganon":1
-            }
+                "ganon":1,
+                "deku":1
+            },
+            "child":"yes",
+            "name":"Ganon's Castle Boss Key"
         },
         {
-            "child":"yes",
-            "jp":"井戸の底の黄金のスタルチュラ3匹",
-            "name":"All 3 Skulltulas in Bottom of the Well",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"井戸の底の黄金のスタルチュラ3匹",
             "types":{
                 "botw":1
-            }
+            },
+            "child":"yes",
+            "name":"All 3 Skulltulas in Bottom of the Well"
         },
         {
-            "child":"no",
             "jp":"牛(リンクの家)",
-            "name":"Cow in House",
             "types":{
                 "cow":1
-            }
+            },
+            "child":"no",
+            "name":"Cow in House"
         },
         {
-            "child":"yes",
             "jp":"デクの樹様の中クリア",
-            "name":"Beat the Deku Tree",
             "types":{
-                "deku":1,
-                "ganon":1
-            }
+                "ganon":1,
+                "deku":1
+            },
+            "child":"yes",
+            "name":"Beat the Deku Tree"
         },
         {
-            "child":"yes",
-            "jp":"ゲルドの修練場の未使用のカギ3つ",
-            "name":"3 unused keys in Gerudo Training Grounds",
-            "types":{
-                "fortress":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"氷の洞窟の黄金のスタルチュラ3匹",
-            "name":"All 3 Skulltulas in Ice Cavern",
             "subtypes":{
                 "mapcompass":1,
                 "wallet":1
             },
+            "jp":"氷の洞窟の黄金のスタルチュラ3匹",
             "types":{
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"All 3 Skulltulas in Ice Cavern"
         }
     ],
     "7":[
         {
-            "child":"yes",
-            "jp":"ロンロン牛乳",
-            "name":"Milk",
+            "jp":"ドドンゴの洞窟クリア",
             "types":{
-                "lonlon":1,
-                "bottle":1
-            }
+                "fortress":1,
+                "kd":1,
+                "dc":1
+            },
+            "child":"yes",
+            "name":"Beat Dodongo's Cavern"
         },
         {
-            "child":"yes",
-            "jp":"ゲルドの修練場の未使用のカギ4つ",
-            "name":"4 unused keys in Gerudo Training Grounds",
-            "types":{
-                "fortress":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"迷いの森エリアの黄金のスタルチュラ4匹",
-            "name":"All 4 Lost Woods area Skulltulas",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"ゲルドの砦の黄金のスタルチュラ2匹",
+            "types":{
+                "fortress":1
+            },
+            "child":"no",
+            "name":"Both Gerudo's Fortress area Skulltulas"
+        },
+        {
+            "jp":"ロンロン牛乳",
+            "types":{
+                "lonlon":1,
+                "bottle":1
+            },
+            "child":"yes",
+            "name":"Milk"
+        },
+        {
+            "subtypes":{
+                "wallet":1
+            },
+            "jp":"迷いの森エリアの黄金のスタルチュラ4匹",
             "types":{
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"All 4 Lost Woods area Skulltulas"
         },
         {
-            "child":"yes",
             "jp":"4つの空きビンスロットを全て埋める\u001a",
-            "name":"Fill all 4 Bottle Slots",
             "types":{
                 "bottle":1
-            }
+            },
+            "child":"yes",
+            "name":"Fill all 4 Bottle Slots"
         },
         {
-            "child":"no",
             "jp":"青いクスリ",
-            "name":"Blue Potion",
             "types":{
                 "zl":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"Blue Potion"
         },
         {
-            "child":"yes",
-            "jp":"歌4つ以上\u001a",
-            "name":"At least 4 songs",
             "subtypes":{
                 "child2":1
             },
+            "jp":"歌4つ以上\u001a",
             "types":{
                 "zl":1,
                 "songs":1,
                 "atrade":1
-            }
-        },
-        {
+            },
             "child":"yes",
-            "jp":"巨人のサイフ",
-            "name":"Giant's Wallet",
-            "types":{
-                "wallet":1
-            }
+            "name":"At least 4 songs"
         }
     ],
     "8":[
         {
+            "jp":"巨人のサイフ",
+            "types":{
+                "wallet":1
+            },
             "child":"yes",
-            "jp":"デスマウンテン火口の土にマメを植える",
-            "name":"Plant bean in Death Mountain Crater",
+            "name":"Giant's Wallet"
+        },
+        {
             "subtypes":{
                 "child2":1
             },
+            "jp":"デスマウンテン火口の土にマメを植える",
             "types":{
                 "beans":1,
                 "dmc":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"ゲルドの砦の黄金のスタルチュラ2匹",
-            "name":"Both Gerudo's Fortress area Skulltulas",
-            "subtypes":{
-                "wallet":1
             },
-            "types":{
-                "fortress":1
-            }
+            "child":"yes",
+            "name":"Plant bean in Death Mountain Crater"
         },
         {
-            "child":"yes",
-            "jp":"エポナの歌",
-            "name":"Epona's Song",
             "subtypes":{
                 "songs":1
             },
+            "jp":"エポナの歌",
             "types":{
                 "lonlon":1
-            }
+            },
+            "child":"yes",
+            "name":"Epona's Song"
         },
         {
-            "child":"yes",
-            "jp":"ヘビーブーツ\u001a",
-            "name":"Iron Boots",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"ヘビーブーツ\u001a",
             "types":{
-                "boots":1,
-                "ice":1
-            }
+                "ice":1,
+                "boots":1
+            },
+            "child":"yes",
+            "name":"Iron Boots"
         },
         {
-            "child":"yes",
             "jp":"ゲルドの修練場の未使用のカギ5つ",
-            "name":"5 unused keys in Gerudo Training Grounds",
             "types":{
                 "fortress":1
-            }
+            },
+            "child":"yes",
+            "name":"5 unused keys in Gerudo Training Grounds"
         },
         {
-            "child":"yes",
             "jp":"ハート6つ",
-            "name":"6 Hearts",
             "types":{
                 "hearts":1
-            }
+            },
+            "child":"yes",
+            "name":"6 Hearts"
         },
         {
-            "child":"yes",
-            "jp":"ファントムガノン撃破",
-            "name":"Defeat Phantom Ganon",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"ファントムガノン撃破",
             "types":{
-                "forest":1,
-                "pg":1
-            }
+                "pg":1,
+                "forest":1
+            },
+            "child":"yes",
+            "name":"Defeat Phantom Ganon"
         },
         {
-            "child":"no",
-            "jp":"水の神殿のマップとコンパス",
-            "name":"Map & Compass in Water Temple",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"水の神殿のマップとコンパス",
             "types":{
                 "water":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Water Temple"
         }
     ],
     "9":[
         {
-            "child":"no",
-            "jp":"剣3種類と服3種類\u001a",
-            "name":"3 Swords & 3 Tunics",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"剣3種類と服3種類\u001a",
             "types":{
                 "fire":1,
                 "swords":1,
-                "tunics":1,
-                "ice":1
-            }
+                "ice":1,
+                "tunics":1
+            },
+            "child":"no",
+            "name":"3 Swords & 3 Tunics"
         },
         {
-            "child":"yes",
-            "jp":"靴3種類\u001a",
-            "name":"3 Boots",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"靴3種類\u001a",
             "types":{
-                "boots":1,
-                "ice":1
-            }
+                "ice":1,
+                "boots":1
+            },
+            "child":"yes",
+            "name":"3 Boots"
         },
         {
-            "child":"yes",
-            "jp":"ドドンゴの洞窟の黄金のスタルチュラ5匹",
-            "name":"All 5 Skulltulas in Dodongo's Cavern",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"ドドンゴの洞窟の黄金のスタルチュラ5匹",
             "types":{
                 "dc":1
-            }
+            },
+            "child":"yes",
+            "name":"All 5 Skulltulas in Dodongo's Cavern"
         },
         {
-            "child":"no",
-            "jp":"モーファ撃破",
-            "name":"Defeat Morpha",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"モーファ撃破",
             "types":{
                 "water":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat Morpha"
         },
         {
-            "child":"yes",
-            "jp":"森の神殿クリア",
-            "name":"Beat the Forest Temple",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"森の神殿クリア",
             "types":{
-                "forest":1,
-                "pg":1
-            }
-        },
-        {
+                "pg":1,
+                "forest":1
+            },
             "child":"yes",
-            "jp":"500ルピー",
-            "name":"500 Rupees",
-            "types":{
-                "wallet":1
-            }
+            "name":"Beat the Forest Temple"
         }
     ],
     "10":[
         {
-            "child":"yes",
-            "jp":"魔法のマメ7つ以上\u001a",
-            "name":"At least 7 Magic Beans",
-            "subtypes":{
-                "wallet":1,
-                "child2":1
-            },
+            "jp":"500ルピー",
             "types":{
-                "beans":1
-            }
+                "wallet":1
+            },
+            "child":"yes",
+            "name":"500 Rupees"
         },
         {
+            "subtypes":{
+                "wallet":1
+            },
+            "jp":"デクの樹様の中の黄金のスタルチュラ4匹",
+            "types":{
+                "deku":1
+            },
             "child":"yes",
+            "name":"All 4 Skulltulas in Deku Tree"
+        },
+        {
+            "subtypes":{
+                "child2":1,
+                "wallet":1
+            },
+            "jp":"魔法のマメ7つ以上\u001a",
+            "types":{
+                "beans":1
+            },
+            "child":"yes",
+            "name":"At least 7 Magic Beans"
+        },
+        {
             "jp":"大オクタ撃破",
-            "name":"Defeat Big Octo",
             "types":{
                 "jabu":1,
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat Big Octo"
         },
         {
-            "child":"yes",
-            "jp":"37番目のハートのかけら(子供のゲルドの砦)",
-            "name":"37th heart piece (Child Fortress)",
             "subtypes":{
-                "kd":1,
-                "hearts":1
+                "hearts":1,
+                "kd":1
             },
+            "jp":"37番目のハートのかけら(子供のゲルドの砦)",
             "types":{
                 "fortress":1
-            }
+            },
+            "child":"yes",
+            "name":"37th heart piece (Child Fortress)"
         },
         {
-            "child":"no",
-            "jp":"水の神殿クリア",
-            "name":"Beat the Water Temple",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"水の神殿クリア",
             "types":{
                 "water":1
-            }
+            },
+            "child":"yes",
+            "name":"Beat the Water Temple"
         },
         {
-            "child":"yes",
-            "jp":"森のメダル",
-            "name":"Forest Medallion",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"森のメダル",
             "types":{
-                "lightarrow":1,
-                "forest":1,
                 "zl":1,
+                "pg":1,
                 "atrade":1,
-                "pg":1
-            }
+                "lightarrow":1,
+                "forest":1
+            },
+            "child":"yes",
+            "name":"Forest Medallion"
         },
         {
-            "child":"yes",
             "jp":"ゲルドの修練場の未使用のカギ6つ",
-            "name":"6 unused keys in Gerudo Training Grounds",
             "types":{
                 "fortress":1
-            }
+            },
+            "child":"yes",
+            "name":"6 unused keys in Gerudo Training Grounds"
         },
         {
-            "child":"yes",
-            "jp":"魂のレクイエム",
-            "name":"Requiem of Spirit",
             "subtypes":{
                 "songs":1
             },
+            "jp":"魂のレクイエム",
             "types":{
                 "spirit":1
-            }
+            },
+            "child":"yes",
+            "name":"Requiem of Spirit"
         },
         {
-            "child":"no",
-            "jp":"歌6つ以上\u001a",
-            "name":"At least 6 songs",
             "subtypes":{
                 "child2":1
             },
+            "jp":"歌6つ以上\u001a",
             "types":{
                 "zl":1,
                 "songs":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"At least 6 songs"
         }
     ],
     "11":[
         {
-            "child":"no",
-            "jp":"闇の神殿の黄金のスタルチュラ4匹以上",
-            "name":"At least 4 Skulltulas in Shadow Temple",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"ロンロン牧場エリアの黄金のスタルチュラ4匹",
+            "types":{
+                "lonlon":1,
+                "jabu":1
+            },
+            "child":"yes",
+            "name":"All 4 Lon-Lon Ranch area Skulltulas"
+        },
+        {
+            "subtypes":{
+                "hearts":1,
+                "bosskey":1
+            },
+            "jp":"ボンゴボンゴ撃破",
             "types":{
                 "shadow":1
-            }
+            },
+            "child":"yes",
+            "name":"Defeat Bongo-Bongo"
         },
         {
-            "child":"no",
-            "jp":"カカリコ村エリアの黄金のスタルチュラ8匹",
-            "name":"All 8 Kakariko area Skulltulas",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"闇の神殿の黄金のスタルチュラ4匹以上",
             "types":{
-                "botw":1
-            }
+                "shadow":1
+            },
+            "child":"no",
+            "name":"At least 4 Skulltulas in Shadow Temple"
         },
         {
-            "child":"yes",
+            "subtypes":{
+                "wallet":1
+            },
+            "jp":"カカリコ村エリアの黄金のスタルチュラ8匹",
+            "types":{
+                "botw":1
+            },
+            "child":"no",
+            "name":"All 8 Kakariko area Skulltulas"
+        },
+        {
             "jp":"ミラーシールド\u001a",
-            "name":"Mirror Shield",
             "types":{
                 "spirit":1,
                 "shields":1
-            }
+            },
+            "child":"yes",
+            "name":"Mirror Shield"
         },
         {
-            "child":"no",
-            "jp":"森の神殿の黄金のスタルチュラ5匹",
-            "name":"All 5 Skulltulas in Forest Temple",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"森の神殿の黄金のスタルチュラ5匹",
             "types":{
                 "forest":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"デクの樹様の中の黄金のスタルチュラ4匹",
-            "name":"All 4 Skulltulas in Deku Tree",
-            "subtypes":{
-                "wallet":1
             },
-            "types":{
-                "deku":1
-            }
+            "child":"no",
+            "name":"All 5 Skulltulas in Forest Temple"
         },
         {
-            "child":"no",
-            "jp":"水のメダル",
-            "name":"Water Medallion",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"水のメダル",
             "types":{
+                "zl":1,
                 "lightarrow":1,
                 "water":1,
-                "atrade":1,
-                "zl":1
-            }
+                "atrade":1
+            },
+            "child":"yes",
+            "name":"Water Medallion"
         },
         {
-            "child":"yes",
             "jp":"ゲルドの会員証",
-            "name":"Gerudo's Card",
             "types":{
                 "fortress":1
-            }
+            },
+            "child":"yes",
+            "name":"Gerudo's Card"
         },
         {
-            "child":"no",
-            "jp":"エイミー撃破(緑のポウ)ｴ",
-            "name":"Defeat Amy (Green Poe)",
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"エイミー撃破(緑のポウ)ｴ",
             "types":{
+                "fortress":1,
                 "quiver":1,
-                "forest":1,
-                "fortress":1
-            }
+                "forest":1
+            },
+            "child":"no",
+            "name":"Defeat Amy (Green Poe)"
         }
     ],
     "12":[
         {
-            "child":"yes",
-            "jp":"もだえ石",
-            "name":"Stone of Agony",
+            "subtypes":{
+                "hearts":1,
+                "bosskey":1
+            },
+            "jp":"闇の神殿クリア",
             "types":{
-                "wallet":1
-            }
+                "shadow":1
+            },
+            "child":"yes",
+            "name":"Beat the Shadow Temple"
         },
         {
-            "child":"no",
-            "jp":"炎の結界の最後の部屋に到達\u001a",
-            "name":"Get to the end of Fire Trial",
             "subtypes":{
                 "bosskey":1
             },
+            "jp":"炎の結界の最後の部屋に到達\u001a",
             "types":{
-                "strength":1,
+                "fire":1,
                 "ganon":1,
-                "fire":1
-            }
+                "strength":1
+            },
+            "child":"no",
+            "name":"Get to the end of Fire Trial"
         },
         {
-            "child":"yes",
             "jp":"金のグローブ",
-            "name":"Golden Gauntlets",
             "types":{
-                "deku":1,
                 "strength":1,
+                "deku":1,
                 "ganon":1
-            }
+            },
+            "child":"yes",
+            "name":"Golden Gauntlets"
         },
         {
-            "child":"yes",
             "jp":"魂の神殿のボムチュウ取得\u001a",
-            "name":"Get Bombchu chest in Spirit Temple",
             "types":{
                 "spirit":1
-            }
+            },
+            "child":"yes",
+            "name":"Get Bombchu chest in Spirit Temple"
         },
         {
-            "child":"yes",
-            "jp":"ジャブジャブ様のお腹の黄金のスタルチュラ4匹",
-            "name":"All 4 Skulltulas in Jabu-Jabu",
             "subtypes":{
-                "wallet":1,
-                "hearts":1
+                "hearts":1,
+                "wallet":1
             },
+            "jp":"ジャブジャブ様のお腹の黄金のスタルチュラ4匹",
             "types":{
                 "jabu":1,
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"All 4 Skulltulas in Jabu-Jabu"
         },
         {
-            "child":"no",
-            "jp":"妖精の弓",
-            "name":"Fairy Bow",
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"妖精の弓",
             "types":{
                 "quiver":1,
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"Fairy Bow"
         },
         {
-            "child":"no",
             "jp":"ダークリンク撃破",
-            "name":"Defeat Dark Link",
             "types":{
                 "water":1,
                 "ice":1
-            }
+            },
+            "child":"no",
+            "name":"Defeat Dark Link"
         },
         {
-            "child":"no",
             "jp":"炎の矢",
-            "name":"Fire Arrow",
             "types":{
-                "quiver":1,
+                "fortress":1,
                 "firearrow":1,
                 "water":1,
-                "fortress":1
-            }
+                "quiver":1
+            },
+            "child":"no",
+            "name":"Fire Arrow"
         }
     ],
     "13":[
         {
-            "child":"yes",
-            "jp":"ハート7つ",
-            "name":"7 Hearts",
+            "jp":"もだえ石",
             "types":{
-                "hearts":1
-            }
+                "wallet":1
+            },
+            "child":"yes",
+            "name":"Stone of Agony"
         },
         {
+            "jp":"ハート7つ",
+            "types":{
+                "hearts":1
+            },
             "child":"yes",
-            "jp":"ジャブジャブ様のお腹のマップとコンパス",
-            "name":"Map & Compass in Jabu-Jabu",
+            "name":"7 Hearts"
+        },
+        {
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"ジャブジャブ様のお腹のマップとコンパス",
             "types":{
                 "jabu":1
-            }
+            },
+            "child":"yes",
+            "name":"Map & Compass in Jabu-Jabu"
         },
         {
-            "child":"yes",
-            "jp":"ボムチュウボウリングの景品",
-            "name":"Win Bombchu Bowling Prize",
             "subtypes":{
-                "child2":1,
-                "hearts":1
+                "hearts":1,
+                "child2":1
             },
+            "jp":"ボムチュウボウリングの景品",
             "types":{
                 "kd":1,
                 "dc":1
-            }
-        },
-        {
+            },
             "child":"yes",
-            "jp":"銀のグローブ",
-            "name":"Silver Gauntlets",
-            "types":{
-                "spirit":1,
-                "strength":1
-            }
+            "name":"Win Bombchu Bowling Prize"
         },
         {
-            "child":"no",
+            "jp":"銀のグローブ",
+            "types":{
+                "strength":1,
+                "spirit":1
+            },
+            "child":"yes",
+            "name":"Silver Gauntlets"
+        },
+        {
             "jp":"ロングフック",
-            "name":"Longshot",
             "types":{
                 "water":1,
                 "ice":1
-            }
+            },
+            "child":"no",
+            "name":"Longshot"
         },
         {
-            "child":"no",
-            "jp":"剣3種類と靴3種類",
-            "name":"3 Swords & 3 Boots",
             "subtypes":{
                 "mapcompass":1,
                 "wallet":1
             },
+            "jp":"剣3種類と靴3種類",
             "types":{
-                "boots":1,
                 "swords":1,
-                "ice":1
-            }
+                "ice":1,
+                "boots":1
+            },
+            "child":"no",
+            "name":"3 Swords & 3 Boots"
         }
     ],
     "14":[
         {
-            "child":"yes",
-            "jp":"ハイラル平原エリアの黄金ノスタルチュラ2匹",
-            "name":"Both Hyrule Field area Skulltulas",
-            "subtypes":{
-                "wallet":1
-            },
-            "types":{
-                "water":1,
-                "zl":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"ロンロン牧場エリアの黄金のスタルチュラ4匹",
-            "name":"All 4 Lon-Lon Ranch area Skulltulas",
-            "subtypes":{
-                "wallet":1
-            },
-            "types":{
-                "jabu":1,
-                "lonlon":1
-            }
-        },
-        {
-            "child":"yes",
             "jp":"魔力2倍",
-            "name":"Double Magic",
             "types":{
                 "zl":1,
                 "dmc":1
-            }
+            },
+            "child":"yes",
+            "name":"Double Magic"
         },
         {
-            "child":"no",
-            "jp":"歌8つ以上",
-            "name":"At least 8 songs",
             "subtypes":{
                 "child2":1
             },
+            "jp":"歌8つ以上",
             "types":{
                 "zl":1,
                 "songs":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"At least 8 songs"
         },
         {
-            "child":"no",
-            "jp":"銅のグローブ",
-            "name":"Bronze Gauntlets",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"銅のグローブ",
             "types":{
-                "bulletbag":1,
                 "strength":1,
                 "ganon":1,
+                "bulletbag":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"Bronze Gauntlets"
         },
         {
-            "child":"yes",
             "jp":"キータンのお面",
-            "name":"Keaton Mask",
             "types":{
                 "zl":1
-            }
+            },
+            "child":"yes",
+            "name":"Keaton Mask"
         },
         {
-            "child":"no",
-            "jp":"服3種類と靴3種類\u001a",
-            "name":"3 Tunics & 3 Boots",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"服3種類と靴3種類\u001a",
             "types":{
-                "boots":1,
+                "fire":1,
                 "ice":1,
                 "tunics":1,
-                "fire":1
-            }
+                "boots":1
+            },
+            "child":"no",
+            "name":"3 Tunics & 3 Boots"
         },
         {
-            "child":"no",
-            "jp":"森の神殿のボス部屋のカギ",
-            "name":"Forest Temple Boss Key",
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"森の神殿のボス部屋のカギ",
             "types":{
-                "quiver":1,
                 "claimcheck":1,
+                "quiver":1,
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"Forest Temple Boss Key"
         }
     ],
     "15":[
         {
-            "child":"no",
-            "jp":"森の神殿のマップとコンパス",
-            "name":"Map & Compass in Forest Temple",
-            "subtypes":{
-                "mapcompass":1,
-                "bosskey":1
-            },
-            "types":{
-                "quiver":1,
-                "forest":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"炎の神殿のマップとコンパス",
-            "name":"Map & Compass in Fire Temple",
-            "subtypes":{
-                "mapcompass":1,
-                "bosskey":1
-            },
-            "types":{
-                "fire":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"ゲルドの谷エリアの黄金のスタルチュラ4匹",
-            "name":"All 4 Gerudo Valley area Skulltulas",
-            "subtypes":{
-                "wallet":1,
-                "child2":1
-            },
-            "types":{
-                "fortress":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"デスマウンテンエリアの黄金のスタルチュラ8匹",
-            "name":"All 8 Death Mountain area Skulltulas",
-            "subtypes":{
-                "wallet":1,
-                "child2":1
-            },
-            "types":{
-                "dmc":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"魔法のマメ9つ以上\u001a",
-            "name":"At least 9 Magic Beans",
-            "subtypes":{
-                "wallet":1,
-                "child2":1
-            },
-            "types":{
-                "beans":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"青のグローブ",
-            "name":"Blue Gauntlets",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"ハイラル平原エリアの黄金ノスタルチュラ2匹",
             "types":{
-                "spirit":1,
+                "zl":1,
+                "water":1
+            },
+            "child":"yes",
+            "name":"Both Hyrule Field area Skulltulas"
+        },
+        {
+            "subtypes":{
+                "mapcompass":1,
+                "bosskey":1
+            },
+            "jp":"森の神殿のマップとコンパス",
+            "types":{
+                "quiver":1,
+                "forest":1
+            },
+            "child":"no",
+            "name":"Map & Compass in Forest Temple"
+        },
+        {
+            "subtypes":{
+                "mapcompass":1,
+                "bosskey":1
+            },
+            "jp":"炎の神殿のマップとコンパス",
+            "types":{
+                "fire":1
+            },
+            "child":"no",
+            "name":"Map & Compass in Fire Temple"
+        },
+        {
+            "subtypes":{
+                "wallet":1,
+                "child2":1
+            },
+            "jp":"ゲルドの谷エリアの黄金のスタルチュラ4匹",
+            "types":{
+                "fortress":1
+            },
+            "child":"no",
+            "name":"All 4 Gerudo Valley area Skulltulas"
+        },
+        {
+            "subtypes":{
+                "child2":1,
+                "wallet":1
+            },
+            "jp":"デスマウンテンエリアの黄金のスタルチュラ8匹",
+            "types":{
+                "dmc":1
+            },
+            "child":"no",
+            "name":"All 8 Death Mountain area Skulltulas"
+        },
+        {
+            "subtypes":{
+                "child2":1,
+                "wallet":1
+            },
+            "jp":"魔法のマメ9つ以上\u001a",
+            "types":{
+                "beans":1
+            },
+            "child":"yes",
+            "name":"At least 9 Magic Beans"
+        },
+        {
+            "subtypes":{
+                "wallet":1
+            },
+            "jp":"青のグローブ",
+            "types":{
                 "strength":1,
                 "bulletbag":1,
+                "spirit":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"Blue Gauntlets"
         }
     ],
     "16":[
         {
-            "child":"no",
-            "jp":"メガトンハンマー",
-            "name":"Megaton Hammer",
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"メガトンハンマー",
             "types":{
                 "fire":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"マップ6つ",
-            "name":"6 Maps",
-            "types":{
-                "mapcompass":1,
-                "claimcheck":1
-            }
-        },
-        {
+            },
             "child":"no",
-            "jp":"ゾーラの里エリアの黄金のスタルチュラ8匹",
-            "name":"All 8 Zora's Domain area Skulltulas",
+            "name":"Megaton Hammer"
+        },
+        {
+            "jp":"マップ6つ",
+            "types":{
+                "claimcheck":1,
+                "mapcompass":1
+            },
+            "child":"yes",
+            "name":"6 Maps"
+        },
+        {
             "subtypes":{
                 "wallet":1
             },
+            "jp":"ゾーラの里エリアの黄金のスタルチュラ8匹",
             "types":{
                 "jabu":1,
                 "ice":1
-            }
+            },
+            "child":"no",
+            "name":"All 8 Zora's Domain area Skulltulas"
         },
         {
-            "child":"yes",
-            "jp":"バリネード撃破",
-            "name":"Defeat Barinade",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"バリネード撃破",
             "types":{
                 "jabu":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"防御力2倍\u001a",
-            "name":"Double Defense",
-            "types":{
-                "ganon":1,
-                "zl":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"水の神殿の黄金のスタルチュラ3匹以上",
-            "name":"At least 3 Skulltulas in Water Temple",
-            "subtypes":{
-                "wallet":1
             },
+            "child":"yes",
+            "name":"Defeat Barinade"
+        },
+        {
+            "jp":"防御力2倍\u001a",
             "types":{
-                "water":1,
                 "zl":1,
-                "ice":1
-            }
+                "ganon":1
+            },
+            "child":"no",
+            "name":"Double Defense"
         }
     ],
     "17":[
         {
+            "subtypes":{
+                "wallet":1
+            },
+            "jp":"水の神殿の黄金のスタルチュラ3匹以上",
+            "types":{
+                "zl":1,
+                "water":1,
+                "ice":1
+            },
             "child":"no",
+            "name":"At least 3 Skulltulas in Water Temple"
+        },
+        {
+            "subtypes":{
+                "hearts":1,
+                "songs":1
+            },
             "jp":"カエルのハートのかけら(嵐の歌)",
-            "name":"Frog's Heart Piece",
-            "subtypes":{
-                "songs":1,
-                "hearts":1
-            },
             "types":{
+                "pg":1,
                 "child2":1,
-                "forest":1,
-                "pg":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"闇の神殿のボス部屋のカギ",
-            "name":"Shadow Temple Boss Key",
-            "subtypes":{
-                "bosskey":1,
-                "hearts":1
+                "forest":1
             },
-            "types":{
-                "shadow":1,
-                "zl":1
-            }
+            "child":"no",
+            "name":"Frog's Heart Piece"
         },
         {
-            "child":"no",
-            "jp":"フレアダンサー2体撃破",
-            "name":"Defeat both Flare Dancers",
+            "subtypes":{
+                "hearts":1,
+                "bosskey":1
+            },
+            "jp":"闇の神殿のボス部屋のカギ",
+            "types":{
+                "zl":1,
+                "shadow":1
+            },
+            "child":"yes",
+            "name":"Shadow Temple Boss Key"
+        },
+        {
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"フレアダンサー2体撃破",
             "types":{
                 "fire":1
-            }
+            },
+            "child":"no",
+            "name":"Defeat both Flare Dancers"
         },
         {
-            "child":"yes",
-            "jp":"ジャブジャブ様のお腹クリア",
-            "name":"Beat Jabu-Jabu's Belly",
             "subtypes":{
-                "child2":1,
-                "hearts":1
+                "hearts":1,
+                "child2":1
             },
+            "jp":"ジャブジャブ様のお腹クリア",
             "types":{
                 "jabu":1
-            }
+            },
+            "child":"yes",
+            "name":"Beat Jabu-Jabu's Belly"
         },
         {
-            "child":"yes",
-            "jp":"魂の神殿の黄金のスタルチュラ5匹",
-            "name":"All 5 Skulltulas in Spirit Temple",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"魂の神殿の黄金のスタルチュラ5匹",
             "types":{
                 "spirit":1
-            }
+            },
+            "child":"yes",
+            "name":"All 5 Skulltulas in Spirit Temple"
         },
         {
-            "child":"no",
-            "jp":"剣3種類と盾3種類\u001a",
-            "name":"3 Swords & 3 Shields",
             "subtypes":{
                 "wallet":1
             },
+            "jp":"剣3種類と盾3種類\u001a",
             "types":{
-                "spirit":1,
                 "swords":1,
+                "spirit":1,
                 "shields":1
-            }
+            },
+            "child":"no",
+            "name":"3 Swords & 3 Shields"
         },
         {
-            "child":"no",
             "jp":"光の結界の最後の部屋に到達\u001a",
-            "name":"Get to the end of Light Trial",
             "types":{
-                "strength":1,
+                "zl":1,
                 "ganon":1,
-                "zl":1
-            }
+                "strength":1
+            },
+            "child":"no",
+            "name":"Get to the end of Light Trial"
         },
         {
-            "child":"no",
             "jp":"ゲルドの修練場の未使用のカギ8つ",
-            "name":"8 different unused keys in Gerudo Training Grounds",
             "types":{
-                "quiver":1,
+                "fortress":1,
                 "strength":1,
-                "fortress":1
-            }
+                "quiver":1
+            },
+            "child":"no",
+            "name":"8 different unused keys in Gerudo Training Grounds"
         }
     ],
     "18":[
         {
-            "child":"no",
-            "jp":"アイアンナック(ナボール)撃破",
-            "name":"Defeat Nabooru-Knuckle",
+            "jp":"コンパス6つ",
             "types":{
-                "spirit":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"サリアの歌",
-            "name":"Saria's Song",
-            "subtypes":{
-                "child2":1,
-                "songs":1
+                "mapcompass":1
             },
-            "types":{
-                "saria":1,
-                "zl":1
-            }
+            "child":"yes",
+            "name":"6 Compasses"
         },
         {
-            "child":"yes",
             "jp":"フロルの風",
-            "name":"Farore's Wind",
             "types":{
                 "zl":1,
                 "ice":1
-            }
+            },
+            "child":"yes",
+            "name":"Farore's Wind"
         },
         {
-            "child":"no",
+            "subtypes":{
+                "mapcompass":1,
+                "wallet":1,
+                "bosskey":1
+            },
             "jp":"炎の神殿の黄金のスタルチュラ5匹",
-            "name":"All 5 Skulltulas in Fire Temple",
-            "subtypes":{
-                "mapcompass":1,
-                "bosskey":1,
-                "wallet":1
-            },
             "types":{
                 "fire":1
-            }
+            },
+            "child":"no",
+            "name":"All 5 Skulltulas in Fire Temple"
         },
         {
-            "child":"no",
-            "jp":"ヴァルバジア撃破",
-            "name":"Defeat Volvagia",
             "subtypes":{
-                "mapcompass":1,
-                "bosskey":1,
                 "pg":1,
-                "hearts":1
+                "mapcompass":1,
+                "hearts":1,
+                "bosskey":1
             },
+            "jp":"ヴァルバジア撃破",
             "types":{
                 "fire":1
-            }
+            },
+            "child":"no",
+            "name":"Defeat Volvagia"
         },
         {
-            "child":"no",
-            "jp":"歌9つ以上",
-            "name":"At least 9 songs",
             "subtypes":{
                 "child2":1
             },
+            "jp":"歌9つ以上",
             "types":{
                 "zl":1,
                 "songs":1,
                 "atrade":1
-            }
+            },
+            "child":"no",
+            "name":"At least 9 songs"
         }
     ],
     "19":[
         {
-            "child":"no",
-            "jp":"ボンゴボンゴ撃破",
-            "name":"Defeat Bongo-Bongo",
-            "subtypes":{
-                "bosskey":1,
-                "hearts":1
-            },
+            "jp":"アイアンナック(ナボール)撃破",
             "types":{
-                "deku":1,
-                "shadow":1,
-                "zl":1
-            }
+                "spirit":1
+            },
+            "child":"no",
+            "name":"Defeat Nabooru-Knuckle"
         },
         {
+            "subtypes":{
+                "child2":1,
+                "songs":1
+            },
+            "jp":"サリアの歌",
+            "types":{
+                "zl":1,
+                "saria":1
+            },
             "child":"yes",
+            "name":"Saria's Song"
+        },
+        {
             "jp":"ハート8つ",
-            "name":"8 Hearts",
             "types":{
-                "hearts":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"コンパス6つ",
-            "name":"6 Compasses",
-            "types":{
-                "mapcompass":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"盾3種類と服3種類\u001a",
-            "name":"3 Shields & 3 Tunics",
-            "types":{
-                "spirit":1,
-                "fire":1,
-                "shields":1,
-                "tunics":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"炎の神殿クリア",
-            "name":"Beat the Fire Temple",
-            "subtypes":{
-                "mapcompass":1,
-                "bosskey":1,
-                "pg":1,
                 "hearts":1
             },
+            "child":"yes",
+            "name":"8 Hearts"
+        },
+        {
+            "jp":"盾3種類と服3種類\u001a",
+            "types":{
+                "fire":1,
+                "spirit":1,
+                "tunics":1,
+                "shields":1
+            },
+            "child":"no",
+            "name":"3 Shields & 3 Tunics"
+        },
+        {
+            "subtypes":{
+                "pg":1,
+                "mapcompass":1,
+                "hearts":1,
+                "bosskey":1
+            },
+            "jp":"炎の神殿クリア",
             "types":{
                 "fire":1,
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"Beat the Fire Temple"
         }
     ],
     "20":[
         {
-            "child":"no",
             "jp":"光の矢",
-            "name":"Light Arrows",
             "types":{
-                "lightarrow":1,
                 "zl":1,
+                "lightarrow":1,
                 "atrade":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"闇の神殿クリア",
-            "name":"Beat the Shadow Temple",
-            "subtypes":{
-                "bosskey":1,
-                "hearts":1
             },
-            "types":{
-                "deku":1,
-                "shadow":1,
-                "zl":1
-            }
+            "child":"no",
+            "name":"Light Arrows"
         },
         {
-            "child":"no",
-            "jp":"メグ撃破(紫のポウ)",
-            "name":"Defeat Meg (purple Poe)",
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"メグ撃破(紫のポウ)",
             "types":{
                 "quiver":1,
                 "forest":1
-            }
+            },
+            "child":"no",
+            "name":"Defeat Meg (purple Poe)"
         },
         {
-            "child":"no",
-            "jp":"幻影の砂漠・巨大邪神像エリアの黄金のスタルチュラ4匹",
-            "name":"All 4 Wasteland/ Colossus area Skulltulas",
             "subtypes":{
-                "wallet":1,
+                "kd":1,
                 "child2":1,
-                "kd":1
+                "wallet":1
             },
+            "jp":"幻影の砂漠・巨大邪神像エリアの黄金のスタルチュラ4匹",
             "types":{
                 "spirit":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"ゴロンの腕輪",
-            "name":"Goron Bracelet",
-            "subtypes":{
-                "child2":1
             },
-            "types":{
-                "strength":1,
-                "saria":1,
-                "zl":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"ネールの愛",
-            "name":"Nayru's Love",
-            "types":{
-                "spirit":1,
-                "zl":1
-            }
-        },
-        {
             "child":"no",
-            "jp":"炎の神殿で９人のゴロンを全員救う",
-            "name":"Free all 9 gorons in Fire Temple",
+            "name":"All 4 Wasteland/ Colossus area Skulltulas"
+        },
+        {
+            "jp":"ネールの愛",
+            "types":{
+                "zl":1,
+                "spirit":1
+            },
+            "child":"yes",
+            "name":"Nayru's Love"
+        },
+        {
             "subtypes":{
                 "mapcompass":1,
                 "bosskey":1
             },
+            "jp":"炎の神殿で９人のゴロンを全員救う",
             "types":{
                 "fire":1
-            }
+            },
+            "child":"no",
+            "name":"Free all 9 gorons in Fire Temple"
         }
     ],
     "21":[
         {
-            "child":"no",
-            "jp":"ハイリア湖畔エリアの黄金のスタルチュラ5匹",
-            "name":"All 5 Lake Hylia Skulltulas",
             "subtypes":{
-                "mapcompass":1,
-                "wallet":1,
                 "child2":1
             },
+            "jp":"ゴロンの腕輪",
+            "types":{
+                "zl":1,
+                "strength":1,
+                "saria":1
+            },
+            "child":"yes",
+            "name":"Goron Bracelet"
+        },
+        {
+            "subtypes":{
+                "mapcompass":1,
+                "child2":1,
+                "wallet":1
+            },
+            "jp":"ハイリア湖畔エリアの黄金のスタルチュラ5匹",
             "types":{
                 "water":1,
                 "ice":1
-            }
+            },
+            "child":"no",
+            "name":"All 5 Lake Hylia Skulltulas"
         },
         {
-            "child":"yes",
-            "jp":"ディンの炎\u001a",
-            "name":"Din's Fire",
             "subtypes":{
                 "child2":1
             },
+            "jp":"ディンの炎\u001a",
             "types":{
                 "zl":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"魂の結界の最後の部屋に到達\u001a",
-            "name":"Get to the end of Spirit Trial",
-            "types":{
-                "spirit":1,
-                "quiver":1,
-                "ganon":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"城下町エリアの黄金のスタルチュラ4匹",
-            "name":"All 4 Market area Skulltulas",
-            "subtypes":{
-                "wallet":1,
-                "hearts":1
             },
-            "types":{
-                "child2":1,
-                "forest":1,
-                "pg":1
-            }
+            "child":"yes",
+            "name":"Din's Fire"
         },
         {
-            "child":"yes",
-            "jp":"こわそなお面",
-            "name":"Spooky Mask",
+            "jp":"魂の結界の最後の部屋に到達\u001a",
             "types":{
-                "beans":1,
-                "fortress":1,
+                "ganon":1,
+                "spirit":1,
+                "quiver":1
+            },
+            "child":"no",
+            "name":"Get to the end of Spirit Trial"
+        },
+        {
+            "subtypes":{
+                "hearts":1,
+                "wallet":1
+            },
+            "jp":"城下町エリアの黄金のスタルチュラ4匹",
+            "types":{
+                "pg":1,
+                "child2":1,
+                "forest":1
+            },
+            "child":"no",
+            "name":"All 4 Market area Skulltulas"
+        },
+        {
+            "jp":"こわそなお面",
+            "types":{
                 "zl":1,
+                "fortress":1,
+                "beans":1,
                 "saria":1
-            }
+            },
+            "child":"yes",
+            "name":"Spooky Mask"
         }
     ],
     "22":[
         {
-            "child":"no",
-            "jp":"魂の神殿のボス部屋のカギ",
-            "name":"Spirit Temple Boss Key",
+            "jp":"マップ7つ",
+            "types":{
+                "claimcheck":1,
+                "mapcompass":1
+            },
+            "child":"yes",
+            "name":"7 Maps"
+        },
+        {
             "subtypes":{
                 "bosskey":1
             },
+            "jp":"魂の神殿のボス部屋のカギ",
             "types":{
-                "spirit":1,
+                "zl":1,
                 "lightarrow":1,
-                "zl":1
-            }
-        },
-        {
+                "spirit":1
+            },
             "child":"no",
-            "jp":"矢立て(50)",
-            "name":"Quiver (50)",
-            "types":{
-                "quiver":1,
-                "beans":1,
-                "fortress":1
-            }
+            "name":"Spirit Temple Boss Key"
         },
         {
-            "child":"yes",
-            "jp":"盾3種類と靴3種類\u001a",
-            "name":"3 Shields & 3 Boots",
+            "jp":"矢立て(50)",
+            "types":{
+                "fortress":1,
+                "beans":1,
+                "quiver":1
+            },
+            "child":"no",
+            "name":"Quiver (50)"
+        },
+        {
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"盾3種類と靴3種類\u001a",
             "types":{
+                "ice":1,
                 "spirit":1,
-                "boots":1,
                 "shields":1,
-                "ice":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"水の結界の最後の部屋に到達\u001a",
-            "name":"Get to the end of Water Trial",
-            "subtypes":{
-                "mapcompass":1,
-                "bosskey":1,
-                "pg":1
+                "boots":1
             },
-            "types":{
-                "fire":1,
-                "ganon":1,
-                "lightarrow":1
-            }
+            "child":"yes",
+            "name":"3 Shields & 3 Boots"
         }
     ],
     "23":[
         {
-            "child":"yes",
-            "jp":"迷いの森のハートのかけら２つ",
-            "name":"Both heart pieces in Lost Woods",
             "subtypes":{
-                "child2":1,
+                "hearts":1,
                 "songs":1,
-                "hearts":1
+                "child2":1
             },
+            "jp":"迷いの森のハートのかけら２つ",
             "types":{
                 "zl":1
-            }
+            },
+            "child":"yes",
+            "name":"Both heart pieces in Lost Woods"
         },
         {
-            "child":"yes",
-            "jp":"マップ7つ",
-            "name":"7 Maps",
-            "types":{
-                "mapcompass":1,
-                "claimcheck":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"魂の神殿のマップとコンパス",
-            "name":"Map & Compass in Spirit Temple",
             "subtypes":{
                 "mapcompass":1
             },
+            "jp":"魂の神殿のマップとコンパス",
             "types":{
-                "spirit":1,
-                "zl":1
-            }
+                "zl":1,
+                "spirit":1
+            },
+            "child":"yes",
+            "name":"Map & Compass in Spirit Temple"
         },
         {
-            "child":"no",
-            "jp":"ツインローバ撃破",
-            "name":"Defeat Twinrova",
             "subtypes":{
                 "hearts":1
             },
+            "jp":"ツインローバ撃破",
             "types":{
                 "spirit":1
-            }
+            },
+            "child":"no",
+            "name":"Defeat Twinrova"
+        },
+        {
+            "subtypes":{
+                "pg":1,
+                "mapcompass":1,
+                "bosskey":1
+            },
+            "jp":"水の結界の最後の部屋に到達\u001a",
+            "types":{
+                "fire":1,
+                "ganon":1,
+                "lightarrow":1
+            },
+            "child":"no",
+            "name":"Get to the end of Water Trial"
         }
     ],
     "24":[
         {
-            "child":"no",
-            "jp":"魂の神殿クリア",
-            "name":"Beat the Spirit Temple",
+            "subtypes":{
+                "child2":1
+            },
+            "jp":"魔法のアイテム２つ",
+            "types":{
+                "zl":1,
+                "spirit":1
+            },
+            "child":"yes",
+            "name":"Two Fairy Spells"
+        },
+        {
             "subtypes":{
                 "hearts":1
             },
+            "jp":"魂の神殿クリア",
             "types":{
                 "spirit":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"ハート9つ",
-            "name":"9 Hearts",
-            "types":{
-                "hearts":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"闇の神殿の黄金のスタルチュラ5匹",
-            "name":"All 5 Skulltulas in Shadow Temple",
-            "subtypes":{
-                "bosskey":1,
-                "wallet":1
             },
-            "types":{
-                "shadow":1,
-                "zl":1
-            }
+            "child":"no",
+            "name":"Beat the Spirit Temple"
         },
         {
-            "child":"no",
-            "jp":"闇の結界の最後の部屋に到達\u001a",
-            "name":"Get to the end of Shadow Trial",
             "subtypes":{
-                "mapcompass":1,
-                "lightarrow":1,
-                "pg":1,
+                "wallet":1,
                 "bosskey":1
             },
+            "jp":"闇の神殿の黄金のスタルチュラ5匹",
+            "types":{
+                "zl":1,
+                "shadow":1
+            },
+            "child":"no",
+            "name":"All 5 Skulltulas in Shadow Temple"
+        },
+        {
+            "subtypes":{
+                "pg":1,
+                "mapcompass":1,
+                "lightarrow":1,
+                "bosskey":1
+            },
+            "jp":"闇の結界の最後の部屋に到達\u001a",
             "types":{
                 "fire":1,
                 "ganon":1
-            }
+            },
+            "child":"no",
+            "name":"Get to the end of Shadow Trial"
         }
     ],
     "25":[
         {
-            "child":"no",
+            "jp":"ハート9つ",
+            "types":{
+                "hearts":1
+            },
+            "child":"yes",
+            "name":"9 Hearts"
+        },
+        {
             "jp":"コンパス7つ",
-            "name":"7 Compasses",
             "types":{
                 "mapcompass":1
-            }
-        },
-        {
-            "child":"no",
-            "jp":"水の神殿の黄金のスタルチュラ5匹",
-            "name":"All 5 Skulltulas in Water Temple",
-            "types":{
-                "water":1,
-                "zl":1
-            }
-        },
-        {
-            "child":"yes",
-            "jp":"魔法のアイテム２つ",
-            "name":"Two Fairy Spells",
-            "subtypes":{
-                "child2":1
             },
-            "types":{
-                "spirit":1,
-                "zl":1
-            }
+            "child":"no",
+            "name":"7 Compasses"
         },
         {
+            "jp":"水の神殿の黄金のスタルチュラ5匹",
+            "types":{
+                "zl":1,
+                "water":1
+            },
             "child":"no",
-            "jp":"緑のグローブ\u001a",
-            "name":"Green Gauntlets",
+            "name":"All 5 Skulltulas in Water Temple"
+        },
+        {
             "subtypes":{
                 "wallet":1
             },
+            "jp":"緑のグローブ\u001a",
             "types":{
-                "bulletbag":1,
-                "strength":1,
-                "atrade":1,
                 "zl":1,
-                "saria":1
-            }
+                "strength":1,
+                "saria":1,
+                "bulletbag":1,
+                "atrade":1
+            },
+            "child":"no",
+            "name":"Green Gauntlets"
         }
     ]
 }
