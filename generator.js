@@ -211,6 +211,14 @@ ootBingoGenerator = function (bingoList, opts) {
             return 0;
         }
 
+        // given a row, get the squares in the board in that row
+        function getSquaresInRow(row) {
+            var rowIndices = rowElements[row];
+
+            return rowIndices.map(function(index) {
+                return bingoBoard[index];
+            });
+        }
 
         function checkLine(i, targetSquare) {
             // 100 is way higher than would ever be allowed, so use it
@@ -227,31 +235,29 @@ ootBingoGenerator = function (bingoList, opts) {
             var minSynergy = TOO_MUCH_SYNERGY;
 
             for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-                var synergy = 0;
-                var elements = rowElements[rows[rowIndex]];
+                var row = rows[rowIndex];
 
+                // total synergy in the row
+                var rowSynergy = 0;
+                // number of all child goals
                 var childCount = 0;
 
                 // a map of type -> list of type synergy values
                 var typesSynergies = {};
-
                 // a map of subtype -> list of subtype synergy values
                 var subtypesSynergies = {};
 
-                mergeTypeSynergies(typesSynergies, targetSquare.types);
-                mergeTypeSynergies(subtypesSynergies, targetSquare.subtypes);
+                var otherSquares = getSquaresInRow(row);
+                // TODO: I think this concat causes double counting, but it's needed for compatibility
+                var squaresInRow = otherSquares.concat([targetSquare]);
 
-                if (targetSquare.child == "yes") {
-                    childCount++;
-                }
+                for (var m = 0; m < squaresInRow.length; m++) {
+                    var squareInRow = squaresInRow[m];
 
-                for (var m = 0; m < elements.length; m++) {
-                    var otherSquare = bingoBoard[elements[m]];
+                    mergeTypeSynergies(typesSynergies, squareInRow.types);
+                    mergeTypeSynergies(subtypesSynergies, squareInRow.subtypes);
 
-                    mergeTypeSynergies(typesSynergies, otherSquare.types);
-                    mergeTypeSynergies(subtypesSynergies, otherSquare.subtypes);
-
-                    if (otherSquare.child == "yes") {
+                    if (squareInRow.child == "yes") {
                         childCount++;
                     }
                 }
@@ -275,7 +281,7 @@ ootBingoGenerator = function (bingoList, opts) {
                             return TOO_MUCH_SYNERGY
                         }
 
-                        synergy += synergies[n];
+                        rowSynergy += synergies[n];
                     }
                 }
 
@@ -289,8 +295,8 @@ ootBingoGenerator = function (bingoList, opts) {
                     return TOO_MUCH_SYNERGY;
                 }
 
-                maxSynergy = Math.max(maxSynergy, synergy);
-                minSynergy = Math.min(minSynergy, synergy);
+                maxSynergy = Math.max(maxSynergy, rowSynergy);
+                minSynergy = Math.min(minSynergy, rowSynergy);
             }
 
             return maxSynergy;
