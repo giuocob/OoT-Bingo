@@ -277,7 +277,7 @@ ootBingoGenerator = function (bingoList, opts) {
             }
 
             return {
-                typeSynergies: typesSynergies,
+                typesSynergies: typesSynergies,
                 subtypesSynergies: subtypesSynergies,
                 numChildGoals: numChildGoals
             };
@@ -299,7 +299,7 @@ ootBingoGenerator = function (bingoList, opts) {
             // why would a single large synergy matter more than the sum of small synergies...
             var MAX_INDIVIDUAL_SYNERGY = 3;
 
-            var typesSynergies = rowTypeSynergies.typeSynergies;
+            var typesSynergies = rowTypeSynergies.typesSynergies;
             var subtypesSynergies = rowTypeSynergies.subtypesSynergies;
 
             // Check each subtype found to see if there is a matching type somewhere in the row
