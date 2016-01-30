@@ -328,7 +328,7 @@ ootBingoGenerator = function (bingoList, opts) {
 
                 for (var n = 1; n < synergies.length; n++) {
                     if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
-                        return TOO_MUCH_SYNERGY
+                        return TOO_MUCH_SYNERGY;
                     }
 
                     rowSynergy += synergies[n];
