@@ -10,6 +10,10 @@ ootBingoGenerator = function (bingoList, opts) {
     var SEED = opts.seed || Math.ceil(999999 * Math.random()).toString();
     Math.seedrandom(SEED);
 
+    // 100 is way higher than would ever be allowed, so use it
+    // as a signal to get out
+    var TOO_MUCH_SYNERGY = 100;
+
     //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
     //Note: the rowElements relation is simply the inverse of the rowCheckList relation
     var rowElements = {
@@ -221,15 +225,6 @@ ootBingoGenerator = function (bingoList, opts) {
         }
 
         function checkLine(i, targetSquare) {
-            // 100 is way higher than would ever be allowed, so use it
-            // as a signal to get out
-            var TOO_MUCH_SYNERGY = 100;
-
-            // the maximum synergy value allowed for a single synergy before we puke
-            // not sure if we care about this?
-            // why would a single large synergy matter more than the sum of small synergies...
-            var MAX_INDIVIDUAL_SYNERGY = 3;
-
             var rows = rowCheckList[i];
             var maxSynergy = 0;
             var minSynergy = TOO_MUCH_SYNERGY;
@@ -242,36 +237,8 @@ ootBingoGenerator = function (bingoList, opts) {
                 var squaresInRow = otherSquares.concat([targetSquare]);
 
                 var rowTypeSynergies = calculateRowTypeSynergies(squaresInRow);
-
-                var typesSynergies = rowTypeSynergies.typeSynergies;
-                var subtypesSynergies = rowTypeSynergies.subtypesSynergies;
+                var effectiveRowSynergy = calculateEffectiveRowSynergy(rowTypeSynergies);
                 var childCount = rowTypeSynergies.numChildGoals;
-
-                // total synergy in the row
-                var rowSynergy = 0;
-
-                // Check each subtype found to see if there is a matching type somewhere in the row
-                // If so, add the subtype to the grand list
-                for (var subtype in subtypesSynergies) {
-                    if (subtype in typesSynergies) {
-                        typesSynergies[subtype].concat(subtypesSynergies[subtype]);
-                    }
-                }
-
-                // Assess final row synergy by removing the largest element from each type and adding the rest
-                for (var type in typesSynergies) {
-                    typesSynergies[type].sort();
-
-                    var synergies = typesSynergies[type];
-
-                    for (var n = 1; n < synergies.length; n++) {
-                        if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
-                            return TOO_MUCH_SYNERGY
-                        }
-
-                        rowSynergy += synergies[n];
-                    }
-                }
 
                 //Remove child-only rows, remove adult goals from short
                 // TODO: why does this have to be 6 instead of 5, I think there's duplicate counting?
@@ -283,8 +250,8 @@ ootBingoGenerator = function (bingoList, opts) {
                     return TOO_MUCH_SYNERGY;
                 }
 
-                maxSynergy = Math.max(maxSynergy, rowSynergy);
-                minSynergy = Math.min(minSynergy, rowSynergy);
+                maxSynergy = Math.max(maxSynergy, effectiveRowSynergy);
+                minSynergy = Math.min(minSynergy, effectiveRowSynergy);
             }
 
             return maxSynergy;
@@ -325,6 +292,45 @@ ootBingoGenerator = function (bingoList, opts) {
                 typeSynergies[type].push(newTypeSynergies[type]);
             }
         }
+
+        function calculateEffectiveRowSynergy(rowTypeSynergies) {
+            // the maximum synergy value allowed for a single synergy before we puke
+            // not sure if we care about this?
+            // why would a single large synergy matter more than the sum of small synergies...
+            var MAX_INDIVIDUAL_SYNERGY = 3;
+
+            var typesSynergies = rowTypeSynergies.typeSynergies;
+            var subtypesSynergies = rowTypeSynergies.subtypesSynergies;
+
+            // Check each subtype found to see if there is a matching type somewhere in the row
+            // If so, add the subtype to the grand list
+            for (var subtype in subtypesSynergies) {
+                if (subtype in typesSynergies) {
+                    typesSynergies[subtype].concat(subtypesSynergies[subtype]);
+                }
+            }
+
+            // total synergy in the row
+            var rowSynergy = 0;
+
+            // Assess final row synergy by removing the largest element from each type and adding the rest
+            for (var type in typesSynergies) {
+                typesSynergies[type].sort();
+
+                var synergies = typesSynergies[type];
+
+                for (var n = 1; n < synergies.length; n++) {
+                    if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
+                        return TOO_MUCH_SYNERGY
+                    }
+
+                    rowSynergy += synergies[n];
+                }
+            }
+
+            return rowSynergy;
+        }
+
     }
 
 
