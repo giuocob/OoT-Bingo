@@ -14,6 +14,9 @@ ootBingoGenerator = function (bingoList, opts) {
     // as a signal to get out
     var TOO_MUCH_SYNERGY = 100;
 
+    // set to greater than zero to revert to v8.x synergy semantics
+    var ALLOWABLE_SYNERGY = 0;
+
     //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
     //Note: the rowElements relation is simply the inverse of the rowCheckList relation
     var rowElements = {
@@ -113,7 +116,7 @@ ootBingoGenerator = function (bingoList, opts) {
                         j = 0;
                     }
                 }
-            } while (synergy > 7);
+            } while (synergy > ALLOWABLE_SYNERGY);   //Perhaps increase to 1 if difficulty increases happen too often
 
 
             bingoBoard[sq].types = minSynObj.value.types;
