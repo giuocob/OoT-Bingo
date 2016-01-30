@@ -227,6 +227,7 @@ ootBingoGenerator = function (bingoList, opts) {
             });
         }
 
+        // given a square, finds the maximum 'effective synergy' for a row containing this square
         function checkLine(i, targetSquare) {
             var rows = rowCheckList[i];
             var maxSynergy = 0;
@@ -260,6 +261,7 @@ ootBingoGenerator = function (bingoList, opts) {
             return maxSynergy;
         }
 
+        // aggregates type synergy data from the squares in a row for later use
         function calculateRowTypeSynergies(squaresInRow) {
             // a map of type -> list of type synergy values
             var typesSynergies = {};
@@ -286,6 +288,7 @@ ootBingoGenerator = function (bingoList, opts) {
             };
         }
 
+        // helper method for implementing calculateRowTypeSynergies
         function mergeTypeSynergies(typeSynergies, newTypeSynergies) {
             for (var type in newTypeSynergies) {
                 if (!typeSynergies[type]) {
@@ -296,6 +299,7 @@ ootBingoGenerator = function (bingoList, opts) {
             }
         }
 
+        // given aggregated type synergies for the row, calculates the effective synergy for that row
         function calculateEffectiveRowSynergy(rowTypeSynergies) {
             // the maximum synergy value allowed for a single synergy before we puke
             // not sure if we care about this?
