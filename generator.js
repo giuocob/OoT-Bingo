@@ -72,7 +72,7 @@ ootBingoGenerator = function (bingoList, opts) {
         shuffle(nondiagonals);
         populationOrder = populationOrder.concat(nondiagonals);   //Finally add the rest of the squares
         //Lastly, find location of difficulty 23,24,25 elements and put them out front
-        for (var k = 21; k <= 25; k++) {
+        for (var k = 23; k <= 25; k++) {
             var currentSquare = getDifficultyIndex(k);
             if (currentSquare === 0) continue;
             for (var i = 1; i < 25; i++) {
