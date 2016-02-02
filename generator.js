@@ -9,6 +9,9 @@ var TOO_MUCH_SYNERGY = 100;
 // set to greater than zero to revert to v8.x synergy semantics
 var ALLOWABLE_SYNERGY = 0;
 
+// the maximum allowed spill up in difficulty when choosing a goal
+var MAXIMUM_SPILL = 2;
+
 //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
 //Note: the INDICES_PER_ROW relation is simply the inverse of the ROWS_PER_INDEX relation
 var INDICES_PER_ROW = {
@@ -99,39 +102,63 @@ BingoGenerator.prototype.makeCard = function() {
     //2. Remove all child rows by checking child tag
     //3. If no goal is suitable, instead of choosing goal with lowest synergy, now next difficulty up is checked
     for (var i = 1; i <= 25; i++) {
-        var sq = populationOrder[i];
-        var getDifficulty = this.bingoBoard[sq].difficulty;
-        var goalArray = this.getShuffledGoals(getDifficulty);
-        var j = 0, synergy = 0, spill = 0, currentObj = null, minSynObj = null;
-        do
-        {
-            currentObj = goalArray[j];
-            synergy = this.checkLine(sq, currentObj);
-            minSynObj = {synergy: synergy, value: currentObj};
-            j++;
-            if (j >= goalArray.length) {
-                getDifficulty++;
-                spill++;
-                if (getDifficulty > 25) {
-                    return false;  //HIT THE PANIC BUTTON, RUN FOR THE HILLS
-                } else if (spill >= 3) {
-                    return false;  //THIS BINGO CARD IS IN UNACCEPTABLE CONDITION
-                } else {
-                    goalArray = this.getShuffledGoals(getDifficulty);
-                    j = 0;
-                }
-            }
-        } while (synergy > ALLOWABLE_SYNERGY);   //Perhaps increase to 1 if difficulty increases happen too often
+        var nextPosition = populationOrder[i];
 
+        var result = this.chooseGoalForPosition(nextPosition);
 
-        this.bingoBoard[sq].types = minSynObj.value.types;
-        this.bingoBoard[sq].subtypes = minSynObj.value.subtypes;
-        this.bingoBoard[sq].name = minSynObj.value[this.language] || minSynObj.value.name;
-        this.bingoBoard[sq].child = minSynObj.value.child;
-        this.bingoBoard[sq].synergy = minSynObj.synergy;
+        if (result.goal) {
+            this.bingoBoard[nextPosition].types = result.goal.types;
+            this.bingoBoard[nextPosition].subtypes = result.goal.subtypes;
+            this.bingoBoard[nextPosition].name = result.goal[this.language] || result.goal.name;
+            this.bingoBoard[nextPosition].child = result.goal.child;
+            this.bingoBoard[nextPosition].synergy = result.synergy;
+        }
+        else {
+            return false;
+        }
     }
 
     return this.bingoBoard;
+};
+
+/**
+ * Given a position on the board, chooses a goal that can be placed in that position without
+ * blowing our synergy budget.
+ * @param position  the position on the board that we want to find a goal for
+ * @returns  {goal, synergy} or false
+ */
+BingoGenerator.prototype.chooseGoalForPosition = function(position) {
+    var desiredDifficulty = this.bingoBoard[position].difficulty;
+    var maximumDifficulty = Math.min(25, desiredDifficulty + MAXIMUM_SPILL);
+
+    // scan through the acceptable difficulty ranges
+    for (var difficulty = desiredDifficulty; difficulty <= maximumDifficulty; difficulty++) {
+        var goalsAtDifficulty = this.getShuffledGoals(difficulty);
+
+        // scan through each goal at this difficulty level
+        for (var j = 0; j < goalsAtDifficulty.length; j++) {
+            var goal = goalsAtDifficulty[j];
+            var synergy = this.checkLine(position, goal);
+
+            if (synergy <= ALLOWABLE_SYNERGY) {
+                // compatibility conditions
+                if (j === goalsAtDifficulty.length - 1) {
+                    if (difficulty == maximumDifficulty) {
+                        // technically the goal should still be valid under these conditions,
+                        // but the old generator returned here so I will too
+                        return false;
+                    } else {
+                        // waste rng to be compatible with the old generator
+                        this.getShuffledGoals(difficulty + 1);
+                    }
+                }
+
+                return {goal: goal, synergy: synergy};
+            }
+        }
+    }
+
+    return false;
 };
 
 // uses a magic square to calculate the intended difficulty of a location on the bingo board
