@@ -61,56 +61,24 @@ var BingoGenerator = function(bingoList, options) {
 
 //Main entry point
 BingoGenerator.prototype.makeCard = function() {
-    this.bingoBoard = []; //the board itself stored as an array first
-    for (var i = 1; i <= 25; i++) {
-        if (this.mode == "short") {
-            this.bingoBoard[i] = {difficulty: this.difficulty(i), child: "yes"};
-        }
-        else {
-            this.bingoBoard[i] = {difficulty: this.difficulty(i), child: "no"};
-        }
-    }                                          // in order 1-25
+    // set up the bingo board by filling in the difficulties based on a magic square
+    this.bingoBoard = this.generateMagicSquare();
 
-    //giuocob 19-2-13: this.bingoBoard is no longer populated left to right:
-    //It is now populated mostly randomly, with high difficult goals and
-    //goals on the diagonals out in front
-    var populationOrder = [];
-    populationOrder[1] = 13;   //Populate center first
-    var diagonals = [1, 7, 19, 25, 5, 9, 17, 21];
-    this.shuffle(diagonals);
-    populationOrder = populationOrder.concat(diagonals);   //Next populate diagonals
-    var nondiagonals = [2, 3, 4, 6, 8, 10, 11, 12, 14, 15, 16, 18, 20, 22, 23, 24];
-    this.shuffle(nondiagonals);
-    populationOrder = populationOrder.concat(nondiagonals);   //Finally add the rest of the squares
-    //Lastly, find location of difficulty 23,24,25 elements and put them out front
-    for (var k = 23; k <= 25; k++) {
-        var currentSquare = this.getDifficultyIndex(k);
-        if (currentSquare === 0) continue;
-        for (var i = 1; i < 25; i++) {
-            if (populationOrder[i] == currentSquare) {
-                populationOrder.splice(i, 1);
-                break;
-            }
-        }
-        populationOrder.splice(1, 0, currentSquare);
-    }
-
-
-    //Populate the bingo board in the array
-    //giuocob 16-8-12: changed this section to:
-    //1. Support uniform goal selection by shuffling arrays before checking goals
-    //2. Remove all child rows by checking child tag
-    //3. If no goal is suitable, instead of choosing goal with lowest synergy, now next difficulty up is checked
+    // fill in the goals of the board in a random order
+    var populationOrder = this.generatePopulationOrder();
     for (var i = 1; i <= 25; i++) {
         var nextPosition = populationOrder[i];
 
         var result = this.chooseGoalForPosition(nextPosition);
 
         if (result.goal) {
+            // copy the goal data into the square
             this.bingoBoard[nextPosition].types = result.goal.types;
             this.bingoBoard[nextPosition].subtypes = result.goal.subtypes;
             this.bingoBoard[nextPosition].name = result.goal[this.language] || result.goal.name;
             this.bingoBoard[nextPosition].child = result.goal.child;
+
+            // also copy the synergy
             this.bingoBoard[nextPosition].synergy = result.synergy;
         }
         else {
@@ -119,6 +87,25 @@ BingoGenerator.prototype.makeCard = function() {
     }
 
     return this.bingoBoard;
+};
+
+/**
+ * Generate an initial magic square of difficulties based on the random seed
+ * @returns {Array}
+ */
+BingoGenerator.prototype.generateMagicSquare = function() {
+    var magicSquare = [];
+
+    for (var i = 1; i <= 25; i++) {
+        if (this.mode == "short") {
+            magicSquare[i] = {difficulty: this.difficulty(i), child: "yes"};
+        }
+        else {
+            magicSquare[i] = {difficulty: this.difficulty(i), child: "no"};
+        }
+    }
+
+    return magicSquare;
 };
 
 /**
@@ -159,6 +146,38 @@ BingoGenerator.prototype.chooseGoalForPosition = function(position) {
     }
 
     return false;
+};
+
+/**
+ * Generate a semi-random order to populate the bingo board goals in
+ * @returns {Array}
+ */
+BingoGenerator.prototype.generatePopulationOrder = function() {
+    //giuocob 19-2-13: this.bingoBoard is no longer populated left to right:
+    //It is now populated mostly randomly, with high difficult goals and
+    //goals on the diagonals out in front
+    var populationOrder = [];
+    populationOrder[1] = 13;   //Populate center first
+    var diagonals = [1, 7, 19, 25, 5, 9, 17, 21];
+    this.shuffle(diagonals);
+    populationOrder = populationOrder.concat(diagonals);   //Next populate diagonals
+    var nondiagonals = [2, 3, 4, 6, 8, 10, 11, 12, 14, 15, 16, 18, 20, 22, 23, 24];
+    this.shuffle(nondiagonals);
+    populationOrder = populationOrder.concat(nondiagonals);   //Finally add the rest of the squares
+    //Lastly, find location of difficulty 23,24,25 elements and put them out front
+    for (var k = 23; k <= 25; k++) {
+        var currentSquare = this.getDifficultyIndex(k);
+        if (currentSquare === 0) continue;
+        for (var i = 1; i < 25; i++) {
+            if (populationOrder[i] == currentSquare) {
+                populationOrder.splice(i, 1);
+                break;
+            }
+        }
+        populationOrder.splice(1, 0, currentSquare);
+    }
+
+    return populationOrder;
 };
 
 // uses a magic square to calculate the intended difficulty of a location on the bingo board
