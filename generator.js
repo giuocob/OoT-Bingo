@@ -10,8 +10,8 @@ var TOO_MUCH_SYNERGY = 100;
 var ALLOWABLE_SYNERGY = 0;
 
 //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
-//Note: the rowElements relation is simply the inverse of the rowCheckList relation
-var rowElements = {
+//Note: the INDICES_PER_ROW relation is simply the inverse of the ROWS_PER_INDEX relation
+var INDICES_PER_ROW = {
     "row1": [1, 2, 3, 4, 5],
     "row2": [6, 7, 8, 9, 10],
     "row3": [11, 12, 13, 14, 15],
@@ -39,8 +39,8 @@ function invertObject(obj) {
 }
 
 // a mapping from board slot to the rows that it's a part of
-// for example, rowCheckList[1] returns ["row1", "col1", "tlbr"]
-var rowCheckList = invertObject(rowElements);
+// for example, ROWS_PER_INDEX[1] returns ["row1", "col1", "tlbr"]
+var ROWS_PER_INDEX = invertObject(INDICES_PER_ROW);
 
 var BingoGenerator = function(bingoList, options) {
     if (!options) {
@@ -226,7 +226,7 @@ BingoGenerator.prototype.getDifficultyIndex = function(difficulty) {
 
 // given a row, get the squares in the board in that row
 BingoGenerator.prototype.getSquaresInRow = function(row) {
-    var rowIndices = rowElements[row];
+    var rowIndices = INDICES_PER_ROW[row];
 
     var board = this;
 
@@ -237,7 +237,7 @@ BingoGenerator.prototype.getSquaresInRow = function(row) {
 
 // given a square, finds the maximum 'effective synergy' for a row containing this square
 BingoGenerator.prototype.checkLine = function(i, targetSquare) {
-    var rows = rowCheckList[i];
+    var rows = ROWS_PER_INDEX[i];
     var maxSynergy = 0;
     var minSynergy = TOO_MUCH_SYNERGY;
 
