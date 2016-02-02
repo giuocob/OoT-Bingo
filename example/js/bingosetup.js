@@ -64,6 +64,24 @@ function bingosetup() {
         for (i=1; i<=25; i++) {
             $('#slot'+i).append(bingoBoard[i].name);
         }
+
+        if (getUrlParameter('debug')) {
+            var bingoGenerator = new BingoGenerator(bingoList, bingoOpts);
+            bingoGenerator.bingoBoard = bingoBoard;
+
+            var $debugPanel = $("#debug-panel");
+            $debugPanel.append("<div>maximum synergy: " + bingoGenerator.maximumSynergy + "</div>");
+            $debugPanel.append("<div>maximum spill: " + bingoGenerator.maximumSpill + "</div>");
+            $debugPanel.append("<br>");
+            $debugPanel.append("<div>iterations: " + bingoBoard.meta.iterations + "</div>");
+            $debugPanel.append("<br>");
+
+            for (var row in INDICES_PER_ROW) {
+                var rowSynergy = bingoGenerator.evaluateRow(row);
+                var debugLine = "<div>" + row + ": " + rowSynergy + " synergy</div>";
+                $debugPanel.append(debugLine);
+            }
+        }
     } else {
         alert('Card could not be generated');
     }

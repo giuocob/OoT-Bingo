@@ -446,5 +446,7 @@ ootBingoGenerator = function (bingoList, opts) {
         iterations++;
     }
 
+    card["meta"] = {iterations: iterations};
+
     return card;
 };
