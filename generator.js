@@ -253,6 +253,14 @@ BingoGenerator.prototype.checkLine = function(i, targetSquare) {
     return maxSynergy;
 };
 
+/**
+ * Given a row, calculates the effective synergy between the squares in the row.
+ * In normal bingos, bails out rows that have all child goals by returning TOO_MUCH_SYNERGY.
+ * In short bingos, bails out rows with adult only goals by returning TOO_MUCH_SYNERGY
+ * @param row  the string name of the row to check
+ * @param targetSquare  the row being checked in checkLines. hack parameter needed for compatibility with old behavior
+ * @returns {number}
+ */
 BingoGenerator.prototype.evaluateRow = function(row, targetSquare) {
     var otherSquares = this.getSquaresInRow(row);
     // TODO: I think this concat causes double counting, but it's needed for compatibility
@@ -273,6 +281,11 @@ BingoGenerator.prototype.evaluateRow = function(row, targetSquare) {
     return this.evaluateSquares(squaresInRow);
 };
 
+/**
+ * Given an array of squares, calculates the effective synergy between the squares.
+ * This is determined using the type and subtype information of the goals in each square.
+ * @param squares
+ */
 BingoGenerator.prototype.evaluateSquares = function(squares) {
     var synergiesForSquares = this.calculateSynergiesForSquares(squares);
     return this.calculateEffectiveSynergyForSquares(synergiesForSquares);
