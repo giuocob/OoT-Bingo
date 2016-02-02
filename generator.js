@@ -244,29 +244,38 @@ BingoGenerator.prototype.checkLine = function(i, targetSquare) {
     for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
         var row = rows[rowIndex];
 
-        var otherSquares = this.getSquaresInRow(row);
-        // TODO: I think this concat causes double counting, but it's needed for compatibility
-        var squaresInRow = otherSquares.concat([targetSquare]);
-
-        var rowTypeSynergies = this.calculateRowTypeSynergies(squaresInRow);
-        var effectiveRowSynergy = this.calculateEffectiveRowSynergy(rowTypeSynergies);
-        var childCount = rowTypeSynergies.numChildGoals;
-
-        //Remove child-only rows, remove adult goals from short
-        // TODO: why does this have to be 6 instead of 5, I think there's duplicate counting?
-        if (this.mode === "short" && childCount < 6) {
-            return TOO_MUCH_SYNERGY;
-        }
-        // abort all-child rows in non-short bingos
-        else if(this.mode !== "short" && childCount > 4) {
-            return TOO_MUCH_SYNERGY;
-        }
+        var effectiveRowSynergy = this.evaluateRow(row, targetSquare);
 
         maxSynergy = Math.max(maxSynergy, effectiveRowSynergy);
         minSynergy = Math.min(minSynergy, effectiveRowSynergy);
     }
 
     return maxSynergy;
+};
+
+BingoGenerator.prototype.evaluateRow = function(row, targetSquare) {
+    var otherSquares = this.getSquaresInRow(row);
+    // TODO: I think this concat causes double counting, but it's needed for compatibility
+    var squaresInRow = otherSquares.concat([targetSquare]);
+
+    var childCount = squaresInRow.filter(function(square) { return square.child == "yes"; }).length;
+
+    //Remove child-only rows, remove adult goals from short
+    // TODO: why does this have to be 6 instead of 5, I think there's duplicate counting?
+    if (this.mode === "short" && childCount < 6) {
+        return TOO_MUCH_SYNERGY;
+    }
+    // abort all-child rows in non-short bingos
+    else if(this.mode !== "short" && childCount > 4) {
+        return TOO_MUCH_SYNERGY;
+    }
+
+    return this.evaluateSquares(squaresInRow);
+};
+
+BingoGenerator.prototype.evaluateSquares = function(squares) {
+    var rowTypeSynergies = this.calculateRowTypeSynergies(squares);
+    return this.calculateEffectiveRowSynergy(rowTypeSynergies);
 };
 
 // aggregates type synergy data from the squares in a row for later use
