@@ -270,9 +270,20 @@ BingoGenerator.prototype.getDifficultyIndex = function(difficulty) {
     return 0;
 };
 
-// given a row, get the squares in the board in that row
-BingoGenerator.prototype.getSquaresInRow = function(row) {
-    var rowIndices = INDICES_PER_ROW[row];
+/**
+ * Return the squares in the given row *EXCEPT* the square at the given position.
+ *
+ * for example, getOtherSquares("row1", 4) would return the squares at positions [1, 2, 3, 5],
+ * but not the square at position 4.
+ *
+ * @param row  the row on the board to pull squares from
+ * @param position  the position to ignore
+ * @returns {*|Array}
+ */
+BingoGenerator.prototype.getOtherSquares = function(row, position) {
+    var rowIndices = INDICES_PER_ROW[row].filter(function(index) {
+        return index != position;
+    });
 
     var board = this;
 
@@ -281,16 +292,26 @@ BingoGenerator.prototype.getSquaresInRow = function(row) {
     });
 };
 
-// given a square, finds the maximum 'effective synergy' for a row containing this square
-BingoGenerator.prototype.checkLine = function(i, targetSquare) {
-    var rows = ROWS_PER_INDEX[i];
+/**
+ * Given a position on the board and a potential goal, determines the maximum amount of synergy that
+ * any row containing the position would have
+ * @param position  the position on the bingo board
+ * @param potentialGoal  the goal that we're considering adding to the position
+ * @returns {number}  the maximum synergy that the goal would have at that position
+ */
+BingoGenerator.prototype.checkLine = function(position, potentialGoal) {
+    var rows = ROWS_PER_INDEX[position];
     var maxSynergy = 0;
     var minSynergy = TOO_MUCH_SYNERGY;
 
     for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
         var row = rows[rowIndex];
 
-        var effectiveRowSynergy = this.evaluateRow(row, targetSquare);
+        // get the list of other squares in the row and append the potential goal,
+        var potentialRow = this.getOtherSquares(row, position);
+        potentialRow.push(potentialGoal);
+
+        var effectiveRowSynergy = this.evaluateSquares(potentialRow);
 
         maxSynergy = Math.max(maxSynergy, effectiveRowSynergy);
         minSynergy = Math.min(minSynergy, effectiveRowSynergy);
@@ -301,22 +322,25 @@ BingoGenerator.prototype.checkLine = function(i, targetSquare) {
 
 /**
  * Given a row, calculates the effective synergy between the squares in the row.
- * In normal bingos, bails out rows that have all child goals by returning TOO_MUCH_SYNERGY.
- * In short bingos, bails out rows with adult only goals by returning TOO_MUCH_SYNERGY
  * @param row  the string name of the row to check
- * @param targetSquare  the row being checked in checkLines. hack parameter needed for compatibility with old behavior
  * @returns {number}
  */
-BingoGenerator.prototype.evaluateRow = function(row, targetSquare) {
-    var otherSquares = this.getSquaresInRow(row);
-    // TODO: I think this concat causes double counting, but it's needed for compatibility
-    var squaresInRow = otherSquares.concat([targetSquare]);
+BingoGenerator.prototype.evaluateRow = function(row) {
+    return this.evaluateSquares(this.getOtherSquares(row));
+};
 
-    var childCount = squaresInRow.filter(function(square) { return square.child == "yes"; }).length;
+/**
+ * Given an array of squares, calculates the effective synergy between the squares.
+ * This is determined using the type and subtype information of the goals in each square.
+ * In normal bingos, additionally bails out rows that have all child goals by returning TOO_MUCH_SYNERGY.
+ * In short bingos, additionally bails out rows with adult only goals by returning TOO_MUCH_SYNERGY
+ * @param squares
+ */
+BingoGenerator.prototype.evaluateSquares = function(squares) {
+    var childCount = squares.filter(function(square) { return square.child == "yes"; }).length;
 
     //Remove child-only rows, remove adult goals from short
-    // TODO: why does this have to be 6 instead of 5, I think there's duplicate counting?
-    if (this.mode === "short" && childCount < 6) {
+    if (this.mode === "short" && childCount < 5) {
         return TOO_MUCH_SYNERGY;
     }
     // abort all-child rows in non-short bingos
@@ -324,15 +348,6 @@ BingoGenerator.prototype.evaluateRow = function(row, targetSquare) {
         return TOO_MUCH_SYNERGY;
     }
 
-    return this.evaluateSquares(squaresInRow);
-};
-
-/**
- * Given an array of squares, calculates the effective synergy between the squares.
- * This is determined using the type and subtype information of the goals in each square.
- * @param squares
- */
-BingoGenerator.prototype.evaluateSquares = function(squares) {
     var synergiesForSquares = this.calculateSynergiesForSquares(squares);
     return this.calculateEffectiveSynergyForSquares(synergiesForSquares);
 };
