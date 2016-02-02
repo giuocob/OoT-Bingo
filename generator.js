@@ -274,38 +274,38 @@ BingoGenerator.prototype.evaluateRow = function(row, targetSquare) {
 };
 
 BingoGenerator.prototype.evaluateSquares = function(squares) {
-    var rowTypeSynergies = this.calculateRowTypeSynergies(squares);
-    return this.calculateEffectiveRowSynergy(rowTypeSynergies);
+    var synergiesForSquares = this.calculateSynergiesForSquares(squares);
+    return this.calculateEffectiveSynergyForSquares(synergiesForSquares);
 };
 
 // aggregates type synergy data from the squares in a row for later use
-BingoGenerator.prototype.calculateRowTypeSynergies = function(squaresInRow) {
+BingoGenerator.prototype.calculateSynergiesForSquares = function(squares) {
     // a map of type -> list of type synergy values
-    var typesSynergies = {};
+    var typeSynergies = {};
     // a map of subtype -> list of subtype synergy values
-    var subtypesSynergies = {};
+    var subtypeSynergies = {};
     // number of goals in the row that can be completed child-only
     var numChildGoals = 0;
 
-    for (var m = 0; m < squaresInRow.length; m++) {
-        var squareInRow = squaresInRow[m];
+    for (var m = 0; m < squares.length; m++) {
+        var square = squares[m];
 
-        this.mergeTypeSynergies(typesSynergies, squareInRow.types);
-        this.mergeTypeSynergies(subtypesSynergies, squareInRow.subtypes);
+        this.mergeTypeSynergies(typeSynergies, square.types);
+        this.mergeTypeSynergies(subtypeSynergies, square.subtypes);
 
-        if (squareInRow.child == "yes") {
+        if (square.child == "yes") {
             numChildGoals++;
         }
     }
 
     return {
-        typesSynergies: typesSynergies,
-        subtypesSynergies: subtypesSynergies,
+        typeSynergies: typeSynergies,
+        subtypeSynergies: subtypeSynergies,
         numChildGoals: numChildGoals
     };
 };
 
-// helper method for implementing calculateRowTypeSynergies
+// helper method for implementing calculateSynergiesForSquares
 BingoGenerator.prototype.mergeTypeSynergies = function(typeSynergies, newTypeSynergies) {
     for (var type in newTypeSynergies) {
         if (!typeSynergies[type]) {
@@ -317,20 +317,20 @@ BingoGenerator.prototype.mergeTypeSynergies = function(typeSynergies, newTypeSyn
 };
 
 // given aggregated type synergies for the row, calculates the effective synergy for that row
-BingoGenerator.prototype.calculateEffectiveRowSynergy = function(rowTypeSynergies) {
+BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergiesForSquares) {
     // the maximum synergy value allowed for a single synergy before we puke
     // not sure if we care about this?
     // why would a single large synergy matter more than the sum of small synergies...
     var MAX_INDIVIDUAL_SYNERGY = 3;
 
-    var typesSynergies = rowTypeSynergies.typesSynergies;
-    var subtypesSynergies = rowTypeSynergies.subtypesSynergies;
+    var typeSynergies = synergiesForSquares.typeSynergies;
+    var subtypeSynergies = synergiesForSquares.subtypeSynergies;
 
     // Check each subtype found to see if there is a matching type somewhere in the row
     // If so, add the subtype to the grand list
-    for (var subtype in subtypesSynergies) {
-        if (subtype in typesSynergies) {
-            typesSynergies[subtype] = typesSynergies[subtype].concat(subtypesSynergies[subtype]);
+    for (var subtype in subtypeSynergies) {
+        if (subtype in typeSynergies) {
+            typeSynergies[subtype] = typeSynergies[subtype].concat(subtypeSynergies[subtype]);
         }
     }
 
@@ -338,10 +338,10 @@ BingoGenerator.prototype.calculateEffectiveRowSynergy = function(rowTypeSynergie
     var rowSynergy = 0;
 
     // Assess final row synergy by removing the largest element from each type and adding the rest
-    for (var type in typesSynergies) {
-        typesSynergies[type].sort();
+    for (var type in typeSynergies) {
+        typeSynergies[type].sort();
 
-        var synergies = typesSynergies[type];
+        var synergies = typeSynergies[type];
 
         for (var n = 1; n < synergies.length; n++) {
             if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
