@@ -6,11 +6,11 @@
 // as a signal to get out
 var TOO_MUCH_SYNERGY = 100;
 
-// set to greater than zero to revert to v8.x synergy semantics
-var ALLOWABLE_SYNERGY = 0;
+// the maximum synergy allowed in any one row
+var DEFAULT_MAXIMUM_SYNERGY = 0;
 
 // the maximum allowed spill up in difficulty when choosing a goal
-var MAXIMUM_SPILL = 2;
+var DEFAULT_MAXIMUM_SPILL = 2;
 
 //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
 //Note: the INDICES_PER_ROW relation is simply the inverse of the ROWS_PER_INDEX relation
@@ -55,6 +55,9 @@ var BingoGenerator = function(bingoList, options) {
     this.language = options.lang || 'name';
     this.mode = options.mode || 'normal';
     this.seed = options.seed || Math.ceil(999999 * Math.random()).toString();
+
+    this.maximumSynergy = options.maximumSynergy || DEFAULT_MAXIMUM_SYNERGY;
+    this.maximumSpill = options.maximumSpill || DEFAULT_MAXIMUM_SPILL;
 
     Math.seedrandom(this.seed);
 };
@@ -116,7 +119,7 @@ BingoGenerator.prototype.generateMagicSquare = function() {
  */
 BingoGenerator.prototype.chooseGoalForPosition = function(position) {
     var desiredDifficulty = this.bingoBoard[position].difficulty;
-    var maximumDifficulty = Math.min(25, desiredDifficulty + MAXIMUM_SPILL);
+    var maximumDifficulty = Math.min(25, desiredDifficulty + this.maximumSpill);
 
     // scan through the acceptable difficulty ranges
     for (var difficulty = desiredDifficulty; difficulty <= maximumDifficulty; difficulty++) {
@@ -127,7 +130,7 @@ BingoGenerator.prototype.chooseGoalForPosition = function(position) {
             var goal = goalsAtDifficulty[j];
             var synergy = this.checkLine(position, goal);
 
-            if (synergy <= ALLOWABLE_SYNERGY) {
+            if (synergy <= this.maximumSynergy) {
                 // compatibility conditions
                 if (j === goalsAtDifficulty.length - 1) {
                     if (difficulty == maximumDifficulty) {
