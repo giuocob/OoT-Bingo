@@ -67,6 +67,17 @@ function bingosetup() {
             var seed = "" + $("#seed-field").val();
             generateCard(seed);
         });
+
+        $debugPanel.find("#row-info tr").each(function() {
+            var rowClass = $(this).attr("row-class");
+            var $row = $("." + rowClass);
+
+            $(this).hover(function() {
+                $row.addClass("hover");
+            }, function() {
+                $row.removeClass("hover");
+            });
+        });
     }
 
     generateCard(initialOpts.seed);

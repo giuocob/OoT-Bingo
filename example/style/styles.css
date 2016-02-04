@@ -749,3 +749,7 @@ th {
 .centered {
   text-align: center;
 }
+
+.pointer {
+  cursor: pointer;
+}
