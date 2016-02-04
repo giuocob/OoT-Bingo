@@ -58,18 +58,33 @@ function bingosetup() {
 
 
     var bingoFunc = ootBingoGenerator;
-
     var bingoBoard = bingoFunc(bingoList, bingoOpts);
 
-    if (getUrlParameter('debug')) {
-        $("#info-panel").hide();
-        var $debugPanel = $("#debug-panel");
-        $debugPanel.show();
+    if(bingoBoard) {
+        setBoard(bingoBoard);
 
-        var bingoGenerator = new BingoGenerator(bingoList, bingoOpts);
-        bingoGenerator.bingoBoard = bingoBoard;
+        if (getUrlParameter('debug')) {
+            $("#info-panel").hide();
+            var $debugPanel = $("#debug-panel");
+            $debugPanel.show();
 
+            var bingoGenerator = new BingoGenerator(bingoList, bingoOpts);
+            bingoGenerator.bingoBoard = bingoBoard;
 
+            setDebugInfo(bingoGenerator);
+        }
+
+    } else {
+        alert('Card could not be generated');
+    }
+
+    function setBoard(board) {
+        for (i=1; i<=25; i++) {
+            $('#slot'+i).html(board[i].name);
+        }
+    }
+
+    function setDebugInfo(bingoGenerator) {
         $debugPanel.find("#max-allowed-synergy").html(bingoGenerator.maximumSynergy);
         $debugPanel.find("#max-allowed-spill").html(bingoGenerator.maximumSpill);
         $debugPanel.find("#failed-iterations").html(bingoBoard.meta.iterations);
@@ -89,20 +104,11 @@ function bingosetup() {
                 var rowCell = "<td>" + row + "</td>";
                 var diffCell = "<td>" + rowDifficulty + "</td>";
                 var synergyCell = "<td>" + rowSynergy + "</td>";
-                var synergyTypesCell = "<td>" + "blah" + "</td>";
+                var synergyTypesCell = "<td>" + "todo" + "</td>";
                 var rowTr = "<tr>" + rowCell + diffCell + synergyCell + synergyTypesCell + "</tr>";
                 $rowTableBody.append(rowTr);
             }
         }
-    }
-
-    if(bingoBoard) {
-        for (i=1; i<=25; i++) {
-            $('#slot'+i).append(bingoBoard[i].name);
-        }
-
-    } else {
-        alert('Card could not be generated');
     }
 }
 
