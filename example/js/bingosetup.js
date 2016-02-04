@@ -126,9 +126,9 @@ function bingosetup() {
                     rowDifficulty += rowSquares[i].goal.difficulty;
                 }
 
-                var rowCell = "<td>" + row + "</td>";
-                var diffCell = "<td>" + rowDifficulty + "</td>";
-                var synergyCell = "<td>" + rowSynergy + "</td>";
+                var rowCell = '<td class="centered">' + row + "</td>";
+                var diffCell = '<td class="centered">'+ rowDifficulty + "</td>";
+                var synergyCell = '<td class="centered">'+ rowSynergy + "</td>";
                 var synergyTypesCell = "<td>" + "todo" + "</td>";
                 $rowTableBody.find("#debug-row-" + row).html(rowCell + diffCell + synergyCell + synergyTypesCell);
             }

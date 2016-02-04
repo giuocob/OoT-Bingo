@@ -745,3 +745,7 @@ th {
 .debug-pane h2 {
   margin-bottom: 5px;
 }
+
+.centered {
+  text-align: center;
+}
