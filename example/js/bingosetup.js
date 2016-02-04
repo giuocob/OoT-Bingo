@@ -39,7 +39,7 @@ function bingosetup() {
     $("#tlbr").hover(function() { $(".tlbr").addClass("hover"); }, function() {	$(".tlbr").removeClass("hover"); });
     $("#bltr").hover(function() { $(".bltr").addClass("hover"); }, function() {	$(".bltr").removeClass("hover"); });
 
-    var bingoOpts = {
+    var initialOpts = {
         seed: getUrlParameter('seed') || Math.ceil(999999 * Math.random()).toString(),
         mode: getUrlParameter('mode') || 'normal',
         lang: getUrlParameter('lang') || 'name'
@@ -50,12 +50,6 @@ function bingosetup() {
         'short': 'Short',
         'long': 'Long'
     };
-
-    var cardType = prettyMode[bingoOpts.mode];
-    var results = $("#results");
-    results.append ("<p>OoT Bingo <strong>" + bingoList["info"].version + "</strong>&emsp;Seed: <strong>" +
-        bingoOpts.seed + "</strong>&emsp;Card type: <strong>" + cardType + "</strong></p>");
-
 
     var bingoFunc = ootBingoGenerator;
 
@@ -75,28 +69,33 @@ function bingosetup() {
         });
     }
 
-    generateCard(bingoOpts.seed);
+    generateCard(initialOpts.seed);
 
     function generateCard(seed) {
-        var optsCopy = JSON.parse(JSON.stringify(bingoOpts));
+        // make a copy of the initial options to use as a base
+        var opts = JSON.parse(JSON.stringify(initialOpts));
 
         if (!seed) {
             Math.seedrandom(new Date().getTime());
             seed = Math.ceil(999999 * Math.random()).toString();
         }
-        optsCopy.seed = seed;
+        opts.seed = seed;
 
-        var bingoBoard = bingoFunc(bingoList, optsCopy);
+        var bingoBoard = bingoFunc(bingoList, opts);
 
         if (bingoBoard) {
             setBoard(bingoBoard);
+
+            var cardType = prettyMode[opts.mode];
+            $("#results-footer").html("<p>OoT Bingo <strong>" + bingoList["info"].version + "</strong>&emsp;Seed: <strong>" +
+                opts.seed + "</strong>&emsp;Card type: <strong>" + cardType + "</strong></p>");
         }
         else {
             alert("Card could not be generated");
         }
 
         if (getUrlParameter("debug")) {
-            var bingoGenerator = new BingoGenerator(bingoList, optsCopy);
+            var bingoGenerator = new BingoGenerator(bingoList, opts);
             bingoGenerator.bingoBoard = bingoBoard;
             setDebugInfo(bingoGenerator);
         }
