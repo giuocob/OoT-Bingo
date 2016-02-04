@@ -58,24 +58,48 @@ function bingosetup() {
 
 
     var bingoFunc = ootBingoGenerator;
-    var bingoBoard = bingoFunc(bingoList, bingoOpts);
 
-    if(bingoBoard) {
-        setBoard(bingoBoard);
+    // if debug was requested, initialize all of the debug panels
+    if (getUrlParameter('debug')) {
+        $("#info-panel").hide();
+        var $debugPanel = $("#debug-panel");
+        $debugPanel.show();
 
-        if (getUrlParameter('debug')) {
-            $("#info-panel").hide();
-            var $debugPanel = $("#debug-panel");
-            $debugPanel.show();
+        $("#generate-random").on("click", function() {
+            generateCard(undefined);
+        });
 
-            var bingoGenerator = new BingoGenerator(bingoList, bingoOpts);
-            bingoGenerator.bingoBoard = bingoBoard;
+        $("#generate-with-seed").on("click", function() {
+            var seed = "" + $("#seed-field").val();
+            generateCard(seed);
+        });
+    }
 
-            setDebugInfo(bingoGenerator);
+    generateCard(bingoOpts.seed);
+
+    function generateCard(seed) {
+        var optsCopy = JSON.parse(JSON.stringify(bingoOpts));
+
+        if (!seed) {
+            Math.seedrandom(new Date().getTime());
+            seed = Math.ceil(999999 * Math.random()).toString();
+        }
+        optsCopy.seed = seed;
+
+        var bingoBoard = bingoFunc(bingoList, optsCopy);
+
+        if (bingoBoard) {
+            setBoard(bingoBoard);
+        }
+        else {
+            alert("Card could not be generated");
         }
 
-    } else {
-        alert('Card could not be generated');
+        if (getUrlParameter("debug")) {
+            var bingoGenerator = new BingoGenerator(bingoList, optsCopy);
+            bingoGenerator.bingoBoard = bingoBoard;
+            setDebugInfo(bingoGenerator);
+        }
     }
 
     function setBoard(board) {
@@ -85,6 +109,9 @@ function bingosetup() {
     }
 
     function setDebugInfo(bingoGenerator) {
+        var bingoBoard = bingoGenerator.bingoBoard;
+
+        $debugPanel.find("#board-seed").html(bingoGenerator.seed);
         $debugPanel.find("#max-allowed-synergy").html(bingoGenerator.maximumSynergy);
         $debugPanel.find("#max-allowed-spill").html(bingoGenerator.maximumSpill);
         $debugPanel.find("#failed-iterations").html(bingoBoard.meta.iterations);
@@ -97,7 +124,6 @@ function bingosetup() {
                 var rowSquares = bingoGenerator.getOtherSquares(row);
                 var rowDifficulty = 0;
                 for (var i = 0; i < rowSquares.length; i++) {
-                    console.log(rowSquares[i]);
                     rowDifficulty += rowSquares[i].goal.difficulty;
                 }
 
@@ -105,8 +131,7 @@ function bingosetup() {
                 var diffCell = "<td>" + rowDifficulty + "</td>";
                 var synergyCell = "<td>" + rowSynergy + "</td>";
                 var synergyTypesCell = "<td>" + "todo" + "</td>";
-                var rowTr = "<tr>" + rowCell + diffCell + synergyCell + synergyTypesCell + "</tr>";
-                $rowTableBody.append(rowTr);
+                $rowTableBody.find("#debug-row-" + row).html(rowCell + diffCell + synergyCell + synergyTypesCell);
             }
         }
     }
