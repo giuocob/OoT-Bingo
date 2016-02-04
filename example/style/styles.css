@@ -737,3 +737,11 @@ th {
   width: 350px;
   margin-right: 16px;
 }
+
+.debug-pane {
+  margin-bottom: 10px;
+}
+
+.debug-pane h2 {
+  margin-bottom: 5px;
+}

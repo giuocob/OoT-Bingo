@@ -80,6 +80,7 @@ BingoGenerator.prototype.makeCard = function() {
             this.bingoBoard[nextPosition].subtypes = result.goal.subtypes;
             this.bingoBoard[nextPosition].name = result.goal[this.language] || result.goal.name;
             this.bingoBoard[nextPosition].child = result.goal.child;
+            this.bingoBoard[nextPosition].goal = result.goal;
 
             // also copy the synergy
             this.bingoBoard[nextPosition].synergy = result.synergy;
