@@ -127,11 +127,41 @@ function bingosetup() {
                 }
 
                 var rowCell = '<td class="centered">' + row + "</td>";
-                var diffCell = '<td class="centered">'+ rowDifficulty + "</td>";
-                var synergyCell = '<td class="centered">'+ rowSynergy + "</td>";
+                var diffCell = '<td class="difficulty-cell centered">'+ rowDifficulty + "</td>";
+                var synergyCell = '<td class="synergy-cell centered">'+ rowSynergy + "</td>";
                 var synergyTypesCell = "<td>" + "todo" + "</td>";
                 $rowTableBody.find("#debug-row-" + row).html(rowCell + diffCell + synergyCell + synergyTypesCell);
             }
+
+            var $synergyCells = $rowTableBody.find(".synergy-cell");
+            var synergies = $synergyCells.map(function() { return +$(this).text(); }).toArray();
+            var minSynergy = Math.min.apply(null, synergies);
+            var maxSynergy = Math.max.apply(null, synergies);
+            var deltaSynergy = maxSynergy - minSynergy;
+
+            $synergyCells.each(function() {
+                var synergy = +$(this).text();
+                var fraction = (synergy - minSynergy) / deltaSynergy;
+                $(this).css("color", generateColor(fraction));
+            });
+
+            var $difficultyCells = $rowTableBody.find(".difficulty-cell");
+            var difficulties = $difficultyCells.map(function() { return +$(this).text(); }).toArray();
+            var minDifficulty = Math.min.apply(null, difficulties) - 1;
+            var maxDifficulty = Math.max.apply(null, difficulties) + 1;
+            var deltaDifficulty = maxDifficulty - minDifficulty;
+
+            $difficultyCells.each(function() {
+                var difficulty = +$(this).text();
+                var fraction = (difficulty - minDifficulty) / deltaDifficulty;
+                fraction = 1 - fraction;
+                $(this).css("color", generateColor(fraction));
+            });
+        }
+
+        function generateColor(fraction) {
+            var hue = 120 * fraction;
+            return "hsl(" + hue + ", 50%, 50%)";
         }
     }
 }
