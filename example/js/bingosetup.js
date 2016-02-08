@@ -146,11 +146,13 @@ function bingosetup() {
                     rowRawTime += rowSquares[i].goal.difficulty;
                 }
 
+                var rowEffectiveTime = rowRawTime - rowSynergy;
+
                 var rowCell = '<td class="centered">' + row + "</td>";
                 var rawTimeCell = '<td class="raw-time-cell centered">'+ rowRawTime + "</td>";
                 var synergyCell = '<td class="synergy-cell centered">'+ rowSynergy + "</td>";
-                var synergyTypesCell = "<td>" + "todo" + "</td>";
-                $rowTableBody.find("#debug-row-" + row).html(rowCell + rawTimeCell + synergyCell + synergyTypesCell);
+                var rowEffTimeCell = '<td class="effective-time-cell centered">' + rowEffectiveTime + "</td>";
+                $rowTableBody.find("#debug-row-" + row).html(rowCell + rawTimeCell + synergyCell + rowEffTimeCell);
             }
 
             var $synergyCells = $rowTableBody.find(".synergy-cell");
