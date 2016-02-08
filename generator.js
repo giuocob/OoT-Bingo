@@ -12,6 +12,9 @@ var DEFAULT_MAXIMUM_SYNERGY = 0;
 // the maximum allowed spill up in difficulty when choosing a goal
 var DEFAULT_MAXIMUM_SPILL = 2;
 
+// the base amount of time that is factored in to account for starting / common setup
+var BASELINE_TIME = 28.25;
+
 //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
 //Note: the INDICES_PER_ROW relation is simply the inverse of the ROWS_PER_INDEX relation
 var INDICES_PER_ROW = {

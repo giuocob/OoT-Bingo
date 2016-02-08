@@ -141,16 +141,16 @@ function bingosetup() {
                 var rowSynergy = bingoGenerator.evaluateRow(row);
 
                 var rowSquares = bingoGenerator.getOtherSquares(row);
-                var rowDifficulty = 0;
+                var rowRawTime = BASELINE_TIME;
                 for (var i = 0; i < rowSquares.length; i++) {
-                    rowDifficulty += rowSquares[i].goal.difficulty;
+                    rowRawTime += rowSquares[i].goal.difficulty;
                 }
 
                 var rowCell = '<td class="centered">' + row + "</td>";
-                var diffCell = '<td class="difficulty-cell centered">'+ rowDifficulty + "</td>";
+                var rawTimeCell = '<td class="raw-time-cell centered">'+ rowRawTime + "</td>";
                 var synergyCell = '<td class="synergy-cell centered">'+ rowSynergy + "</td>";
                 var synergyTypesCell = "<td>" + "todo" + "</td>";
-                $rowTableBody.find("#debug-row-" + row).html(rowCell + diffCell + synergyCell + synergyTypesCell);
+                $rowTableBody.find("#debug-row-" + row).html(rowCell + rawTimeCell + synergyCell + synergyTypesCell);
             }
 
             var $synergyCells = $rowTableBody.find(".synergy-cell");
@@ -165,15 +165,15 @@ function bingosetup() {
                 $(this).css("color", generateColor(fraction));
             });
 
-            var $difficultyCells = $rowTableBody.find(".difficulty-cell");
-            var difficulties = $difficultyCells.map(function() { return +$(this).text(); }).toArray();
-            var minDifficulty = Math.min.apply(null, difficulties) - 1;
-            var maxDifficulty = Math.max.apply(null, difficulties) + 1;
-            var deltaDifficulty = maxDifficulty - minDifficulty;
+            var $rawTimeCells = $rowTableBody.find(".raw-time-cell");
+            var rawTimes = $rawTimeCells.map(function() { return +$(this).text(); }).toArray();
+            var minRawTime = Math.min.apply(null, rawTimes) - 1;
+            var maxRawTime = Math.max.apply(null, rawTimes) + 1;
+            var deltaRawTime = maxRawTime - minRawTime;
 
-            $difficultyCells.each(function() {
-                var difficulty = +$(this).text();
-                var fraction = (difficulty - minDifficulty) / deltaDifficulty;
+            $rawTimeCells.each(function() {
+                var rawTime = +$(this).text();
+                var fraction = (rawTime - minRawTime) / deltaRawTime;
                 fraction = 1 - fraction;
                 $(this).css("color", generateColor(fraction));
             });
