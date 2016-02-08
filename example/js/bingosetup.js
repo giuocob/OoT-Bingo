@@ -156,29 +156,34 @@ function bingosetup() {
             }
 
             var $synergyCells = $rowTableBody.find(".synergy-cell");
-            var synergies = $synergyCells.map(function() { return +$(this).text(); }).toArray();
-            var minSynergy = Math.min.apply(null, synergies);
-            var maxSynergy = Math.max.apply(null, synergies);
-            var deltaSynergy = maxSynergy - minSynergy;
-
-            $synergyCells.each(function() {
-                var synergy = +$(this).text();
-                var fraction = (synergy - minSynergy) / deltaSynergy;
-                $(this).css("color", generateColor(fraction));
-            });
+            colorizeColumns($synergyCells);
 
             var $rawTimeCells = $rowTableBody.find(".raw-time-cell");
-            var rawTimes = $rawTimeCells.map(function() { return +$(this).text(); }).toArray();
-            var minRawTime = Math.min.apply(null, rawTimes) - 1;
-            var maxRawTime = Math.max.apply(null, rawTimes) + 1;
-            var deltaRawTime = maxRawTime - minRawTime;
+            colorizeColumns($rawTimeCells, 1, true);
 
-            $rawTimeCells.each(function() {
-                var rawTime = +$(this).text();
-                var fraction = (rawTime - minRawTime) / deltaRawTime;
-                fraction = 1 - fraction;
+            var $effTimeCells = $rowTableBody.find(".effective-time-cell");
+            colorizeColumns($effTimeCells, 1, true);
+        }
+
+        function colorizeColumns($columns, offset, reversed) {
+            if (!offset) {
+                offset = 0;
+            }
+
+            var values = $columns.map(function() { return +$(this).text(); }).toArray();
+            var min = Math.min.apply(null, values) - offset;
+            var max = Math.max.apply(null, values) + offset;
+            var delta = max - min;
+
+            $columns.each(function() {
+                var value = +$(this).text();
+                var fraction = (value - min) / delta;
+                if (reversed) {
+                    fraction = 1 - fraction;
+                }
                 $(this).css("color", generateColor(fraction));
             });
+
         }
 
         function generateColor(fraction) {
