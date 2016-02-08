@@ -162,7 +162,7 @@ function bingosetup() {
             colorizeColumns($rawTimeCells, 1, true);
 
             var $effTimeCells = $rowTableBody.find(".effective-time-cell");
-            colorizeColumns($effTimeCells, 1, true);
+            colorizeColumns($effTimeCells, 0.1, true);
         }
 
         function colorizeColumns($columns, offset, reversed) {
