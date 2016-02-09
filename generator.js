@@ -61,6 +61,15 @@ var BingoGenerator = function(bingoList, options) {
 
     this.goalsByDifficulty = bingoList;
 
+    // assemble a list of all goals sorted by the goals' times
+    this.goalsList = [];
+    for (var i = 1; i <= 25; i++) {
+        this.goalsList = this.goalsList.concat(bingoList[i]);
+    }
+    this.goalsList.sort(function(a, b) {
+        return a.time - b.time;
+    });
+
     this.language = options.lang || 'name';
     this.mode = options.mode || 'normal';
     this.seed = options.seed || Math.ceil(999999 * Math.random()).toString();
@@ -281,6 +290,22 @@ BingoGenerator.prototype.getDifficultyIndex = function(difficulty) {
         }
     }
     return 0;
+};
+
+/**
+ * Returns all of the goals in the goalsList that have a time value in the range [minTime, maxTime]
+ * (the range is inclusive on both ends).
+ * Does not take into account any synergy between goals.
+ * @param minTime  the minimum acceptable time, inclusive
+ * @param maxTime  the maximum acceptable time, inclusive
+ * @returns {Array.<T>}  sorted array of goals within the range of times
+ */
+BingoGenerator.prototype.getGoalsInTimeRange = function(minTime, maxTime) {
+    // if linear scan ends up being too slow, we can optimize this by finding the min using binary search
+    // and bailing out early after the first goal exceeds maxTime
+    return this.goalsList.filter(function(goal) {
+        return minTime <= goal.time && goal.time <= maxTime;
+    });
 };
 
 /**
