@@ -6,7 +6,7 @@ SOURCES = example/js/seedrandom-min.js goal-list.js generator.js cli.js
 SHEBANG = "\#!/usr/bin/env node"
 EXECUTABLE = generator
 
-.PHONY: all clean new test
+.PHONY: all clean new itest
 
 all: $(EXECUTABLE)
 
@@ -21,6 +21,7 @@ clean:
 
 new: clean all
 
-test: all
+# integration tests that fully generate cards for given seeds
+itest: all
 	./tester.sh
 
