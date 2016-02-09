@@ -59,7 +59,7 @@ var BingoGenerator = function(bingoList, options) {
         options = {};
     }
 
-    this.bingoList = bingoList;
+    this.goalsByDifficulty = bingoList;
 
     this.language = options.lang || 'name';
     this.mode = options.mode || 'normal';
@@ -268,7 +268,7 @@ BingoGenerator.prototype.shuffle = function(toShuffle) {
 
 //Get a uniformly shuffled array of all the goals of a given difficulty tier
 BingoGenerator.prototype.getShuffledGoals = function(difficulty) {
-    var newArray = this.bingoList[difficulty].slice();
+    var newArray = this.goalsByDifficulty[difficulty].slice();
     this.shuffle(newArray);
     return newArray;
 };
