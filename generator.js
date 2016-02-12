@@ -7,7 +7,7 @@
 var TOO_MUCH_SYNERGY = 100;
 
 // the maximum synergy allowed in any one row
-var DEFAULT_MAXIMUM_SYNERGY = 0;
+var DEFAULT_MAXIMUM_SYNERGY = 8;
 
 // the maximum allowed spill up in difficulty when choosing a goal
 var DEFAULT_MAXIMUM_SPILL = 2;
