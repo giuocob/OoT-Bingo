@@ -65,7 +65,7 @@ function updateResults(numCards, randomSeeds) {
     }
 
     // update difficulty listings
-    for(var difficulty in difficultyGroups) {
+    for(var difficulty = 1; difficulty < 26; difficulty++) {
         // goals of this difficulty
         var difficultyGroup = difficultyGroups[difficulty];
         var difficultyInfo = createDifficultyInfo(difficulty, difficultyGroup, goalCounts);
@@ -105,7 +105,7 @@ function createTable(difficultyGroup, goalCounts) {
     // total occurences of goals in this difficulty
     var groupFreq = 0;
     // generate table elements for this difficulty
-    for(var i in difficultyGroup) {
+    for(var i = 0; i < difficultyGroup.length; i++) {
         var goal = difficultyGroup[i];
         var frequency = goalCounts[goal];
 
@@ -132,7 +132,7 @@ function createTotalsTable(difficultyGroups, goalCounts) {
 
     var totalTotalGoals = 0;
     
-    for(var difficulty in difficultyGroups) {
+    for(var difficulty = 1; difficulty < 26; difficulty++) {
         difficultyGroup = difficultyGroups[difficulty];
 
         var totalGoals = 0;
