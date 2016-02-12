@@ -451,6 +451,22 @@ BingoGenerator.prototype.calculateCombinedTypeSynergies = function(synergiesForS
     return combinedTypeSynergies;
 };
 
+BingoGenerator.prototype.calculateEffectiveTypeSynergies = function(typeSynergies) {
+    var effectiveTypeSynergies = {};
+
+    for (var type in typeSynergies) {
+        var synergies = typeSynergies[type];
+        synergies.sortNumerically();
+
+        var effectiveSynergies = synergies.slice(0, synergies.length - 1);
+        if (effectiveSynergies.length > 0) {
+            effectiveTypeSynergies[type] = effectiveSynergies;
+        }
+    }
+
+    return effectiveTypeSynergies;
+};
+
 // given aggregated type synergies for the row, calculates the effective synergy for that row
 BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergiesForSquares) {
     // the maximum synergy value allowed for a single synergy before we puke
@@ -460,21 +476,23 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
 
     var typeSynergies = this.calculateCombinedTypeSynergies(synergiesForSquares);
 
+    // Assess final row synergy by removing the largest element from each type and adding the rest
+    var effectiveTypeSynergies = this.calculateEffectiveTypeSynergies(typeSynergies);
+
     // total synergy in the row
     var rowSynergy = 0;
 
-    // Assess final row synergy by removing the largest element from each type and adding the rest
-    for (var type in typeSynergies) {
-        typeSynergies[type].sortNumerically();
+    // by this point we've already filtered out the highest value synergy in
+    // calculateEffectiveTypeSynergies(), so just sum the synergies and return the value
+    for (var type in effectiveTypeSynergies) {
+        var synergies = effectiveTypeSynergies[type];
 
-        var synergies = typeSynergies[type];
-
-        for (var n = 0; n < synergies.length - 1; n++) {
-            if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
+        for (var i = 0; i < synergies.length; i++) {
+            if (synergies[i] > MAX_INDIVIDUAL_SYNERGY) {
                 return TOO_MUCH_SYNERGY;
             }
 
-            rowSynergy += synergies[n];
+            rowSynergy += synergies[i];
         }
     }
 
