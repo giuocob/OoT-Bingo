@@ -458,7 +458,7 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
 
         var synergies = typeSynergies[type];
 
-        for (var n = 1; n < synergies.length; n++) {
+        for (var n = 0; n < synergies.length - 1; n++) {
             if (synergies[n] > MAX_INDIVIDUAL_SYNERGY) {
                 return TOO_MUCH_SYNERGY;
             }
