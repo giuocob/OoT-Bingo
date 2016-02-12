@@ -12,8 +12,14 @@ var DEFAULT_MAXIMUM_SYNERGY = 0;
 // the maximum allowed spill up in difficulty when choosing a goal
 var DEFAULT_MAXIMUM_SPILL = 2;
 
+// the maximum allow deviation from the desired time when choosing a goal
+var DEFAULT_MAXIMUM_OFFSET = 2;
+
 // the base amount of time that is factored in to account for starting / common setup
 var BASELINE_TIME = 28.25;
+
+// the ratio between time and difficulty
+var TIME_PER_DIFFICULTY = 0.75;
 
 Array.prototype.sortNumerically = function() {
     return this.sort(function(a, b) {
@@ -87,6 +93,7 @@ var BingoGenerator = function(bingoList, options) {
 
     this.maximumSynergy = options.maximumSynergy || DEFAULT_MAXIMUM_SYNERGY;
     this.maximumSpill = options.maximumSpill || DEFAULT_MAXIMUM_SPILL;
+    this.maximumOffset = options.maximumOffset || DEFAULT_MAXIMUM_OFFSET;
 
     Math.seedrandom(this.seed);
 };
@@ -149,15 +156,19 @@ BingoGenerator.prototype.generateMagicSquare = function() {
  */
 BingoGenerator.prototype.chooseGoalForPosition = function(position) {
     var desiredDifficulty = this.bingoBoard[position].difficulty;
-    var maximumDifficulty = Math.min(25, desiredDifficulty + this.maximumSpill);
+    var desiredTime = desiredDifficulty * TIME_PER_DIFFICULTY;
 
     // scan through the acceptable difficulty ranges
-    for (var difficulty = desiredDifficulty; difficulty <= maximumDifficulty; difficulty++) {
-        var goalsAtDifficulty = this.getShuffledGoals(difficulty);
+    for (var offset = 1; offset <= this.maximumOffset; offset++) {
+        var minTime = desiredTime - offset;
+        var maxTime = desiredTime + offset;
+
+        var goalsAtTime = this.getGoalsInTimeRange(minTime, maxTime);
+        goalsAtTime = goalsAtTime.shuffled();
 
         // scan through each goal at this difficulty level
-        for (var j = 0; j < goalsAtDifficulty.length; j++) {
-            var goal = goalsAtDifficulty[j];
+        for (var j = 0; j < goalsAtTime.length; j++) {
+            var goal = goalsAtTime[j];
             var synergy = this.checkLine(position, goal);
 
             if (synergy <= this.maximumSynergy) {
