@@ -52,7 +52,7 @@ body {
   width: 976px;
   margin: 0 auto;
   padding: 8px 0 16px 16px;
-  overflow: auto;
+  overflow: visible;
 }
 .container2 {
   width: 100%;
@@ -752,4 +752,11 @@ th {
 
 .pointer {
   cursor: pointer;
+}
+
+.debug-type-row {
+  display: inline-block;
+  min-width: 40px;
+  font-weight: bold;
+  color: #e09456;
 }

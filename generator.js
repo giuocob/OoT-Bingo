@@ -370,6 +370,11 @@ BingoGenerator.prototype.evaluateRow = function(row) {
     return this.evaluateSquares(this.getOtherSquares(row));
 };
 
+BingoGenerator.prototype.getEffectiveTypeSynergiesForRow = function(row) {
+    var synergiesForSquares = this.calculateSynergiesForSquares(this.getOtherSquares(row));
+    return this.calculateEffectiveTypeSynergies(this.calculateCombinedTypeSynergies(synergiesForSquares));
+};
+
 /**
  * Given an array of squares, calculates the effective synergy between the squares.
  * This is determined using the type and subtype information of the goals in each square.

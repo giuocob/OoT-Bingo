@@ -68,7 +68,7 @@ function bingosetup() {
             generateCard(seed);
         });
 
-        $debugPanel.find("#row-info tr").each(function() {
+        $debugPanel.find(".debug-row").each(function() {
             var rowClass = $(this).attr("row-class");
             var $row = $("." + rowClass);
 
@@ -135,7 +135,8 @@ function bingosetup() {
         $debugPanel.find("#max-allowed-spill").html(bingoGenerator.maximumSpill);
         $debugPanel.find("#failed-iterations").html(bingoBoard.meta.iterations);
 
-        var $rowTableBody = $debugPanel.find("#row-info tbody");
+        var $rowInfoTable = $debugPanel.find("#row-info");
+        var $rowSynergyTable = $debugPanel.find("#row-types");
         if (bingoBoard) {
             for (var row in INDICES_PER_ROW) {
                 var rowSynergy = bingoGenerator.evaluateRow(row);
@@ -152,16 +153,29 @@ function bingosetup() {
                 var rawTimeCell = '<td class="raw-time-cell centered">'+ rowRawTime + "</td>";
                 var synergyCell = '<td class="synergy-cell centered">'+ rowSynergy + "</td>";
                 var rowEffTimeCell = '<td class="effective-time-cell centered">' + rowEffectiveTime + "</td>";
-                $rowTableBody.find("#debug-row-" + row).html(rowCell + rawTimeCell + synergyCell + rowEffTimeCell);
+                $rowInfoTable.find(".debug-" + row).html(rowCell + rawTimeCell + synergyCell + rowEffTimeCell);
+
+                var effectiveTypes = bingoGenerator.getEffectiveTypeSynergiesForRow(row);
+                // clean out the 0 values for selfsynergy
+                if (effectiveTypes["selfsynergy"] !== undefined) {
+                    effectiveTypes["selfsynergy"] = effectiveTypes["selfsynergy"].filter(function(el) { return el != 0; });
+                    if (effectiveTypes["selfsynergy"].length === 0) {
+                        delete effectiveTypes["selfsynergy"];
+                    }
+                }
+                var typesJson = JSON.stringify(effectiveTypes);
+
+                var rowHtml = '<div><span class="debug-type-row">' + row + ":</span>" + typesJson + "</div>";
+                $rowSynergyTable.find(".debug-" + row).html(rowHtml);
             }
 
-            var $synergyCells = $rowTableBody.find(".synergy-cell");
+            var $synergyCells = $rowInfoTable.find(".synergy-cell");
             colorizeColumns($synergyCells);
 
-            var $rawTimeCells = $rowTableBody.find(".raw-time-cell");
+            var $rawTimeCells = $rowInfoTable.find(".raw-time-cell");
             colorizeColumns($rawTimeCells, 1, true);
 
-            var $effTimeCells = $rowTableBody.find(".effective-time-cell");
+            var $effTimeCells = $rowInfoTable.find(".effective-time-cell");
             colorizeColumns($effTimeCells, 0.1, true);
         }
 
