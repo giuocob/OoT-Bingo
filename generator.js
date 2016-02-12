@@ -431,6 +431,26 @@ BingoGenerator.prototype.mergeTypeSynergies = function(typeSynergies, newTypeSyn
     }
 };
 
+BingoGenerator.prototype.calculateCombinedTypeSynergies = function(synergiesForSquares) {
+    var typeSynergies = synergiesForSquares.typeSynergies;
+    var subtypeSynergies = synergiesForSquares.subtypeSynergies;
+
+    var combinedTypeSynergies = {};
+
+    // Check each subtype found to see if there is a matching type somewhere in the row
+    // If so, add the subtype to the grand list
+    for (var type in typeSynergies) {
+        if (type in subtypeSynergies) {
+            combinedTypeSynergies[type] = typeSynergies[type].concat(subtypeSynergies[type]);
+        }
+        else {
+            combinedTypeSynergies[type] = typeSynergies[type];
+        }
+    }
+
+    return combinedTypeSynergies;
+};
+
 // given aggregated type synergies for the row, calculates the effective synergy for that row
 BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergiesForSquares) {
     // the maximum synergy value allowed for a single synergy before we puke
@@ -438,16 +458,7 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
     // why would a single large synergy matter more than the sum of small synergies...
     var MAX_INDIVIDUAL_SYNERGY = 3;
 
-    var typeSynergies = synergiesForSquares.typeSynergies;
-    var subtypeSynergies = synergiesForSquares.subtypeSynergies;
-
-    // Check each subtype found to see if there is a matching type somewhere in the row
-    // If so, add the subtype to the grand list
-    for (var subtype in subtypeSynergies) {
-        if (subtype in typeSynergies) {
-            typeSynergies[subtype] = typeSynergies[subtype].concat(subtypeSynergies[subtype]);
-        }
-    }
+    var typeSynergies = this.calculateCombinedTypeSynergies(synergiesForSquares);
 
     // total synergy in the row
     var rowSynergy = 0;
