@@ -161,18 +161,6 @@ BingoGenerator.prototype.chooseGoalForPosition = function(position) {
             var synergy = this.checkLine(position, goal);
 
             if (synergy <= this.maximumSynergy) {
-                // compatibility conditions
-                if (j === goalsAtDifficulty.length - 1) {
-                    if (difficulty == maximumDifficulty) {
-                        // technically the goal should still be valid under these conditions,
-                        // but the old generator returned here so I will too
-                        return false;
-                    } else {
-                        // waste rng to be compatible with the old generator
-                        this.getShuffledGoals(difficulty + 1);
-                    }
-                }
-
                 return {goal: goal, synergy: synergy};
             }
         }
