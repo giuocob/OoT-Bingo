@@ -143,7 +143,7 @@ function bingosetup() {
                 var rowSquares = bingoGenerator.getOtherSquares(row);
                 var rowRawTime = BASELINE_TIME;
                 for (var i = 0; i < rowSquares.length; i++) {
-                    rowRawTime += rowSquares[i].goal.difficulty;
+                    rowRawTime += rowSquares[i].goal.time;
                 }
 
                 var rowEffectiveTime = rowRawTime - rowSynergy;
