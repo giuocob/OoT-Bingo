@@ -21,6 +21,17 @@ Array.prototype.sortNumerically = function() {
     });
 };
 
+Array.prototype.shuffled = function() {
+    var toShuffle = this.slice();
+    for (var i = 0; i < toShuffle.length; i++) {
+        var randElement = Math.floor(Math.random() * (i + 1));
+        var temp = toShuffle[i];
+        toShuffle[i] = toShuffle[randElement];
+        toShuffle[randElement] = temp;
+    }
+    return toShuffle;
+};
+
 //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
 //Note: the INDICES_PER_ROW relation is simply the inverse of the ROWS_PER_INDEX relation
 var INDICES_PER_ROW = {
@@ -178,14 +189,19 @@ BingoGenerator.prototype.generatePopulationOrder = function() {
     //giuocob 19-2-13: this.bingoBoard is no longer populated left to right:
     //It is now populated mostly randomly, with high difficult goals and
     //goals on the diagonals out in front
+
+    //Populate center first
     var populationOrder = [];
-    populationOrder[1] = 13;   //Populate center first
-    var diagonals = [1, 7, 19, 25, 5, 9, 17, 21];
-    this.shuffle(diagonals);
-    populationOrder = populationOrder.concat(diagonals);   //Next populate diagonals
-    var nondiagonals = [2, 3, 4, 6, 8, 10, 11, 12, 14, 15, 16, 18, 20, 22, 23, 24];
-    this.shuffle(nondiagonals);
-    populationOrder = populationOrder.concat(nondiagonals);   //Finally add the rest of the squares
+    populationOrder[1] = 13;
+
+    //Next populate diagonals
+    var diagonals = [1, 7, 19, 25, 5, 9, 17, 21].shuffled();
+    populationOrder = populationOrder.concat(diagonals);
+
+    //Finally add the rest of the squares
+    var nondiagonals = [2, 3, 4, 6, 8, 10, 11, 12, 14, 15, 16, 18, 20, 22, 23, 24].shuffled();
+    populationOrder = populationOrder.concat(nondiagonals);
+
     //Lastly, find location of difficulty 23,24,25 elements and put them out front
     for (var k = 23; k <= 25; k++) {
         var currentSquare = this.getDifficultyIndex(k);
@@ -265,21 +281,9 @@ BingoGenerator.prototype.difficulty = function(i) {
     return value;
 };
 
-//Uniformly shuffles an array (note: the original array will be changed)
-BingoGenerator.prototype.shuffle = function(toShuffle) {
-    for (var i = 0; i < toShuffle.length; i++) {
-        var randElement = Math.floor(Math.random() * (i + 1));
-        var temp = toShuffle[i];
-        toShuffle[i] = toShuffle[randElement];
-        toShuffle[randElement] = temp;
-    }
-};
-
 //Get a uniformly shuffled array of all the goals of a given difficulty tier
 BingoGenerator.prototype.getShuffledGoals = function(difficulty) {
-    var newArray = this.goalsByDifficulty[difficulty].slice();
-    this.shuffle(newArray);
-    return newArray;
+    return this.goalsByDifficulty[difficulty].shuffled();
 };
 
 //Given a difficulty as an argument, find the square that contains that difficulty
