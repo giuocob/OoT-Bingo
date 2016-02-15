@@ -89,7 +89,15 @@ function bingosetup() {
         }
     }
 
-    generateCard(initialOpts.seed);
+    // set this to be the override goal names if you want
+    var override = [];
+
+    if (override) {
+        setOverrideCard(override);
+    }
+    else {
+        generateCard(initialOpts.seed);
+    }
 
     function generateCard(seed) {
         // make a copy of the initial options to use as a base
@@ -119,6 +127,30 @@ function bingosetup() {
             bingoGenerator.bingoBoard = bingoBoard;
             setDebugInfo(bingoGenerator);
         }
+    }
+
+    function setOverrideCard(overrideGoalNames) {
+        var generator = new BingoGenerator(bingoList, initialOpts);
+
+        var overrideBoard = [];
+        for (var i = 1; i <= 25; i++) {
+            var name = overrideGoalNames[i - 1];
+
+            var goal = generator.goalsByName[name];
+            if (!goal) {
+                alert("Can't find goal: " + name)
+            }
+            var square = JSON.parse(JSON.stringify(goal));
+            square.goal = goal;
+
+            overrideBoard[i] = square;
+        }
+
+        overrideBoard.meta = {iterations: 0};
+        generator.bingoBoard = overrideBoard;
+
+        setBoard(overrideBoard);
+        setDebugInfo(generator);
     }
 
     function setBoard(board) {

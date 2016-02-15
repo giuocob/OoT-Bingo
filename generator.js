@@ -87,6 +87,12 @@ var BingoGenerator = function(bingoList, options) {
         return a.time - b.time;
     });
 
+    this.goalsByName = {};
+    for (var i = 0; i < this.goalsList.length; i++) {
+        var goal = this.goalsList[i];
+        this.goalsByName[goal.name] = goal;
+    }
+
     this.language = options.lang || 'name';
     this.mode = options.mode || 'normal';
     this.seed = options.seed || Math.ceil(999999 * Math.random()).toString();
