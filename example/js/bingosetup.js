@@ -133,7 +133,7 @@ function bingosetup() {
         $debugPanel.find("#board-seed").html(bingoGenerator.seed);
         $debugPanel.find("#max-allowed-synergy").html(bingoGenerator.maximumSynergy);
         $debugPanel.find("#max-allowed-spill").html(bingoGenerator.maximumSpill);
-        $debugPanel.find("#failed-iterations").html(bingoBoard.meta.iterations);
+        $debugPanel.find("#generator-iterations").html(bingoBoard.meta.iterations);
 
         var $rowInfoTable = $debugPanel.find("#row-info");
         var $rowSynergyTable = $debugPanel.find("#row-types");
