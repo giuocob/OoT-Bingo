@@ -122,6 +122,7 @@ BingoGenerator.prototype.makeCard = function() {
             this.bingoBoard[nextPosition].subtypes = result.goal.subtypes;
             this.bingoBoard[nextPosition].name = result.goal[this.language] || result.goal.name;
             this.bingoBoard[nextPosition].child = result.goal.child;
+            this.bingoBoard[nextPosition].time = result.goal.time;
             this.bingoBoard[nextPosition].goal = result.goal;
 
             // also copy the synergy
@@ -143,12 +144,14 @@ BingoGenerator.prototype.generateMagicSquare = function() {
     var magicSquare = [];
 
     for (var i = 1; i <= 25; i++) {
-        if (this.mode == "short") {
-            magicSquare[i] = {difficulty: this.difficulty(i), child: "yes"};
-        }
-        else {
-            magicSquare[i] = {difficulty: this.difficulty(i), child: "no"};
-        }
+        var difficulty = this.difficulty(i);
+        var child = (this.mode === "short") ? "yes" : "no";
+
+        magicSquare[i] = {
+            difficulty: difficulty,
+            desiredTime: difficulty * TIME_PER_DIFFICULTY,
+            child: child
+        };
     }
 
     return magicSquare;
@@ -354,9 +357,14 @@ BingoGenerator.prototype.checkLine = function(position, potentialGoal) {
     for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
         var row = rows[rowIndex];
 
-        // get the list of other squares in the row and append the potential goal,
+        // include the desired difficulty along with the goal to make the "potential square"
+        // because we use desired time now for calculating "difficulty" synergy
+        var potentialSquare = JSON.parse(JSON.stringify(potentialGoal));
+        potentialSquare.desiredTime = this.bingoBoard[position].desiredTime;
+
+        // get the list of other squares in the row and append the potential one
         var potentialRow = this.getOtherSquares(row, position);
-        potentialRow.push(potentialGoal);
+        potentialRow.push(potentialSquare);
 
         var effectiveRowSynergy = this.evaluateSquares(potentialRow);
 
@@ -412,12 +420,19 @@ BingoGenerator.prototype.calculateSynergiesForSquares = function(squares) {
     var subtypeSynergies = {};
     // number of goals in the row that can be completed child-only
     var numChildGoals = 0;
+    // list of differences between desiredTime and actual time
+    var timeDifferences = [];
 
     for (var m = 0; m < squares.length; m++) {
         var square = squares[m];
 
         this.mergeTypeSynergies(typeSynergies, square.types);
         this.mergeTypeSynergies(subtypeSynergies, square.subtypes);
+
+        // can't add a time difference for squares that are empty (since it's undefined)
+        if (square.time !== undefined) {
+            timeDifferences.push(square.desiredTime - square.time);
+        }
 
         if (square.child == "yes") {
             numChildGoals++;
@@ -427,6 +442,7 @@ BingoGenerator.prototype.calculateSynergiesForSquares = function(squares) {
     return {
         typeSynergies: typeSynergies,
         subtypeSynergies: subtypeSynergies,
+        timeDifferences: timeDifferences,
         numChildGoals: numChildGoals
     };
 };
@@ -505,6 +521,15 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
 
             rowSynergy += synergies[i];
         }
+    }
+
+    var timeDifferences = synergiesForSquares.timeDifferences;
+    // here's where we factor in expected time vs desired time:
+    for (var i = 0; i < timeDifferences.length; i++) {
+        // this is desiredTime - actualTime, so a positive value means a goal that is faster than desired
+        var timeDifference = timeDifferences[i];
+
+        rowSynergy += timeDifference;
     }
 
     return rowSynergy;
