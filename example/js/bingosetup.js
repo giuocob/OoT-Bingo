@@ -92,7 +92,7 @@ function bingosetup() {
     // set this to be the override goal names if you want
     var override = [];
 
-    if (override) {
+    if (override.length !== 0) {
         setOverrideCard(override);
     }
     else {
