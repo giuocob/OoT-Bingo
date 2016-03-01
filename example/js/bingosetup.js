@@ -179,6 +179,14 @@ function bingosetup() {
                     rowRawTime += rowSquares[i].goal.time;
                 }
 
+                // calculate the time difference between the raw time and the desired time
+                // so we can factor it out from synergy
+                var timeDifference = rowRawTime - (65 * TIME_PER_DIFFICULTY + BASELINE_TIME);
+
+                // adjust the calculated rowSynergy to not include the time difference since that's already
+                // accounted for in rowRawTime
+                rowSynergy = rowSynergy - timeDifference;
+
                 var rowEffectiveTime = rowRawTime - rowSynergy;
 
                 var rowCell = '<td class="centered">' + row + "</td>";
