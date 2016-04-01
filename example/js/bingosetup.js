@@ -181,7 +181,7 @@ function bingosetup() {
 
                 // calculate the time difference between the raw time and the desired time
                 // so we can factor it out from synergy
-                var timeDifference = rowRawTime - (65 * TIME_PER_DIFFICULTY + BASELINE_TIME);
+                var timeDifference = (65 * TIME_PER_DIFFICULTY + BASELINE_TIME) - rowRawTime;
 
                 // adjust the calculated rowSynergy to not include the time difference since that's already
                 // accounted for in rowRawTime
