@@ -132,7 +132,8 @@ function bingosetup() {
     function setOverrideCard(overrideGoalNames) {
         var generator = new BingoGenerator(bingoList, initialOpts);
 
-        var overrideBoard = [];
+        // generate the expected difficulty stuff so that debug output works
+        var overrideBoard = generator.generateMagicSquare();
         for (var i = 1; i <= 25; i++) {
             var name = overrideGoalNames[i - 1];
 
@@ -143,7 +144,8 @@ function bingosetup() {
             var square = JSON.parse(JSON.stringify(goal));
             square.goal = goal;
 
-            overrideBoard[i] = square;
+            // preserve the magic square information initially present in the board
+            overrideBoard[i] = $.extend(overrideBoard[i], square);
         }
 
         overrideBoard.meta = {iterations: 0};
