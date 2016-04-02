@@ -6,6 +6,10 @@
 // as a signal to get out
 var TOO_MUCH_SYNERGY = 100;
 
+// the number of squares in a row on the board
+// might change in the future if we want to support arbitrarily sized boards
+var SQUARES_PER_ROW = 5;
+
 // the maximum synergy allowed in any one row
 var DEFAULT_MAXIMUM_SYNERGY = 8;
 
@@ -77,6 +81,7 @@ var BingoGenerator = function(bingoList, options) {
     }
 
     this.goalsByDifficulty = bingoList;
+    this.rowtypeTimeSave = bingoList.rowtypes;
 
     // assemble a list of all goals sorted by the goals' times
     this.goalsList = [];
@@ -120,8 +125,8 @@ BingoGenerator.prototype.makeCard = function() {
             // copy the goal data into the square
             this.bingoBoard[nextPosition].types = result.goal.types;
             this.bingoBoard[nextPosition].subtypes = result.goal.subtypes;
+            this.bingoBoard[nextPosition].rowtypes = result.goal.rowtypes;
             this.bingoBoard[nextPosition].name = result.goal[this.language] || result.goal.name;
-            this.bingoBoard[nextPosition].child = result.goal.child;
             this.bingoBoard[nextPosition].time = result.goal.time;
             this.bingoBoard[nextPosition].goal = result.goal;
 
@@ -386,7 +391,9 @@ BingoGenerator.prototype.evaluateRow = function(row) {
 
 BingoGenerator.prototype.getEffectiveTypeSynergiesForRow = function(row) {
     var synergiesForSquares = this.calculateSynergiesForSquares(this.getOtherSquares(row));
-    return this.calculateEffectiveTypeSynergies(this.calculateCombinedTypeSynergies(synergiesForSquares));
+    var effectiveTypeSynergies = this.calculateEffectiveTypeSynergies(this.calculateCombinedTypeSynergies(synergiesForSquares));
+    var rowtypeSynergies = this.filterRowtypeSynergies(synergiesForSquares);
+    return [effectiveTypeSynergies, rowtypeSynergies];
 };
 
 /**
@@ -418,8 +425,8 @@ BingoGenerator.prototype.calculateSynergiesForSquares = function(squares) {
     var typeSynergies = {};
     // a map of subtype -> list of subtype synergy values
     var subtypeSynergies = {};
-    // number of goals in the row that can be completed child-only
-    var numChildGoals = 0;
+    // a map of rowtype -> list of rowtype synergy values
+    var rowtypeSynergies = {};
     // list of differences between desiredTime and actual time
     var timeDifferences = [];
 
@@ -428,22 +435,20 @@ BingoGenerator.prototype.calculateSynergiesForSquares = function(squares) {
 
         this.mergeTypeSynergies(typeSynergies, square.types);
         this.mergeTypeSynergies(subtypeSynergies, square.subtypes);
+        this.mergeTypeSynergies(rowtypeSynergies, square.rowtypes);
 
         // can't add a time difference for squares that are empty (since it's undefined)
         if (square.time !== undefined) {
             timeDifferences.push(square.desiredTime - square.time);
-        }
-
-        if (square.child == "yes") {
-            numChildGoals++;
         }
     }
 
     return {
         typeSynergies: typeSynergies,
         subtypeSynergies: subtypeSynergies,
-        timeDifferences: timeDifferences,
-        numChildGoals: numChildGoals
+        rowtypeSynergies: rowtypeSynergies,
+        goals: squares,
+        timeDifferences: timeDifferences
     };
 };
 
@@ -478,6 +483,34 @@ BingoGenerator.prototype.calculateCombinedTypeSynergies = function(synergiesForS
     return combinedTypeSynergies;
 };
 
+/**
+ * Filters rowtypeSynergies to only include entries that are present in every square of the board
+ * @param synergiesForSquares
+ */
+BingoGenerator.prototype.filterRowtypeSynergies = function(synergiesForSquares) {
+    var rowtypeSynergies = {};
+
+    for (var rowtype in synergiesForSquares.rowtypeSynergies) {
+        var rowtypeSynergy = synergiesForSquares.rowtypeSynergies[rowtype];
+
+        // don't count it yet until we've filled up the entire row
+        if (rowtypeSynergy.length < SQUARES_PER_ROW) {
+            continue;
+        }
+
+        var rowtypeCost = 0;
+        for (var i = 0; i < rowtypeSynergy.length; i++) {
+            rowtypeCost += rowtypeSynergy[i];
+        }
+
+        if (this.rowtypeTimeSave[rowtype] > rowtypeCost) {
+            rowtypeSynergies[rowtype] = this.rowtypeTimeSave[rowtype] - rowtypeCost;
+        }
+    }
+
+    return rowtypeSynergies;
+};
+
 BingoGenerator.prototype.calculateEffectiveTypeSynergies = function(typeSynergies) {
     var effectiveTypeSynergies = {};
 
@@ -502,6 +535,7 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
     var MAX_INDIVIDUAL_SYNERGY = 3;
 
     var typeSynergies = this.calculateCombinedTypeSynergies(synergiesForSquares);
+    var rowtypeSynergies = this.filterRowtypeSynergies(synergiesForSquares);
 
     // Assess final row synergy by removing the largest element from each type and adding the rest
     var effectiveTypeSynergies = this.calculateEffectiveTypeSynergies(typeSynergies);
@@ -521,6 +555,12 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
 
             rowSynergy += synergies[i];
         }
+    }
+
+    // we've already prefiltered/calculated these values, so just add them up
+    // see filterRowtypeSynergies for details
+    for (var rowtype in rowtypeSynergies) {
+        rowSynergy += rowtypeSynergies[rowtype];
     }
 
     var timeDifferences = synergiesForSquares.timeDifferences;
