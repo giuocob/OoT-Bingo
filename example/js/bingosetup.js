@@ -199,10 +199,10 @@ function bingosetup() {
 
                 var effectiveTypes = bingoGenerator.getEffectiveTypeSynergiesForRow(row);
                 // clean out the 0 values for selfsynergy
-                if (effectiveTypes["selfsynergy"] !== undefined) {
-                    effectiveTypes["selfsynergy"] = effectiveTypes["selfsynergy"].filter(function(el) { return el != 0; });
-                    if (effectiveTypes["selfsynergy"].length === 0) {
-                        delete effectiveTypes["selfsynergy"];
+                if (effectiveTypes[0]["selfsynergy"] !== undefined) {
+                    effectiveTypes[0]["selfsynergy"] = effectiveTypes[0]["selfsynergy"].filter(function(el) { return el != 0; });
+                    if (effectiveTypes[0]["selfsynergy"].length === 0) {
+                        delete effectiveTypes[0]["selfsynergy"];
                     }
                 }
                 var typesJson = JSON.stringify(effectiveTypes);
