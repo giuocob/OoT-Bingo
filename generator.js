@@ -10,6 +10,9 @@ var TOO_MUCH_SYNERGY = 100;
 // might change in the future if we want to support arbitrarily sized boards
 var SQUARES_PER_ROW = 5;
 
+// the minimum synergy allowed in any one row
+var DEFAULT_MINIMUM_SYNERGY = -3;
+
 // the maximum synergy allowed in any one row
 var DEFAULT_MAXIMUM_SYNERGY = 8;
 
@@ -102,6 +105,7 @@ var BingoGenerator = function(bingoList, options) {
     this.mode = options.mode || 'normal';
     this.seed = options.seed || Math.ceil(999999 * Math.random()).toString();
 
+    this.minimumSynergy = options.minimumSynergy || DEFAULT_MINIMUM_SYNERGY;
     this.maximumSynergy = options.maximumSynergy || DEFAULT_MAXIMUM_SYNERGY;
     this.maximumSpill = options.maximumSpill || DEFAULT_MAXIMUM_SPILL;
     this.maximumOffset = options.maximumOffset || DEFAULT_MAXIMUM_OFFSET;
@@ -181,10 +185,10 @@ BingoGenerator.prototype.chooseGoalForPosition = function(position) {
         // scan through each goal at this difficulty level
         for (var j = 0; j < goalsAtTime.length; j++) {
             var goal = goalsAtTime[j];
-            var synergy = this.checkLine(position, goal);
+            var synergies = this.checkLine(position, goal);
 
-            if (synergy <= this.maximumSynergy) {
-                return {goal: goal, synergy: synergy};
+            if (this.maximumSynergy >= synergies.maxSynergy && synergies.minSynergy >= this.minimumSynergy) {
+                return {goal: goal, synergy: synergies.maxSynergy};
             }
         }
     }
@@ -375,7 +379,10 @@ BingoGenerator.prototype.checkLine = function(position, potentialGoal) {
         minSynergy = Math.min(minSynergy, effectiveRowSynergy);
     }
 
-    return maxSynergy;
+    return {
+        minSynergy: minSynergy,
+        maxSynergy: maxSynergy
+    };
 };
 
 /**
