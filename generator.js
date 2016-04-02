@@ -150,12 +150,10 @@ BingoGenerator.prototype.generateMagicSquare = function() {
 
     for (var i = 1; i <= 25; i++) {
         var difficulty = this.difficulty(i);
-        var child = (this.mode === "short") ? "yes" : "no";
 
         magicSquare[i] = {
             difficulty: difficulty,
             desiredTime: difficulty * TIME_PER_DIFFICULTY,
-            child: child
         };
     }
 
@@ -399,22 +397,9 @@ BingoGenerator.prototype.getEffectiveTypeSynergiesForRow = function(row) {
 /**
  * Given an array of squares, calculates the effective synergy between the squares.
  * This is determined using the type and subtype information of the goals in each square.
- * In normal bingos, additionally bails out rows that have all child goals by returning TOO_MUCH_SYNERGY.
- * In short bingos, additionally bails out rows with adult only goals by returning TOO_MUCH_SYNERGY
  * @param squares
  */
 BingoGenerator.prototype.evaluateSquares = function(squares) {
-    var childCount = squares.filter(function(square) { return square.child == "yes"; }).length;
-
-    //Remove child-only rows, remove adult goals from short
-    if (this.mode === "short" && childCount < 5) {
-        return TOO_MUCH_SYNERGY;
-    }
-    // abort all-child rows in non-short bingos
-    else if(this.mode !== "short" && childCount > 4) {
-        return TOO_MUCH_SYNERGY;
-    }
-
     var synergiesForSquares = this.calculateSynergiesForSquares(squares);
     return this.calculateEffectiveSynergyForSquares(synergiesForSquares);
 };
