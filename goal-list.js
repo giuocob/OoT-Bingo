@@ -176,7 +176,7 @@ var bingoList = {
         {
             "difficulty": 1,
             "id": "20-deku-sticks",
-            "jp": "",
+            "jp": "デクの棒30本",
             "name": "20 Deku Sticks",
             "rowtypes": {
                 "bottle": 1.0,
@@ -397,7 +397,7 @@ var bingoList = {
             "skill": "",
             "subtypes": {
                 "child2": 3.0,
-                "childtrade": 1.0,
+                "czl": 0.5,
                 "wallet": 4.0
             },
             "time": 8.25,
@@ -486,7 +486,7 @@ var bingoList = {
         {
             "difficulty": 11,
             "id": "5-maps",
-            "jp": "",
+            "jp": "マップ5つ",
             "name": "5 Maps",
             "rowtypes": {
                 "bottle": 0.0,
@@ -606,7 +606,7 @@ var bingoList = {
             "types": {
                 "hovers": 3.0,
                 "selfsynergy": 0.0,
-                "shadow": 3.0
+                "shadow": 6.0
             }
         },
         {
@@ -819,6 +819,7 @@ var bingoList = {
             "subtypes": {
                 "bow": 1.5,
                 "compass": 3.0,
+                "czl": 3.0,
                 "fortress": 1.0,
                 "gtg": 1.0,
                 "hovers": 1.0,
@@ -1014,7 +1015,7 @@ var bingoList = {
         {
             "difficulty": 13,
             "id": "3-boss-keys",
-            "jp": "",
+            "jp": "ボス部屋のカギ3つ",
             "name": "3 Boss Keys",
             "rowtypes": {
                 "bottle": 0.5,
@@ -1288,7 +1289,7 @@ var bingoList = {
             "jp": "銀のグローブ",
             "name": "Silver Gauntlets",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.5,
                 "hookshot": 100.0,
                 "ms": 3.5
             },
@@ -1316,7 +1317,7 @@ var bingoList = {
         {
             "difficulty": 14,
             "id": "5-compasses",
-            "jp": "",
+            "jp": "コンパス5つ",
             "name": "5 Compasses",
             "rowtypes": {
                 "bottle": 0.0,
@@ -1400,7 +1401,7 @@ var bingoList = {
             "jp": "フロルの風",
             "name": "Farore's Wind",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.0,
                 "hookshot": 0.5,
                 "ms": 3.0
             },
@@ -1830,7 +1831,7 @@ var bingoList = {
             "jp": "魂の神殿の黄金のスタルチュラ5匹",
             "name": "All 5 Skulltulas in Spirit Temple",
             "rowtypes": {
-                "bottle": 0.0,
+                "bottle": 0.5,
                 "hookshot": 100.0,
                 "ms": 4.0
             },
@@ -1887,7 +1888,7 @@ var bingoList = {
             "jp": "アイアンナック(ナボール)撃破",
             "name": "Defeat Nabooru-Knuckle",
             "rowtypes": {
-                "bottle": 0.0,
+                "bottle": 0.5,
                 "hookshot": 100.0,
                 "ms": 100.0
             },
@@ -1981,7 +1982,7 @@ var bingoList = {
             "jp": "盾3種類と服3種類",
             "name": "3 Shields & 3 Tunics",
             "rowtypes": {
-                "bottle": 0.0,
+                "bottle": 0.5,
                 "hookshot": 100.0,
                 "ms": 100.0
             },
@@ -2015,7 +2016,7 @@ var bingoList = {
             "jp": "ディンの炎",
             "name": "Din's Fire",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.0,
                 "hookshot": 0.0,
                 "ms": 0.0
             },
@@ -2069,7 +2070,7 @@ var bingoList = {
             "jp": "魂の結界の最後の部屋に到達",
             "name": "Get to the end of Spirit Trial",
             "rowtypes": {
-                "bottle": 0.0,
+                "bottle": 100.0,
                 "hookshot": 100.0,
                 "ms": 100.0
             },
@@ -2437,7 +2438,7 @@ var bingoList = {
             "jp": "闇の神殿の黄金のスタルチュラ5匹",
             "name": "All 5 Skulltulas in Shadow Temple",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.0,
                 "hookshot": 100.0,
                 "ms": 100.0
             },
@@ -2532,7 +2533,7 @@ var bingoList = {
             "jp": "ゴロンの腕輪",
             "name": "Goron Bracelet",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.0,
                 "hookshot": 0.0,
                 "ms": 0.0
             },
@@ -2561,7 +2562,7 @@ var bingoList = {
             "jp": "盾3種類と靴3種類",
             "name": "3 Shields & 3 Boots",
             "rowtypes": {
-                "bottle": 0.0,
+                "bottle": 0.5,
                 "hookshot": 100.0,
                 "ms": 7.5
             },
@@ -2642,7 +2643,7 @@ var bingoList = {
             "jp": "迷いの森のハートのかけら２つ",
             "name": "Both heart pieces in Lost Woods",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.0,
                 "hookshot": 0.0,
                 "ms": 0.0
             },
@@ -3155,7 +3156,7 @@ var bingoList = {
         {
             "difficulty": 4,
             "id": "5-hearts",
-            "jp": "",
+            "jp": "ハート6つ",
             "name": "5 Hearts",
             "rowtypes": {
                 "bottle": 0.0,
@@ -3165,7 +3166,7 @@ var bingoList = {
             "skill": "",
             "time": 3.0,
             "types": {
-                "hearts": 4.0,
+                "hearts": 5.0,
                 "selfsynergy": -1.0
             }
         }
@@ -3370,6 +3371,7 @@ var bingoList = {
             "subtypes": {
                 "bulletbag": 1.0,
                 "compass": 2.0,
+                "czl": 3.0,
                 "map": 3.0
             },
             "time": 4.0,
@@ -3392,6 +3394,7 @@ var bingoList = {
             "subtypes": {
                 "bosskey": 4.25,
                 "childtrade": 1.5,
+                "czl": 1.5,
                 "wallet": 0.25
             },
             "time": 4.25,
@@ -3447,6 +3450,7 @@ var bingoList = {
             },
             "time": 3.75,
             "types": {
+                "czl": 3.0,
                 "deku": 3.0,
                 "selfsynergy": 0.0
             }
@@ -3525,7 +3529,7 @@ var bingoList = {
         {
             "difficulty": 5,
             "id": "4-maps",
-            "jp": "",
+            "jp": "マップ4つ",
             "name": "4 Maps",
             "rowtypes": {
                 "bottle": 0.0,
@@ -3677,6 +3681,9 @@ var bingoList = {
                 "ms": 0.0
             },
             "skill": "",
+            "subtypes": {
+                "czl": 3.0
+            },
             "time": 4.5,
             "types": {
                 "bulletbag": 100.0,
@@ -3825,7 +3832,7 @@ var bingoList = {
             "jp": "氷の洞窟のマップとコンパス",
             "name": "Map & Compass in Ice Cavern",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.5,
                 "hookshot": 0.0,
                 "ms": 1.0
             },
@@ -3889,7 +3896,7 @@ var bingoList = {
         {
             "difficulty": 6,
             "id": "2-boss-keys",
-            "jp": "",
+            "jp": "ボス部屋のカギ2つ",
             "name": "2 Boss Keys",
             "rowtypes": {
                 "bottle": 0.5,
@@ -4043,6 +4050,7 @@ var bingoList = {
             "subtypes": {
                 "childtrade": 1.5,
                 "compass": 2.5,
+                "czl": 5.0,
                 "hearts": 3.0,
                 "map": 3.0,
                 "wallet": 0.25
@@ -4092,8 +4100,8 @@ var bingoList = {
             },
             "skill": "",
             "subtypes": {
-                "childtrade": 1.5,
                 "compass": 2.0,
+                "czl": 5.0,
                 "hearts": 3.0,
                 "map": 3.0,
                 "wallet": 0.25
@@ -4366,8 +4374,7 @@ var bingoList = {
             "subtypes": {
                 "bottleslot": 4.5,
                 "childreset": 1.0,
-                "childtrade": 0.5,
-                "czl": 1.5,
+                "czl": 2.0,
                 "wallet": 0.5
             },
             "time": 6.25,
@@ -4624,7 +4631,7 @@ var bingoList = {
             "jp": "エポナの歌",
             "name": "Epona's Song",
             "rowtypes": {
-                "bottle": 100.0,
+                "bottle": 0.0,
                 "hookshot": 0.0,
                 "ms": 0.0
             },
@@ -4632,8 +4639,7 @@ var bingoList = {
             "subtypes": {
                 "bottleslot": 3.0,
                 "childreset": 1.0,
-                "childtrade": 0.5,
-                "czl": 1.5,
+                "czl": 2.0,
                 "poachers": -100.0,
                 "wallet": 0.5
             },
@@ -4701,7 +4707,7 @@ var bingoList = {
         {
             "difficulty": 9,
             "id": "at-least-7-songs",
-            "jp": "",
+            "jp": "歌7つ以上",
             "name": "At Least 7 Songs",
             "rowtypes": {
                 "bottle": 100.0,
@@ -4726,7 +4732,7 @@ var bingoList = {
         {
             "difficulty": 9,
             "id": "4-compasses",
-            "jp": "",
+            "jp": "コンパス4つ",
             "name": "4 Compasses",
             "rowtypes": {
                 "bottle": 0.0,
