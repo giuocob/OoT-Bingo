@@ -45,6 +45,20 @@ Array.prototype.shuffled = function() {
     return toShuffle;
 };
 
+function hasDuplicateStrings(array) {
+    var seen = {};
+
+    for (var i = 0; i < array.length; i++) {
+        var el = array[i];
+        if (el in seen) {
+            return true;
+        }
+        seen[el] = true;
+    }
+
+    return false;
+};
+
 //giuocob 16-8-12: lineCheckList[] has been replaced to allow for removal of all-child rows
 //Note: the INDICES_PER_ROW relation is simply the inverse of the ROWS_PER_INDEX relation
 var INDICES_PER_ROW = {
@@ -137,6 +151,7 @@ BingoGenerator.prototype.makeCard = function() {
             this.bingoBoard[nextPosition].subtypes = result.goal.subtypes;
             this.bingoBoard[nextPosition].rowtypes = result.goal.rowtypes;
             this.bingoBoard[nextPosition].name = result.goal[this.language] || result.goal.name;
+            this.bingoBoard[nextPosition].id = result.goal.id;
             this.bingoBoard[nextPosition].time = result.goal.time;
             this.bingoBoard[nextPosition].goal = result.goal;
 
@@ -413,6 +428,12 @@ BingoGenerator.prototype.getEffectiveTypeSynergiesForRow = function(row) {
  * @param squares
  */
 BingoGenerator.prototype.evaluateSquares = function(squares) {
+    // bail out if there are duplicate goals
+    var ids = squares.map(function(el) { return el.id; }).filter(function(el) { return el; });
+    if (hasDuplicateStrings(ids)) {
+        return TOO_MUCH_SYNERGY;
+    }
+
     var synergiesForSquares = this.calculateSynergiesForSquares(squares);
     return this.calculateEffectiveSynergyForSquares(synergiesForSquares);
 };
