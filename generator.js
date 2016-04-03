@@ -524,7 +524,7 @@ BingoGenerator.prototype.calculateEffectiveSynergyForSquares = function(synergie
     // the maximum synergy value allowed for a single synergy before we puke
     // not sure if we care about this?
     // why would a single large synergy matter more than the sum of small synergies...
-    var MAX_INDIVIDUAL_SYNERGY = 3;
+    var MAX_INDIVIDUAL_SYNERGY = 4.5;
 
     var typeSynergies = this.calculateCombinedTypeSynergies(synergiesForSquares);
     var rowtypeSynergies = this.filterRowtypeSynergies(synergiesForSquares);
