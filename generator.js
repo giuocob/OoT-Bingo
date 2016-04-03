@@ -92,7 +92,13 @@ var BingoGenerator = function(bingoList, options) {
         this.goalsList = this.goalsList.concat(bingoList[i]);
     }
     this.goalsList.sort(function(a, b) {
-        return a.time - b.time;
+        var timeDiff = a.time - b.time;
+
+        if (timeDiff !== 0) {
+            return timeDiff;
+        }
+
+        return a.id.localeCompare(b.id);
     });
 
     this.goalsByName = {};
