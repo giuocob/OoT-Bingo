@@ -178,7 +178,7 @@ BingoGenerator.prototype.generateMagicSquare = function() {
 
         magicSquare[i] = {
             difficulty: difficulty,
-            desiredTime: difficulty * TIME_PER_DIFFICULTY,
+            desiredTime: difficulty * TIME_PER_DIFFICULTY
         };
     }
 
